@@ -31,5 +31,32 @@ PWAs allow for features including push notification, home screen icon, full-scre
 ### Mobile-First Design
 A design strategy where you start sketching and prototyping the smallest screen first and work your way up to larger screens. Essentially, it’s about delivering the right user experience to the right device.
 
+## Group Members and Work Breakdown
+
 ### Technical Challenges
 - Configuring the  Markov text generator to output convincing text
+
+### Tatiana Faramarzi
+
+* Syllable count algorithm development
+* UX/UI and wireframes
+* Frontend design and setup
+
+### Edward Xiao
+
+* Backend design and setup
+* Markov Chain algorithm development
+
+### Sarah Jiang
+
+* Database and backend design and setup
+* Markov Chain algorithm development
+* API configuration
+
+### Alex Segers
+
+* Workflow and agile development
+* User auth, including models and validations
+* Team Postman configuration
+* UX/UI and visual theme
+* Frontend design and setup
