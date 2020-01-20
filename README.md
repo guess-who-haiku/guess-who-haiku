@@ -1,5 +1,7 @@
 # Guess Who, Haiku
 
+## Background and Overview
+
 Ever dreamed of being a poet, but end up deciding quips and witty turn-of-phrase just _wasn't your thing_?
 
 Guess Who Haiku is here to help! 
