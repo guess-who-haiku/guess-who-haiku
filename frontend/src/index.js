@@ -6,6 +6,7 @@ import configureStore from './store/index';
 import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './store/session/api_util';
 import { Thunks } from './store/session/index';
+import Styled from './styled/Styled';
 
 let store;
 
@@ -25,6 +26,6 @@ if (localStorage.jwtToken) {
   store = configureStore({});
 }
 
-ReactDOM.render(<Root store={store} />, document.getElementById('root'));
+ReactDOM.render(<Styled><Root store={store} /></Styled>, document.getElementById('root'));
 
 serviceWorker.register();
