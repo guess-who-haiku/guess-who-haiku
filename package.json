@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node guess_who.js",
     "server": "nodemon guess_who.js",
-    "debug": "nodemon --inspect guess_who.js"
+    "debug": "nodemon --inspect guess_who.js",
+    "frontend-install": "npm install --prefix frontend",
+    "frontend": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run frontend\""
   },
   "repository": {
     "type": "git",
