@@ -61,6 +61,7 @@ A design strategy where you start sketching and prototyping the smallest screen 
 * Database and backend design and setup
 * Markov Chain algorithm development
 * API configuration
+* Frontend design and setup
 
 ### Alex Segers
 
