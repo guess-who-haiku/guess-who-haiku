@@ -8,9 +8,9 @@ const HaikuSchema = new Schema({
     ref: 'User'
   },
   body: [ 
-          { author1: String, text: String },
-          { author2: String, text: String }, 
-          { author3: String, text: String }
+          { author1: String, text: Array },
+          { author2: String, text: Array }, 
+          { author3: String, text: Array }
         ],
   dateCreated: {
     type: Date,
