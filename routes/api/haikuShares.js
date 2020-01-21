@@ -40,27 +40,28 @@ router.get('/shares',
         (req, res) => {
             HaikuShare.find({ creatorId: req.user.id })
                 .then(shares => res.json(shares))
-                .catch(err => res.status(404).json({ nosharesfound: "User has not shared any Haikus"}));
+                .catch(err => res.status(404).json({ nosharesfound: "User has not shared any haikus"}));
         }
 )
 
 //get all Haikus shared with current user
 router.get('/shares/user',
     passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            HaikuShare.find({ recipientId: req.user.id })
+                .then(shares => res.json(shares))
+                .catch(err => res.status(404).json({ nosharesfound: "No haikus have been shared with this user" }));
+        }
 )
 
 //get all users this Haiku has been shared with
 router.get('/shares/haiku/:id',
     passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            HaikuShare.find({ haikuId: req.params.id })
+                .then(shares => res.json(shares))
+                .catch(err => res.status(404).json({ nosharesfound: "This haiku has not been shared with anyone" }));
+        }
 )
 
 module.exports = router;
-
-fetchMyShares(creatorId) - fetches haikus shared by user
-fetchSharedWithMe(recipientId) - fetches haiku shared with user
-fetchHaikuShares(haikuId) - fetches haiku shares
-
-// [
-//     {author1: 'obama', text: ['asdfa','asdfasd','asdf']},
-//     {author2: 'trump', text: ['asdfa','asdfasd','asdf']}
-// ]
