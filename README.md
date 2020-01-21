@@ -14,7 +14,7 @@ This app consists of:
 * Mobile-first application design
 * Immersive, delightful UI/UX
 
-Guess Who, Haiku is built using the MERN stack, MongoDB, Express, React, and Nodejs.
+Guess Who, Haiku leverages the MERN app development stack which consists of: MongoDB, Express, React, and Nodejs.
 
 ## Functionality and MVP
 
