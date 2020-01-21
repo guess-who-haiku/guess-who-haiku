@@ -1,71 +1,53 @@
-# Guess Who, Haiku
+# Guess Who Haiku
 
-## Background and Overview
+Description here ... mention Markov Chain and PWA
 
-Ever dreamed of being a poet, but end up deciding quips and witty turn-of-phrase just _wasn't your thing_?
+## Demo
+**[Live Demo](https://<heroku-url>)**
 
-Guess Who Haiku is here to help! 
 
-Craft outstanding haikus with the help of famous figures in history, celebrities, and the witsters of today's popular culture, and challenge your friends to GUESS WHO is the voice behind your newfound literary genius. 
+## Features
 
-This app consists of:
+### A Progrossive Web App (PWA)
 
-* A markov-chain text generation algorithm
-* Mobile-first application design
-* Immersive, delightful UI/UX
+Provides features including, but not limited to, push notification, home screen icon, full-screen and offline first app to glorify engagement and provide a native-like experience for the user
 
-Guess Who, Haiku is built using the MERN stack, MongoDB, Express, React, and Nodejs.
 
-## Functionality and MVP
+### Feature2
 
-* User account creation and authentication
-* Markov-chain text generator algorithm in haiku format
-* Twitter API to source input text
-* Interactive user experience throughout haiku generation and sharing
-* Mobile first design
-* Progressive Web App
+desc ...
 
-## Technologies and Technical Challenges
 
-### Backend: MongoDB, Mongoose, Express
+## Built With
 
-### Frontend: React, Redux
+**[React](https://www.npmjs.com/package/react)** - Declarative, efficient, and flexible JavaScript library for building user interfaces
 
-### Markov Chain Algorithm
-Markov Chains work by generating sentences based on recombination of elements of history of known sentences to generate meaningful sentences.
+**[Redux](https://www.npmjs.com/package/redux)** - Performant and flexible predictable state container
 
-### A Progressive Web App
-PWAs allow for features including push notification, home screen icon, full-screen and offline first functionality, providing a native-like experience for the user.
+**[Express](https://www.npmjs.com/package/express)** - Fast, minimalist, robust routing framework for node
 
-### Mobile-First Design
-A design strategy where you start sketching and prototyping the smallest screen first and work your way up to larger screens. Essentially, it’s about delivering the right user experience to the right device.
+**[Mongoose](https://www.npmjs.com/package/mongoose)** - MongoDB object modeling tool designed to work in an asynchronous environment
 
-## Group Members and Work Breakdown
+**[Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)** - Proxy server intended to enable the creation of effective offline experiences, intercept network requests and take appropriate action based on whether the network is available, and update assets residing on the server
 
-### Technical Challenges
-- Configuring the  Markov text generator to output convincing text
+## Contributors
 
-### Tatiana Faramarzi
+### Tatiana Faramar [@tfaramar](https://github.com/tfaramar/)
 
-* Syllable count algorithm development
-* UX/UI and wireframes
-* Frontend design and setup
+**Title(s) / Role(s) ...**
 
-### Edward Xiao
+### Edward Xiao [@ed-xiao](https://github.com/ed-xiao/)
 
-* Backend design and setup
-* Markov Chain algorithm development
+**Title(s) / Role(s) ...**
 
-### Sarah Jiang
+### Sarah Jiang [@srajiang](https://github.com/srajiang/)
 
-* Database and backend design and setup
-* Markov Chain algorithm development
-* API configuration
+**Title(s) / Role(s) ...**
 
-### Alex Segers
+### Alex Segers [@segersalex](https://github.com/segersalex/)
 
-* Workflow and agile development
-* User auth, including models and validations
-* Team Postman configuration
-* UX/UI and visual theme
-* Frontend design and setup
+**Title(s) / Role(s) ...**
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/segersalex/guess-who-haiku/LICENSE.md) file for details
