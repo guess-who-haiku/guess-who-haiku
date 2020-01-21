@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
-import { sleep, ghostType } from './demo_bot_util';
+import { sleep, ghostType } from 'util/demo_bot_util';
 import { pushRandomNotification } from 'util/push_notification_util';
 
 const LoginForm = ({ history, login }) => {
@@ -63,9 +63,9 @@ const LoginForm = ({ history, login }) => {
           />
           <br />
           <input ref={$submitButton} type="submit" value="Submit" />
-          <button onClick={runDemoLogin}>Demo</button>
         </div>
       </form>
+      <button onClick={runDemoLogin}>Demo</button>
       <button onClick={pushRandomNotification}><strong>Generate Push Notification</strong></button>
     </div>
   );
