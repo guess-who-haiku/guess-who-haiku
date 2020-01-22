@@ -48,7 +48,7 @@ router.post('/login', (req, res) => {
   }
 
   const { email, password } = req.body;
-
+  
   User.findOne({ email })
     .then(user => {
       if (!user) {
@@ -58,7 +58,6 @@ router.post('/login', (req, res) => {
 
       bcrypt.compare(password, user.password)
         .then(isMatch => {
-          debugger;
           if (isMatch) {
             const { id, username, email } = user;
 

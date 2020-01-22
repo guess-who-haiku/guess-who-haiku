@@ -5,6 +5,7 @@ const db = require("./config/keys").mongoURI;
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const users = require("./routes/api/users");
+const haikuShares = require("./routes/api/haikuShares");
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -32,6 +33,7 @@ app.use(bodyParser.json());
 // ));
 
 app.use('/api/users', users);
+app.use('/api/shares', haikuShares);
 
 const port = process.env.PORT || 5000;
 

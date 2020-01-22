@@ -4,17 +4,23 @@ const Schema = mongoose.Schema;
 const HaikuShareSchema = new Schema({
   haikuId: {
     type: Schema.Types.ObjectId,
-    ref: "Haiku"
+    ref: "Haiku",
+    required: true
   },
   creatorId: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    required: true
   },
   recipientId: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    required: true
   },
-  complete: Boolean,
+  complete: {
+    type: Boolean,
+    required: true
+  },
   completeTimestamp: Date,
   openTimestamp: Date
 });
