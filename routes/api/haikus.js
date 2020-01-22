@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 
 const Haiku = require("../../models/Haiku");
+const User = require("../../models/User");
 
 const MarkovUtil = require("../../markov");
 
@@ -55,25 +56,75 @@ router.get('/new',
   }
 );
 
-// creates new haiku based on the selections given, no save to db
+// returns haikus by user id
+
+// router.get('/haikus',
+
+//   (req, res) => {
+
+
+
+//   }
+// )
+
+
+// returns haiku by haiku id
+
+router.get("/:id",
+
+  (req, res) => {
+    Haiku.find({ _id: req.params.id })
+      .then(haiku => res.json(haiku))
+      .catch(err => res.status(404).json({ noHaikuError: "No haiku by that id exists" }))
+  }
+);
+
+
+// creates new haiku based on the selections given, save to db
 
 router.post('/create', 
   // passport.authenticate('jwt', { session: false }),
   (req, res) => {
 
-    let { body, creator } = req.body;
+    let { body, creator, usersSharedWith } = req.body;
 
-    console.log(body, creator);
-    
+    //make the new haiku
     const newHaiku = new Haiku({
       creator: creator,
       body: body, 
+      usersSharedWith: usersSharedWith
     })
 
     newHaiku
       .save()
-      .then(haiku => res.json(haiku));
+      .then( haiku => {
+
+        res.json(haiku)
+
+          .then( res => {
+            
+            // let creatorId = res.req.body.creator;
+
+
+          })
+        
+      })
+      // .then((res) => {
+
+      //   debugger;
+      //   let creatorId = res.req.body.creator;
+
+      //   // User.findByIdAndUpdate(creatorId, { haikusCreated: _id })
+      //   //   .then(user => console.log(user));
+
+      //   // console.log(res.req.body.creator)
+      //   // // debugger;
+
+      // });
+
   }
+
+  //update the user record with haikus created
 )
 
 
