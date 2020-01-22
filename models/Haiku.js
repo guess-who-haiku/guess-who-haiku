@@ -2,21 +2,23 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const HaikuSchema = new Schema({
-
   creator: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   },
   body: Object,
   dateCreated: {
     type: Date,
     default: Date.now
   },
-  usersSharedWith: {
-    type: Array,
-    default: []
-  }
-
+  usersSharedWith: [ 
+    {
+      username: String,
+      complete: Boolean,
+      completeTimestamp: Date,
+      openTimeStamp: Date
+    }
+  ]
 });
 
 module.exports = Tweet = mongoose.model('Haiku', HaikuSchema);
