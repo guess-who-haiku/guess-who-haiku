@@ -6,7 +6,7 @@ const HaikuShare = require('../../models/HaikuShare');
 
 //create new Haiku share //tested
 router.post('/',
-    // passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
         (req, res) => {
             const newShare = new HaikuShare({
                 haikuId: req.body.haikuId,
@@ -20,7 +20,7 @@ router.post('/',
 
 //update Haiku share //tested
 router.patch('/:id',
-    // passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
         (req, res) => {
             HaikuShare.updateOne(
               { _id: req.params.id },
@@ -43,7 +43,7 @@ router.patch('/:id',
 
 //get all shared Haikus created by current user //hasn't been tested
 router.get('/',
-    // passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
         (req, res) => {
             HaikuShare.find({ creatorId: req.user.id })
                 .then(shares => res.json(shares))
@@ -53,7 +53,7 @@ router.get('/',
 
 //get all Haikus shared with current user //hasn't been tested
 router.get('/user',
-    // passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
         (req, res) => {
             HaikuShare.find({ recipientId: req.user.id })
                 .then(shares => res.json(shares))
@@ -63,7 +63,7 @@ router.get('/user',
 
 //get all users this Haiku has been shared with //tested
 router.get('/haiku/:id',
-    // passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
         (req, res) => {
             HaikuShare.find({ haikuId: req.params.id })
                 .then(shares => res.json(shares))

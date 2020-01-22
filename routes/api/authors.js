@@ -7,8 +7,6 @@ const Author = require("../../models/Author");
 // ------------------------------- GET /
 router.get(
   "/",
-  // passport.authenticate('jwt', { session: false }),
-
   (req, res) => {
     Author.find()
       .then(authors => res.json(authors))
