@@ -31,6 +31,16 @@ require('./config/passport')(passport);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+//Configure multer middleware
+// app.use( multer(
+//   {
+//     dest: './uploads',
+//     rename: function(fieldname, filename) {
+//       return filename;
+//     }
+//   }
+// ));
+
 app.use('/api/users', users);
 
 const port = process.env.PORT || 5000;
