@@ -26,13 +26,13 @@ router.post('/signup', (req, res) => {
       const newUser = new User({
         username,
         email,
-        password
+        passwordDigest: password
       })
 
       const saltRounds = 10;
-      bcrypt.hash(newUser.password, saltRounds)
+      bcrypt.hash(newUser.passwordDigest, saltRounds)
         .then(hashedPassword => {
-          newUser.password = hashedPassword;
+          newUser.passwordDigest = hashedPassword;
           return newUser.save()
         })
         .then(user => {
@@ -53,6 +53,7 @@ router.post('/signup', (req, res) => {
 // ------------------------------- GET /login
 router.post('/login', (req, res) => {
   const { errors, isValid } = validateUserLogin(req.body);
+  // debugger;
 
   if (!isValid) {
     return res.status(400).json(errors);
@@ -67,9 +68,8 @@ router.post('/login', (req, res) => {
         return res.status(404).json(errors);
       }
 
-      bcrypt.compare(password, user.password)
+      bcrypt.compare(password, user.passwordDigest)
         .then(isMatch => {
-          debugger;
           if (isMatch) {
             const { id, username, email } = user;
 
@@ -89,5 +89,14 @@ router.post('/login', (req, res) => {
     })
 
 })
+
+// ------------------------------- GET /
+router.get("/",
+  (req, res) => {
+    User.find()
+        .then(users => res.json(users))
+        .catch(err => res.status(404).json({ nousersfound: 'No users found' }));
+  }
+);
 
 module.exports = router;
