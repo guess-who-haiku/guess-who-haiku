@@ -35,6 +35,10 @@ function getAuthorSelection(authors) {
 }
 
 
+
+// localhost:5000/api/haikus/new?author1=jane austen&author2=barack obama&author3=donald trump
+// localhost:5000/api/haikus/create
+
 // returns new haiku body based on the selections given, no save to db
 
 router.get('/new',
@@ -56,27 +60,33 @@ router.get('/new',
   }
 );
 
-// returns haikus by user id
 
-// router.get('/haikus',
+// fetch haiku for a single haiku id
 
-//   (req, res) => {
-
-
-
-//   }
-// )
-
-
-// returns haiku by haiku id
-
-router.get("/:id",
+router.get("/:haikuId",
 
   (req, res) => {
-    Haiku.find({ _id: req.params.id })
+
+    Haiku.findById(req.params.haikuId)
       .then(haiku => res.json(haiku))
       .catch(err => res.status(404).json({ noHaikuError: "No haiku by that id exists" }))
   }
+
+);
+
+
+
+// fetches haikus for a single user id
+
+router.get("/user/:userId",
+
+  (req, res) => {
+
+    Haiku.find({ creator: req.params.userId })
+      .then(haiku => res.json(haiku))
+      .catch(err => res.status(404).json({ noHaikuError: "No haiku by that id exists" }))
+  }
+
 );
 
 
@@ -109,19 +119,54 @@ router.post('/create',
       })
       .then(() => {
 
-        console.log(haikuId, creatorId);
         User.updateOne(
 
           { _id: creatorId },
           { $push: { haikusCreated: haikuId } }
 
-        ).then(() => console.log('should be updated'))
+        )
        
+    });      
+})
 
-      });      
-  })
+/* deletes a haiku from Haiku and User's tables */
+router.delete('/:id',
+
+  (req, res) => {
+
+    let haiku = {};
     
+    Haiku.findById( req.params.id ) /* get haiku by id */
+      .then( (haiku) => { 
+       
+        haiku = haiku;
 
+        haiku.usersSharedWith.forEach( (user) => { /* go through all shared with users */
+          
+          //go to User and delete myself from the recipients haikus shared with
+          User.updateOne(
+            { _id: user.userId },
+            { $pull: { haikusSharedWith: haiku._id } } /* remove the haiku id from the haikus shared with record */
+          );
+        })
+      })
+      .then( () => { 
+        //go to User and delete myself from the creator's haikus created
+        User.updateOne( /*  update the  */
+
+          { _id: haiku.creator },
+          { $pull: { haikusCreated: haiku._id } }
+
+        );       
+      })
+      .then( 
+        Haiku.deleteOne( { _id: haiku._id }) /* delete self from haiku */
+      )
+      .then( () => console.log('success'))
+      .catch( err => console.log('error'))
+  }
+
+)
 
 
 module.exports = router;
