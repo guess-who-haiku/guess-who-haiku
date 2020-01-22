@@ -12,10 +12,14 @@ const HaikuSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  usersSharedWith: {
-    type: Array,
-    default: []
-  }
+  usersSharedWith: [
+    {
+      userId: String,
+      complete: Boolean,
+      completeTimestamp: Date,
+      openTimestamp: Date
+    }
+  ]
 
 });
 
