@@ -13,7 +13,7 @@ const HaikuSchema = new Schema({
   },
   usersSharedWith: [ 
     {
-      username: String,
+      userId: String,
       complete: Boolean,
       completeTimestamp: Date,
       openTimeStamp: Date
