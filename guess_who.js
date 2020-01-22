@@ -5,6 +5,9 @@ const db = require("./config/keys").mongoURI;
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const users = require("./routes/api/users");
+
+const haikuShares = require("./routes/api/haikuShares");
+const authors = require("./routes/api/authors");
 const path = require('path');
 
 mongoose
@@ -42,6 +45,8 @@ app.use(bodyParser.json());
 // ));
 
 app.use('/api/users', users);
+app.use('/api/shares', haikuShares);
+app.use('/api/authors', authors);
 
 const port = process.env.PORT || 5000;
 
