@@ -26,13 +26,13 @@ router.post('/signup', (req, res) => {
       const newUser = new User({
         username,
         email,
-        password
+        passwordDigest: password
       })
 
       const saltRounds = 10;
-      bcrypt.hash(newUser.password, saltRounds)
+      bcrypt.hash(newUser.passwordDigest, saltRounds)
         .then(hashedPassword => {
-          newUser.password = hashedPassword;
+          newUser.passwordDigest = hashedPassword;
           return newUser.save()
         })
         .then(user => res.json(user), err => console.error(err))
@@ -56,7 +56,7 @@ router.post('/login', (req, res) => {
         return res.status(404).json(errors);
       }
 
-      bcrypt.compare(password, user.password)
+      bcrypt.compare(password, user.passwordDigest)
         .then(isMatch => {
           debugger;
           if (isMatch) {

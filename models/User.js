@@ -21,7 +21,15 @@ const UserSchema = new Schema({
   score: {
     type: Number,
     default: 0
-  }
+  },
+  haikusCreated: {
+    type: Array,
+    default: []
+  },
+  haikusSharedWith: {
+    type: Array,
+    default: []
+  },
 })
 
 module.exports = User = mongoose.model('User', UserSchema);
