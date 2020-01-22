@@ -95,37 +95,32 @@ router.post('/create',
       usersSharedWith: usersSharedWith
     })
 
+    let haikuId = ""; 
+    let creatorId = "";
+
     newHaiku
       .save()
-      .then( haiku => {
+      .then( haiku => { 
 
-        res.json(haiku)
+        haikuId = haiku._id;
+        creatorId = haiku.creator;
 
-          .then( res => {
-            
-            // let creatorId = res.req.body.creator;
-
-
-          })
-        
+        res.json(haiku) /* respond to client */
       })
-      // .then((res) => {
+      .then(() => {
 
-      //   debugger;
-      //   let creatorId = res.req.body.creator;
+        console.log(haikuId, creatorId);
+        User.updateOne(
 
-      //   // User.findByIdAndUpdate(creatorId, { haikusCreated: _id })
-      //   //   .then(user => console.log(user));
+          { _id: creatorId },
+          { $push: { haikusCreated: haikuId } }
 
-      //   // console.log(res.req.body.creator)
-      //   // // debugger;
+        ).then(() => console.log('should be updated'))
+       
 
-      // });
-
-  }
-
-  //update the user record with haikus created
-)
+      });      
+  })
+    
 
 
 
