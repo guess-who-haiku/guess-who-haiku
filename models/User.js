@@ -10,13 +10,17 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  password: {
+  passwordDigest: {
     type: String,
     required: true
   },
-  date: {
+  dateCreated: {
     type: Date,
     default: Date.now
+  },
+  score: {
+    type: Number,
+    default: 0
   }
 })
 
