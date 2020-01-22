@@ -22,7 +22,6 @@ router.patch('/:haikuId',
                                 user.openTimestamp = req.body.openTimestamp;
                             }
                         }
-
                     })
                     haiku.save().then(haiku => res.json(haiku));
                 })
