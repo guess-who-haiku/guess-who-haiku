@@ -48,7 +48,7 @@ router.post('/login', (req, res) => {
   }
 
   const { email, password } = req.body;
-  
+
   User.findOne({ email })
     .then(user => {
       if (!user) {
@@ -77,5 +77,15 @@ router.post('/login', (req, res) => {
     })
 
 })
+
+// ------------------------------- GET /
+router.get("/",
+  // passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.find()
+        .then(users => res.json(users))
+        .catch(err => res.status(404).json({ nousersfound: 'No users found' }));
+  }
+);
 
 module.exports = router;
