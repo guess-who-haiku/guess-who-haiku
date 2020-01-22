@@ -1,6 +1,9 @@
 {
   "name": "guess-who-haiku",
   "version": "0.1.0",
+  "engines": {
+    "node": "8.16.0"
+  },
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
