@@ -5,15 +5,26 @@ const db = require("./config/keys").mongoURI;
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const users = require("./routes/api/users");
+
 const haikuShares = require("./routes/api/haikuShares");
 const authors = require("./routes/api/authors");
+const path = require('path');
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.error(err));
 
-app.get("/", (req, res) => res.send("Guess Who?"));
+//Configure for Heroku
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  })
+} else {
+  app.get("/", (req, res) => res.send("Guess Who?"));
+}
+
 
 // Configure passport middleware
 app.use(passport.initialize());

@@ -35,7 +35,18 @@ router.post('/signup', (req, res) => {
           newUser.passwordDigest = hashedPassword;
           return newUser.save()
         })
-        .then(user => res.json(user), err => console.error(err))
+        .then(user => {
+          const { id, username, email} = user;
+          const payload = { id, username, email };
+
+          jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (undefined, token) => {
+            res.json({
+              success: true,
+              token: `Bearer ${token}`
+            })
+          })
+          // res.json(user)
+        }, err => console.error(err))
     })
 })
 
