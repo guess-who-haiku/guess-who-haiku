@@ -35,13 +35,25 @@ router.post('/signup', (req, res) => {
           newUser.passwordDigest = hashedPassword;
           return newUser.save()
         })
-        .then(user => res.json(user), err => console.error(err))
+        .then(user => {
+          const { id, username, email} = user;
+          const payload = { id, username, email };
+
+          jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (undefined, token) => {
+            res.json({
+              success: true,
+              token: `Bearer ${token}`
+            })
+          })
+          // res.json(user)
+        }, err => console.error(err))
     })
 })
 
 // ------------------------------- GET /login
 router.post('/login', (req, res) => {
   const { errors, isValid } = validateUserLogin(req.body);
+  // debugger;
 
   if (!isValid) {
     return res.status(400).json(errors);
@@ -58,7 +70,6 @@ router.post('/login', (req, res) => {
 
       bcrypt.compare(password, user.passwordDigest)
         .then(isMatch => {
-          debugger;
           if (isMatch) {
             const { id, username, email } = user;
 
@@ -78,5 +89,14 @@ router.post('/login', (req, res) => {
     })
 
 })
+
+// ------------------------------- GET /
+router.get("/",
+  (req, res) => {
+    User.find()
+        .then(users => res.json(users))
+        .catch(err => res.status(404).json({ nousersfound: 'No users found' }));
+  }
+);
 
 module.exports = router;
