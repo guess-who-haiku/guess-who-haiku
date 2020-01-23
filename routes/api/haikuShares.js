@@ -2,19 +2,38 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-const HaikuShare = require('../../models/HaikuShare');
+const User = require('../../models/User');
+const Haiku = require('../../models/Haiku');
 
 //create new Haiku share //tested
 router.post('/',
     passport.authenticate('jwt', { session: false }),
         (req, res) => {
-            const newShare = new HaikuShare({
-                haikuId: req.body.haikuId,
-                creatorId: req.body.creatorId,
-                recipientId: req.body.recipientId,
-                complete: false,
-            });
-            newShare.save().then(response => res.json(response));
+            req.body.recipientIds.forEach(userId => {
+                User.findById(userId)
+                    .then(user => {
+                        User.updateOne(
+                            { "_id": user._id },
+                            {"$push": { "haikusSharedWith": req.body.haikuId }})
+                            //.catch((errs) => console.log('Error updating User', errs))
+                    })
+                    .then(() => {
+                        Haiku.findById(req.body.haikuId)
+                            .then(haiku => {
+                                Haiku.updateOne(
+                                    { "_id": haiku._id },
+                                    { "$push": { "usersSharedWith": { userId: userId } }})
+                                    .then(() => res.json(haiku))
+                                    //.catch((errs) => console.log('Error updating haiku', errs));
+                            })
+                            .catch(err => {
+                                res
+                                    .status(500)
+                                    .json({ createfailed: "Haiku share failed" });
+                            });
+                    })
+            })
+            
         }
 );
 
