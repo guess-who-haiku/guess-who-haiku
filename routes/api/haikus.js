@@ -56,27 +56,31 @@ router.get('/new',
   }
 );
 
-// returns haikus by user id
+// fetch haiku for a single haiku id
 
-// router.get('/haikus',
-
-//   (req, res) => {
-
-
-
-//   }
-// )
-
-
-// returns haiku by haiku id
-
-router.get("/:id",
+router.get("/:haikuId",
 
   (req, res) => {
-    Haiku.find({ _id: req.params.id })
+
+    Haiku.findById(req.params.haikuId)
       .then(haiku => res.json(haiku))
       .catch(err => res.status(404).json({ noHaikuError: "No haiku by that id exists" }))
   }
+
+);
+
+
+// fetches haikus for a single user 
+
+router.get("/user/:userId",
+
+  (req, res) => {
+
+    Haiku.find({ creator: req.params.userId })
+      .then(haiku => res.json(haiku))
+      .catch(err => res.status(404).json({ noHaikuError: "No haiku by that id exists" }))
+  }
+
 );
 
 
@@ -95,38 +99,88 @@ router.post('/create',
       usersSharedWith: usersSharedWith
     })
 
+    let haikuId = ""; 
+    let creatorId = "";
+
     newHaiku
       .save()
-      .then( haiku => {
+      .then( haiku => { 
 
-        res.json(haiku)
+        haikuId = haiku._id;
+        creatorId = haiku.creator;
 
-          .then( res => {
-            
-            // let creatorId = res.req.body.creator;
-
-
-          })
-        
+        res.json(haiku) /* respond to client */
       })
-      // .then((res) => {
+      .then(() => {
 
-      //   debugger;
-      //   let creatorId = res.req.body.creator;
+        const query = { "_id": creatorId }
+        const update = {
+          "$push" : {
+            "haikusCreated": haikuId
+          } 
+        }
 
-      //   // User.findByIdAndUpdate(creatorId, { haikusCreated: _id })
-      //   //   .then(user => console.log(user));
+        User.updateOne(
 
-      //   // console.log(res.req.body.creator)
-      //   // // debugger;
+          query,
+          update
 
-      // });
+        ).catch( err => console.error(`failed to update`))
+    });      
+})
 
+/* deletes a haiku from Haiku and User's tables */
+router.delete('/:id',
+
+  (req, res) => {
+
+    let haiku = {};
+    
+    Haiku.findById( req.params.id ) /* get haiku by id */
+      .then( (haiku) => { 
+       
+        haiku = haiku;
+        
+        let usersHaikuIsSharedWith = haiku.usersSharedWith;
+        let query = {};
+        let update = {};
+
+        if(usersHaikuIsSharedWith.length > 0) {
+
+          haiku.usersSharedWith.forEach( (user) => { /* go through all shared with users */
+          
+            query = { "_id": user.userId };
+            update = { "$pull:": { "haikusSharedWith": haiku._id }};
+
+            User.updateOne( /* go to User and delete myself from the recipients haikus shared with */
+              query,
+              update /* remove the haiku id from the haikus shared with record */
+            );
+          })
+
+        }
+
+      })
+      .then( () => { 
+
+          query = { "_id" : haiku.creator };
+          update = { "$pull" : { "haikusCreated": haiku._id } };
+
+        User.updateOne( /*go to User and delete myself from the creator's haikus created */
+
+          query,
+          update
+
+        );       
+      })
+      .then( 
+        Haiku.deleteOne( { _id: haiku._id }) /* delete self from haiku */
+      )
+      .then( () => console.log('success'))
+      .catch( err => console.log('error'))
   }
 
-  //update the user record with haikus created
 )
-
 
 
 module.exports = router;
