@@ -1,3 +1,25 @@
+import { css } from 'styled-components'
+
+
+// media query helper
+const breakpoints = {
+  desktopL: { px: 1000 },
+  desktopS: { px: 900},
+  tablet: { px: 768 },
+  mobileL: { px: 600 }
+}
+export const media = Object.keys(breakpoints).reduce((acc, bp) => {
+  const { px } = breakpoints[bp];
+  acc[bp] = (...args) => css`
+    @media (min-width: ${px}px) {
+        ${css(...args)};
+    }
+  `;
+
+  return acc;
+}, {})
+
+
 // ---------------------- Colors
 const toryBlue = '#155cac';
 const bostonBlue = '#418bc8';

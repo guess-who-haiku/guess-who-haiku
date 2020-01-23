@@ -13,6 +13,7 @@ export const DescriptionBox = styled.p`
 `;
 
 export const Title = styled.h1`
+  color: ${theme.colors.utilityPink};
   font-size: 3.5rem;
   padding-bottom: 2rem;
 `;

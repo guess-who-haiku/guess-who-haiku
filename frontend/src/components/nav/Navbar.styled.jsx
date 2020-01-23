@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import styledMap from 'styled-map';
-import theme from 'styled/theme';
+import theme, { media } from 'styled/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars as menuIcon } from '@fortawesome/free-solid-svg-icons';
 import { Link, NavLink } from 'react-router-dom'
@@ -18,7 +18,7 @@ export const Nav = styled.nav`
   }
 `;
 
-export const Logo = styled(Link).attrs({ ariaLabel: 'Home', to: '/' })`
+export const Logo = styled(Link).attrs({ to: '/' })`
   font-weight: ${theme.font.weights.extraBold};
   font-size: 3.5rem;
 `;
@@ -38,10 +38,17 @@ export const Menu = styled.ul`
   overflow: hidden;
   transition-duration: .3s;
   transition-timing-function: ease-in;
+
+  ${media.tablet`
+    background-color: red;
+  `}
+
   max-height: ${styledMap`
     default: 0;
     isExpanded: 30vh;
   `};
+
+  
 `;
 
 export const MenuLink = styled(NavLink).attrs({})`
