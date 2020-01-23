@@ -1,12 +1,5 @@
 import axios from "axios";
 
-export const getNewHaiku = (authors) => {
-    authors = authors.map( (author,idx) => (
-        `author${idx+1}=${author}`
-    )).join('&');
-  return axios.get(`/api/haikus/new?${authors}`);
-};
-
 export const getHaiku = (haikuId) => {
     return axios.get(`/api/haikus/${haikuId}`);
 };
@@ -16,9 +9,17 @@ export const getHaikusUser = (userId) => {
 };
 
 export const createHaiku = haiku => {
-  return axios.post("/api/haikus/create", haiku);
+    return axios.post("/api/haikus/create", haiku);
 };
 
 export const deleteHaiku = haikuId => {
     return axios.delete(`/api/haikus/${haikuId}`);
+};
+
+export const createHaikuShares = (haikuId, recipientIds) => {
+    return axios.post(`/api/shares`, { haikuId, recipientIds });
+};
+
+export const updateHaikuShare = (haikuId, userId) => {
+    return axios.patch(`/api/shares/${haikuId}`, { userId });
 };
