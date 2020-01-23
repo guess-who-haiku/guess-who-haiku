@@ -14,11 +14,15 @@ const HaikuSchema = new Schema({
   usersSharedWith: [ 
     {
       userId: String,
-      complete: Boolean,
+      complete: {
+        type: Boolean,
+        default: false
+      },
       completeTimestamp: Date,
-      openTimeStamp: Date
+      openTimestamp: Date
     }
   ]
+
 });
 
 module.exports = Tweet = mongoose.model('Haiku', HaikuSchema);
