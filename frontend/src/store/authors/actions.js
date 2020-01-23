@@ -8,7 +8,7 @@ export const receiveAuthors = authors => ({
 });
 
 export const fetchAuthors = () => dispatch => (
-    getAuthors(authors)
+    getAuthors()
         .then(authors => dispatch(receiveAuthors(authors)))
         .catch(errs => console.log(errs))
 )
