@@ -1,7 +1,13 @@
 import React from 'react';
 import { Page, Title, DescriptionBox } from './LandingPage.styled';
 
-const LandingPage = () => {
+const LandingPage = ({ openModal, createHaikuShares, fetchUsers }) => {
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    createHaikuShares(data).then(()=> fetchUsers())
+  }
 
   return (
     <Page>
@@ -9,6 +15,7 @@ const LandingPage = () => {
       <DescriptionBox>
         Craft outstanding haikus with the help of the witsters of today’s popular culture, and challenge your friends to be the first to GUESS WHO the voice is behind your newfound literary genius.
       </DescriptionBox>
+      <button onClick={() => openModal('test')}>test modal</button>
     </Page>
   );
 }

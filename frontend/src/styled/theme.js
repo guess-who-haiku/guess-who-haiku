@@ -1,10 +1,9 @@
 import { css } from 'styled-components'
 
-
 // media query helper
 const breakpoints = {
   desktopL: { px: 1000 },
-  desktopS: { px: 900},
+  desktopS: { px: 900 },
   tablet: { px: 768 },
   mobileL: { px: 600 }
 }
