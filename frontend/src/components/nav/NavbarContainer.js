@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Thunks } from 'store/session/index';
+import { Thunks } from 'store/session/actions';
 import NavBar from './Navbar';
 
 const mapStateToProps = state => ({

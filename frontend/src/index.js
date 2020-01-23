@@ -5,7 +5,7 @@ import Root from './components/Root';
 import configureStore from './store/index';
 import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './store/session/api_util';
-import { Thunks } from './store/session/index';
+import { Thunks } from './store/session/actions';
 import Styled from './styled/Styled';
 
 let store;

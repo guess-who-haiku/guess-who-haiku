@@ -1,10 +1,11 @@
-import { RECEIVE_USERS } from "./actions";
+import { Types } from "./actions";
 
 const UsersReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
-    case RECEIVE_USERS:
-      return Object.assign({}, action.users);
+    case Types.RECEIVE_USERS:
+      const { users } = action;
+      return Object.assign({}, state, users);
     default:
       return state;
   }
