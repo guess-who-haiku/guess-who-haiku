@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import session from './session/reducer';
-import haiku from './haiku/reducer';
+import haikus from './haikus/reducer';
+import users from './users/reducer';
 
 const RootReducer = combineReducers({
   session,
-  haiku
+  haikus,
+  users
 });
 
 export default RootReducer;
