@@ -35,10 +35,6 @@ function getAuthorSelection(authors) {
 }
 
 
-
-// localhost:5000/api/haikus/new?author1=jane austen&author2=barack obama&author3=donald trump
-// localhost:5000/api/haikus/create
-
 // returns new haiku body based on the selections given, no save to db
 
 router.get('/new',
@@ -60,7 +56,6 @@ router.get('/new',
   }
 );
 
-
 // fetch haiku for a single haiku id
 
 router.get("/:haikuId",
@@ -75,8 +70,7 @@ router.get("/:haikuId",
 );
 
 
-
-// fetches haikus for a single user id
+// fetches haikus for a single user 
 
 router.get("/user/:userId",
 
@@ -119,13 +113,19 @@ router.post('/create',
       })
       .then(() => {
 
+        const query = { "_id": creatorId }
+        const update = {
+          "$push" : {
+            "haikusCreated": haikuId
+          } 
+        }
+
         User.updateOne(
 
-          { _id: creatorId },
-          { $push: { haikusCreated: haikuId } }
+          query,
+          update
 
-        )
-       
+        ).catch( err => console.error(`failed to update`))
     });      
 })
 
@@ -140,22 +140,36 @@ router.delete('/:id',
       .then( (haiku) => { 
        
         haiku = haiku;
+        
+        let usersHaikuIsSharedWith = haiku.usersSharedWith;
+        let query = {};
+        let update = {};
 
-        haiku.usersSharedWith.forEach( (user) => { /* go through all shared with users */
+        if(usersHaikuIsSharedWith.length > 0) {
+
+          haiku.usersSharedWith.forEach( (user) => { /* go through all shared with users */
           
-          //go to User and delete myself from the recipients haikus shared with
-          User.updateOne(
-            { _id: user.userId },
-            { $pull: { haikusSharedWith: haiku._id } } /* remove the haiku id from the haikus shared with record */
-          );
-        })
+            query = { "_id": user.userId };
+            update = { "$pull:": { "haikusSharedWith": haiku._id }};
+
+            User.updateOne( /* go to User and delete myself from the recipients haikus shared with */
+              query,
+              update /* remove the haiku id from the haikus shared with record */
+            );
+          })
+
+        }
+
       })
       .then( () => { 
-        //go to User and delete myself from the creator's haikus created
-        User.updateOne( /*  update the  */
 
-          { _id: haiku.creator },
-          { $pull: { haikusCreated: haiku._id } }
+          query = { "_id" : haiku.creator };
+          update = { "$pull" : { "haikusCreated": haiku._id } };
+
+        User.updateOne( /*go to User and delete myself from the creator's haikus created */
+
+          query,
+          update
 
         );       
       })
