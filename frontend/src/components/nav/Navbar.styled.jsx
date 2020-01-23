@@ -39,8 +39,8 @@ export const Menu = styled.ul`
   transition-duration: .3s;
   transition-timing-function: ease-in;
 
-  ${media.tablet`
-    background-color: red;
+  ${media.desktopS`
+    flex-direction: row;
   `}
 
   max-height: ${styledMap`
