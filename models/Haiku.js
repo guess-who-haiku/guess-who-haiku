@@ -16,9 +16,10 @@ const HaikuSchema = new Schema({
       userId: String,
       complete: Boolean,
       completeTimestamp: Date,
-      openTimeStamp: Date
+      openTimestamp: Date
     }
   ]
+
 });
 
 module.exports = Tweet = mongoose.model('Haiku', HaikuSchema);
