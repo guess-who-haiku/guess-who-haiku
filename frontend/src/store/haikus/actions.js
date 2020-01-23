@@ -1,4 +1,4 @@
-import { getNewHaiku, getHaiku, getHaikusUser, createHaiku, deleteHaiku } from "./api_util";
+import * as APIUtil from "./api_util";
 
 export const RECEIVE_HAIKUS = "RECEIVE_HAIKUS";
 export const RECEIVE_HAIKU = "RECEIVE_HAIKU";
@@ -20,27 +20,27 @@ export const receiveNewHaiku = haiku => ({
 });
 
 export const fetchNewHaiku = (authors) => dispatch =>
-  getNewHaiku(authors)
+  APIUtil.getNewHaiku(authors)
     .then(haiku => dispatch(receiveNewHaiku(haiku)))
     .catch(err => console.log(err));
 
 export const fetchHaiku = (haikuId) => dispatch =>
-  getHaiku(haikuId)
+  APIUtil.getHaiku(haikuId)
     .then(haiku => dispatch(receiveHaiku(haiku)))
     .catch(err => console.log(err));
 
 export const fetchHaikusUser = (userId) => dispatch =>
-  getHaikusUser(userId)
+  APIUtil.getHaikusUser(userId)
     .then(haikus => dispatch(receiveHaikus(haikus)))
     .catch(err => console.log(err));
 
 export const createHaiku = (haiku) => dispatch =>
-  createHaiku(haiku)
+  APIUtil.createHaiku(haiku)
     .then(haiku => dispatch(receiveHaiku(haiku)))
     .catch(err => console.log(err));
 
 export const deleteHaiku = (haikuId) => dispatch =>
-  deleteHaiku(haikuId)
+  APIUtil.deleteHaiku(haikuId)
     .then(res => {
         window.location.reload();
     })
