@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Thunks } from 'store/session/index';
+import { Thunks } from 'store/session/actions';
 import LoginForm from './LoginForm';
 
 const mapStateToProps = state => ({
