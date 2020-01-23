@@ -3,7 +3,7 @@ import * as APIUtil from './api_util';
 import jwt_decode from 'jwt-decode';
 
 export const { Types, Creators } = createActions({
-  receiveCurrentUser: ['currentUser'],
+  receiveCurrentUser: ['currentUser', 'id'],
   receiveUserSignIn: null,
   logoutUser: null,
 }, { prefix: '[SESSION] ' })
