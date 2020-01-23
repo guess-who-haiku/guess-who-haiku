@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from 'styled/theme';
 
-export const Page = styled.main`
+export const Page = styled.section`
   margin: 2rem;
 `;
 

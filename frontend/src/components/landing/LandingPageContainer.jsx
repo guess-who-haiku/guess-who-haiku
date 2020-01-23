@@ -2,16 +2,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import LandingPage from './LandingPage';
 import { Thunks } from 'store/haikus/actions';
+import { Creators } from 'store/modal/actions';
 
 const mapStateToProps = state => ({
-
 
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchNewHaiku: authors => dispatch(Thunks.fetchNewHaiku(authors)),
-  fetchHaiku: haikuId => dispatch(Thunks.fetchHaiku(haikuId)),
-  createHaiku: haikuData => dispatch(Thunks.createHaiku(haikuData)),
+  openModal: modal => dispatch(Creators.openModal(modal))
   // createHaikuShare: () => dispatch(Thunks.createHaikuShare()),
 })
 
