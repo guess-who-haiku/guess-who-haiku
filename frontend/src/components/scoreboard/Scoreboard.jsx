@@ -27,7 +27,6 @@ export default class Scoreboard extends Component {
     topTenScores() {
         let copyUsers = this.props.users.data.slice();
         let sortedUsers = copyUsers.sort(this.compare);
-        console.log(sortedUsers);
         let scoresArray = [];
         for (let i = 0; i < 10; i++) {
             scoresArray.push(

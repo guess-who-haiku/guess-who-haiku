@@ -71,6 +71,15 @@ router.get("/:haikuId",
 
 );
 
+// fetches haiku challenges
+router.get("/challenges",
+  passport.authenticate("jwt", { session: false }),
+
+  (req, res) => {
+    
+  }
+);
+
 
 // fetches haikus for a single user 
 

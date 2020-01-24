@@ -53,7 +53,7 @@ router.patch('/:haikuId',
                                 user.completeTimestamp = req.body.completeTimestamp;
                                 let timeDiff =
                                   (req.body.completeTimestamp - user.openTimestamp)/1000;
-                                score = 2000 - (2000*timeDiff/(2000 + timeDiff));
+                                score = 2000 - (2000*timeDiff/(2000 + timeDiff)) + 100;
                             }
                             if (req.body.openTimestamp != undefined) {
                                 user.openTimestamp = req.body.openTimestamp;
