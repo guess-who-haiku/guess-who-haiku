@@ -1,6 +1,6 @@
 import { Types } from './actions';
 
-const _initialState = { userId: undefined };
+const _initialState = { userId: null };
 
 const SessionReducer = (state = _initialState, action) => {
   Object.freeze(state);
