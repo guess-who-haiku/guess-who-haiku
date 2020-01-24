@@ -1,23 +1,42 @@
 import React, { useState, useEffect } from 'react';
+import ListItem from './ListItem';
 
-const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHaiku}) => {
-    const [allAuthors, setAllAuthors] = useState([])
+const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHaiku, authors}) => {
 
     useEffect(() => {
-        const results = fetchAuthors();
-        setAllAuthors(...results);
-    })
+        fetchAuthors();    
+    }, [fetchAuthors])
+
+    const [haikuAuthors, setHaikuAuthors] = useState([]);
+
+    const handleSelection = e => {
+        let newAuthor = e.target.alt;
+        console.log(e.currentTarget);
+        if (!haikuAuthors.includes(newAuthor) && haikuAuthors.length < 3) {
+            e.currentTarget.classList.add("selected")
+            setHaikuAuthors([...haikuAuthors, newAuthor])
+        } else if (haikuAuthors.includes(newAuthor)) {
+            e.currentTarget.classList.remove("selected")
+            setHaikuAuthors(haikuAuthors.filter(author => (author !== newAuthor)) )
+        }
+        console.log(haikuAuthors);
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        fetchNewHaiku(haikuAuthors)
+    }
+    
     return (
         <div>
-            <h1>Haiku Builder coming here</h1>
             <div>
+                <p>Choose up to three figures below:</p>
                 <ul>
-                    {allAuthors.map(author => (
-                        <li key={author.name}>
-
-                        </li>
-                    ))}
+                    {authors.data ? authors.data.map(author => (
+                        <ListItem key={author.name} author={author} handleSelection={handleSelection}/>
+                    )) : null}
                 </ul>
+                <button type="button">Build my Haiku!</button>
             </div>
         </div>
     )
