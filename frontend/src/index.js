@@ -9,13 +9,6 @@ import { Thunks as SessionThunks } from './store/session/actions';
 import { Thunks as UsersThunks } from './store/users/actions';
 import Styled from './styled/Styled';
 
-
-/* TESTING EXTERNAL API UTIL */
-import * as externalAPIUtil from '../../externalAPI';
-window.fetchBars = externalAPIUtil.fetchBars;
-window.fetchLorem = externalAPIUtil.fetchLoremRicksum;
-/* TESTING EXTERNAL API UTIL */
-
 let store;
 
 if (localStorage.jwtToken) {
