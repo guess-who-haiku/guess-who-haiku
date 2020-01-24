@@ -8,10 +8,12 @@ import modal from './modal/reducer';
 
 const RootReducer = combineReducers({
   session,
-  haikus,
-  newHaiku,
-  users,
-  authors,
+  entities: combineReducers({
+    haikus,
+    newHaiku,
+    users,
+    authors,
+  }),
   ui: combineReducers({
     modal
   })

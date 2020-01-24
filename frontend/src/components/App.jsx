@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import ModalContainer from './modal/ModalContainer';
 import NavbarContainer from './nav/NavbarContainer';
 import LandingPage from './landing/LandingPageContainer';
+import Scoreboard from './scoreboard/ScoreboardContainer';
 
 const App = () => (
   <>
@@ -15,6 +16,7 @@ const App = () => (
     <main>
       <Switch>
         <Route exact path="/" component={LandingPage} />
+        <Route exact path="/scoreboard" component={Scoreboard} />
       </Switch>
     </main>
   </>
