@@ -8,6 +8,13 @@ import { setAuthToken } from './store/session/api_util';
 import { Thunks } from './store/session/index';
 import Styled from './styled/Styled';
 
+
+/* TESTING EXTERNAL API UTIL */
+import * as externalAPIUtil from '../../externalAPI';
+window.fetchBars = externalAPIUtil.fetchBars;
+window.fetchLorem = externalAPIUtil.fetchLoremRicksum;
+/* TESTING EXTERNAL API UTIL */
+
 let store;
 
 if (localStorage.jwtToken) {

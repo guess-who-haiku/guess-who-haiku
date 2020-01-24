@@ -11,6 +11,13 @@ const haikuShares = require("./routes/api/haikuShares");
 const authors = require("./routes/api/authors");
 const path = require('path');
 
+const constructLibrary = require('./externalAPI');
+
+/* Uncomment to seed author library */
+// constructLibrary();
+
+/* Ext */
+
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB successfully"))
