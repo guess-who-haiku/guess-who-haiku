@@ -23,7 +23,9 @@ router.post('/',
                                 Haiku.updateOne(
                                     { "_id": haiku._id },
                                     { "$push": { "usersSharedWith": { userId: userId } }})
-                                    .then(() => res.json(haiku))
+                                    .then(() => {
+                                        Haiku.findById(req.body.haikuId).then((updatedHaiku) => res.json(updatedHaiku))
+                                    })
                                     //.catch((errs) => console.log('Error updating haiku', errs));
                             })
                             .catch(err => {

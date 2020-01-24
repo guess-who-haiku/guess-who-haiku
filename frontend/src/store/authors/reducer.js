@@ -1,10 +1,12 @@
-import { RECEIVE_AUTHORS } from './actions';
+import { Types } from './actions';
 
-const AuthorsReducer = (state = {}, action) => {
+const _initialState = {};
+const AuthorsReducer = (state = _initialState, action) => {
     Object.freeze(state);
     switch (action.type) {
-        case RECEIVE_AUTHORS:
-            return Object.assign({}, action.authors)
+        case Types.RECEIVE_AUTHORS:
+            const { authors } = action;
+            return Object.assign({}, state, authors)
         default:
             return state;
     }

@@ -3,8 +3,7 @@ import * as APIUtil from './api_util';
 import jwt_decode from 'jwt-decode';
 
 export const { Types, Creators } = createActions({
-  receiveCurrentUser: ['currentUser', 'id'],
-  receiveUserSignIn: null,
+  receiveCurrentUser: ['userId'],
   logoutUser: null,
 }, { prefix: '[SESSION] ' })
 
@@ -15,8 +14,7 @@ Thunks.signup = user => dispatch => APIUtil.signup(user).then(res => {
   localStorage.setItem('jwtToken', token);
   APIUtil.setAuthToken(token);
   const decoded = jwt_decode(token);
-  return dispatch(Creators.receiveCurrentUser(decoded))
-  // dispatch(Creators.receiveUserSignIn())
+  return dispatch(Creators.receiveCurrentUser(decoded.userId))
 });
 
 Thunks.login = user => dispatch => APIUtil.login(user).then(res => {
@@ -24,7 +22,7 @@ Thunks.login = user => dispatch => APIUtil.login(user).then(res => {
   localStorage.setItem('jwtToken', token);
   APIUtil.setAuthToken(token);
   const decoded = jwt_decode(token);
-  return dispatch(Creators.receiveCurrentUser(decoded))
+  return dispatch(Creators.receiveCurrentUser(decoded.userId))
 });
 
 Thunks.logout = () => dispatch => {
