@@ -7,7 +7,8 @@ export const { Types, Creators } = createActions({
 
 
 export const Thunks = {};
-Thunks.fetchUsers = () => dispatch =>
+Thunks.fetchUsers = () => dispatch => {
   APIUtil.getUsers()
-    .then(users => dispatch(Creators.receiveUsers(users)))
+    .then(({data}) => dispatch(Creators.receiveUsers(data)))
     .catch(err => console.log(err));
+}

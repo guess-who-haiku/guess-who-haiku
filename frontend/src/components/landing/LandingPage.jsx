@@ -3,12 +3,6 @@ import { Page, Title, DescriptionBox } from './LandingPage.styled';
 
 const LandingPage = ({ openModal, createHaikuShares, fetchUsers }) => {
 
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    createHaikuShares(data).then(()=> fetchUsers())
-  }
-
   return (
     <Page>
       <Title>Guess, Who Haiku</Title>
