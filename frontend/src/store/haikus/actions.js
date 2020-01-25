@@ -1,11 +1,14 @@
 import { createActions } from 'reduxsauce';
 import * as APIUtil from './api_util';
+import { Creators as NewHaikuCreators } from '../new_haiku/actions';
 
 export const { Types, Creators } = createActions({
   receiveHaikus: ['haikus'],
   receiveHaiku: ['haiku'],
   removeHaiku: ['haikuId']
 }, { prefix: '[HAIKUS] ' })
+
+
 
 // const RECEIVE_HAIKUS = '[HAIKUS] RECEIVE_HAIKUS';
 
@@ -30,6 +33,7 @@ Thunks.fetchHaikusUser = (userId) => dispatch =>
 Thunks.createHaiku = (haiku) => dispatch =>
   APIUtil.createHaiku(haiku)
     .then(haiku => dispatch(Creators.receiveHaiku(haiku)))
+    .then(haiku => dispatch(NewHaikuCreators.receiveNewHaiku(haiku)))
     .catch(err => console.log(err));
 
 Thunks.deleteHaiku = (haikuId) => dispatch =>
