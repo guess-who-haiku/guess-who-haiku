@@ -1,4 +1,5 @@
 function markovChainGenerator(text) {
+    console.log(text);
     const textArr = text.split(' ');
     const markovChain = {};
     for (let i = 0; i < textArr.length; i++) {
@@ -48,7 +49,6 @@ function generateLine(dictionary, syllable) {
     }
     return lineArr.join(" ");
 }
-
 
 /* takes dict object with author, text dictionary key value pairs and returns an object with a haiku body */
 
