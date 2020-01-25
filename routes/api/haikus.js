@@ -37,10 +37,10 @@ router.get('/new',
   (req, res) => {
 
     const authors = Object.values(req.query); /* get authors from request  */
-    console.log('AUTHORS', authors)
+    // console.log('AUTHORS', authors)
     // for each author, assemble a selection of authors from the library and construct the dictionary
     selection = getAuthorSelection(authors);
-    console.log('SELECTION', selection)
+    // console.log('SELECTION', selection)
     selectionDicts = MarkovUtil.generateDictionaries(selection);
     
     // use the selection dictionaries to generate haiku lines
@@ -60,7 +60,13 @@ router.get("/challenges",
     Haiku.find({
       _id: { $in: haikus }
     })
-      .then(haikus => res.json(haikus))
+      // .then(haikus => res.json(haikus))
+      .then(payload => {
+
+        const haikus = {}
+        payload.map(haiku => haikus[haiku._id] = haiku)
+        res.json(haikus)
+      })
       .catch(err =>
         res.status(404).json({ noHaikuError: "No challenged haikus found" })
       )
