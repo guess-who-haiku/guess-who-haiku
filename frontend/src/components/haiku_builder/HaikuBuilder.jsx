@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { HBContainer } from './HaikuBuilder.styled';
+import { formatHaiku } from '../../util/haiku_format_util';
 
 const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHaiku, authors, newHaiku, users, openModal}) => {
 
@@ -9,20 +11,25 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
 
     //set selected authors in local state
     const [haikuAuthors, setHaikuAuthors] = useState([]);
+    console.log(haikuAuthors);
 
     //update selection of haiku authors
     const handleAuthorSelection = e => {
         let newAuthor = e.currentTarget.dataset.name;
-        if (!haikuAuthors.includes(newAuthor) && haikuAuthors.length < 1) {
+        if (!haikuAuthors.includes(newAuthor) && haikuAuthors.length < 3) {
             setHaikuAuthors([...haikuAuthors, newAuthor])
         } else if (haikuAuthors.includes(newAuthor)) {
             setHaikuAuthors(haikuAuthors.filter(author => (author !== newAuthor)) )
         }
     };
 
+    //set formatted Haiku in state
+    const [haiku, setHaiku] = useState([]);
+
     //create new haiku
     const generateHaiku = () => {
         fetchNewHaiku(haikuAuthors)
+            // .then(() => setHaiku(newHaiku.data, haikuAuthors))
     };
 
     //set selected users to share with in local state
@@ -48,8 +55,9 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
             <p>Choose up to three figures below:</p>
             <ul>
                 {authors.data && authors.data.map(author => (
-                    <li data-selected={haikuAuthors.includes(author.name)} key={author.name} data-name={author.name} onClick={handleAuthorSelection}>
-                        <img src={author.image} alt={author.name} />
+                    <li data-selected={haikuAuthors.includes(author)} key={author} data-name={author} onClick={handleAuthorSelection}>
+                        {author}
+                        {/* <img src={author} alt={author} /> */}
                     </li>
                 ))}
             </ul>
@@ -67,7 +75,11 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
     const GeneratedHaiku = () => (
         <>
             <div>
-                <div>{newHaiku.data["donald trump"][0]}</div>
+                {newHaiku.data && formatHaiku(newHaiku.data, haikuAuthors).map(line => (
+                    <p key={line}>
+                        {line}
+                    </p>
+                ))}
             </div>
             <button>Regenerate haiku</button>
             <button>Let me start over</button> 
@@ -111,10 +123,10 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
     };
     
     return (
-        <div>
+        <HBContainer>
             {/* <ChooseAuthors /> */}
             {React.createElement(Steps[step])}
-        </div>
+        </HBContainer>
     )
 }
 
