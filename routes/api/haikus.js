@@ -58,28 +58,33 @@ router.get('/new',
   }
 );
 
+// fetches haiku challenges
+router.get("/challenges",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let haikus = Object.values(req.query);
+    Haiku.find({
+      _id: { $in: haikus }
+    })
+      .then(haikus => res.json(haikus))
+      .catch(err =>
+        res.status(404).json({ noHaikuError: "No challenged haikus found" })
+      )
+  }
+);
+
+
 // fetch haiku for a single haiku id
 
 router.get("/:haikuId",
 
   (req, res) => {
-
     Haiku.findById(req.params.haikuId)
       .then(haiku => res.json(haiku))
       .catch(err => res.status(404).json({ noHaikuError: "No haiku by that id exists" }))
   }
 
 );
-
-// fetches haiku challenges
-router.get("/challenges",
-  passport.authenticate("jwt", { session: false }),
-
-  (req, res) => {
-    
-  }
-);
-
 
 // fetches haikus for a single user 
 

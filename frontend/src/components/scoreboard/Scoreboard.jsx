@@ -25,7 +25,7 @@ export default class Scoreboard extends Component {
     }
 
     topTenScores() {
-        let copyUsers = this.props.users.data.slice();
+        let copyUsers = Object.values(this.props.users);
         let sortedUsers = copyUsers.sort(this.compare);
         let scoresArray = [];
         for (let i = 0; i < 10; i++) {
@@ -37,7 +37,7 @@ export default class Scoreboard extends Component {
     }
 
     render() {
-        if (Object.values(this.props.users).length === 0) {
+        if (Object.keys(this.props.users).length === 0) {
             return null;
         }
         return (
