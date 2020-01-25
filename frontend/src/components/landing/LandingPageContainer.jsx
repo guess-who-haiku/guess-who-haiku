@@ -5,13 +5,15 @@ import { Thunks as HaikuThunks } from 'store/haikus/actions';
 import { Thunks as UserThunks } from 'store/users/actions';
 import { Thunks as AuthorThunks } from 'store/authors/actions';
 import { Thunks as NewHaikuThunks } from 'store/new_haiku/actions';
+import { selectAllUsers } from 'store/selectors';
 
 import { Creators } from 'store/modal/actions';
 
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
-  authors: state.entities.authors
-
+  authors: state.entities.authors,
+  newHaiku: state.entities.newHaiku,
+  users: selectAllUsers(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -21,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
   fetchNewHaiku: (authors) => dispatch(NewHaikuThunks.fetchNewHaiku(authors)),
   fetchUsers: () => dispatch(UserThunks.fetchUsers()),
   fetchAuthors: () => dispatch(AuthorThunks.fetchAuthors())
-})
+});
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(LandingPage)

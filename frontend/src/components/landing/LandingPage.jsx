@@ -2,7 +2,7 @@ import React from 'react';
 import { Page, Title, DescriptionBox } from './LandingPage.styled';
 import HaikuBuilder from '../haiku_builder/HaikuBuilder';
 
-const LandingPage = ({ openModal, createHaikuShares, createHaiku, fetchAuthors, fetchNewHaiku, fetchUsers, currentUser, authors }) => {
+const LandingPage = ({ openModal, createHaikuShares, createHaiku, fetchAuthors, fetchNewHaiku, fetchUsers, currentUser, authors, newHaiku, users }) => {
 
   // const handleSubmit = e => {
   //   e.preventDefault();
@@ -18,7 +18,7 @@ const LandingPage = ({ openModal, createHaikuShares, createHaiku, fetchAuthors, 
       <DescriptionBox>
         {description}
       </DescriptionBox>
-      <HaikuBuilder createHaiku={createHaiku} createHaikuShares={createHaikuShares} fetchAuthors={fetchAuthors} fetchNewHaiku={fetchNewHaiku} authors={authors} />
+      <HaikuBuilder createHaiku={createHaiku} createHaikuShares={createHaikuShares} fetchAuthors={fetchAuthors} fetchNewHaiku={fetchNewHaiku} authors={authors} newHaiku={newHaiku} users={users} openModal={openModal}/>
       <button onClick={() => openModal('test')}>test modal</button>
     </Page>
   );

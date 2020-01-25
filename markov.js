@@ -1,4 +1,5 @@
 function markovChainGenerator(text) {
+    console.log(text);
     const textArr = text.split(' ');
     const markovChain = {};
     for (let i = 0; i < textArr.length; i++) {
