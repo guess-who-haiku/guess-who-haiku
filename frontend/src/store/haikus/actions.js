@@ -14,7 +14,6 @@ export const { Types, Creators } = createActions({
 //   haikus
 // })
 
-
 export const Thunks = {};
 
 Thunks.fetchHaiku = (haikuId) => dispatch =>

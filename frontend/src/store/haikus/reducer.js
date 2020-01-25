@@ -8,8 +8,8 @@ const HaikusReducer = (state = {}, action) => {
 			const { haikus } = action;
 			return Object.assign({}, state, haikus);
 		case Types.RECEIVE_HAIKU:
-			const { haiku } = action;
-			return Object.assign({}, state, haiku);
+			const haiku  = action.haiku.data;
+			return Object.assign({}, state, { [haiku._id]: haiku }  );
 		case Types.REMOVE_HAIKU:
 				const { haikuId } = action;
 				delete newState[haikuId];
