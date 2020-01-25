@@ -8,7 +8,7 @@ export default function ScoreboardItem({user}) {
             {user.username}
             </TDetail>
             <TDetail>
-            {user.score}
+            {user.score.toFixed(0)}
             </TDetail>
         </tr>
     )

@@ -8,6 +8,13 @@ export const getHaikusUser = (userId) => {
     return axios.get(`/api/haikus/user/${userId}`);
 };
 
+export const getHaikuChallenges = (haikus) => {
+    haikus = haikus
+    .map((haiku, idx) => `haiku${idx+1}=${haiku}`)
+    .join("&");
+    return axios.get(`/api/haikus/challenges?${haikus}`);
+};
+
 export const createHaiku = haiku => {
     return axios.post("/api/haikus/create", haiku);
 };

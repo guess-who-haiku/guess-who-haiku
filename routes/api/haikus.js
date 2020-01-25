@@ -37,7 +37,7 @@ router.get('/new',
   async function(req, res) {
 
     const authors = Object.values(req.query); /* get authors from request  */
-    console.log('AUTHORS', authors)
+    // console.log('AUTHORS', authors)
     // for each author, assemble a selection of authors from the library and construct the dictionary
     const selection = await getAuthorSelection(authors);
     console.log('SELECTION', selection)
@@ -53,19 +53,40 @@ router.get('/new',
   }
 );
 
-// fetch haiku for a single haiku id
+// fetches haiku challenges
+router.get("/challenges",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let haikus = Object.values(req.query);
+    Haiku.find({
+      _id: { $in: haikus }
+    })
+      // .then(haikus => res.json(haikus))
+      .then(payload => {
 
+        const haikus = {}
+        payload.map(haiku => haikus[haiku._id] = haiku)
+        res.json(haikus)
+      })
+      .catch(err =>
+        res.status(404).json({ noHaikuError: "No challenged haikus found" })
+      )
+  }
+);
+
+
+// fetch haiku for a single haiku id
 router.get("/:haikuId",
 
   (req, res) => {
-
     Haiku.findById(req.params.haikuId)
-      .then(haiku => res.json(haiku))
+      .then(payload => {
+        res.json(payload)}
+      )
       .catch(err => res.status(404).json({ noHaikuError: "No haiku by that id exists" }))
   }
 
 );
-
 
 // fetches haikus for a single user 
 
@@ -74,7 +95,12 @@ router.get("/user/:userId",
   (req, res) => {
 
     Haiku.find({ creator: req.params.userId })
-      .then(haiku => res.json(haiku))
+      .then(payload => {
+
+        const haikus = {}
+        payload.map((haiku) => haikus[haiku._id] = haiku)
+        res.json(haikus)
+        })
       .catch(err => res.status(404).json({ noHaikuError: "No haiku by that id exists" }))
   }
 
