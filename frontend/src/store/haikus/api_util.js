@@ -20,6 +20,6 @@ export const createHaikuShares = (haikuId, recipientIds) => {
     return axios.post(`/api/shares`, { haikuId, recipientIds });
 };
 
-export const updateHaikuShare = (haikuId, userId) => {
-    return axios.patch(`/api/shares/${haikuId}`, { userId });
+export const updateHaikuShare = (haikuId, userId, complete, openTimestamp, completeTimestamp) => {
+    return axios.patch(`/api/shares/${haikuId}`, { userId, complete, openTimestamp, completeTimestamp });
 };

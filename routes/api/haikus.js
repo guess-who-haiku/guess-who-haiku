@@ -21,11 +21,13 @@ async function getAuthorSelection(authors) {
   let selection = {};
 
   for (let author of authors) {
-    selection[author] = library[author];
+    if (!(author in library)) {
+      throw "Author not in library"
+    } else {
+      selection[author] = library[author];
+    }
   }
-  // console.log('selection',selection);
   return selection;
-
 }
 
 // returns new haiku body based on the selections given, no save to db
@@ -35,9 +37,10 @@ router.get('/new',
   (req, res) => {
 
     const authors = Object.values(req.query); /* get authors from request  */
-
+    console.log('AUTHORS', authors)
     // for each author, assemble a selection of authors from the library and construct the dictionary
     selection = getAuthorSelection(authors);
+    console.log('SELECTION', selection)
     selectionDicts = MarkovUtil.generateDictionaries(selection);
     
     // use the selection dictionaries to generate haiku lines
