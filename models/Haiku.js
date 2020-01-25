@@ -26,8 +26,3 @@ const HaikuSchema = new Schema({
 });
 
 module.exports = Tweet = mongoose.model('Haiku', HaikuSchema);
-
-// 1 author scenario
-// 2 author scenario - first two lines of one, the last line of another
-// 3 author scenario - first line of 1, second line of 2 and 3rd line of 3
-
