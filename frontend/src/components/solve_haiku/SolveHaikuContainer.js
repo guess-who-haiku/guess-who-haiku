@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 
   getHaiku: (haikuId) => dispatch(Thunks.fetchHaiku(haikuId)),
-  completeHaiku: () => dispatch(Thunks.updateHaikuShare)
+  completeHaiku: () => dispatch(Thunks.updateHaikuShare),
+  getUserHaikus: (userId) => dispatch(Thunks.fetchHaikusUser(userId))
 
 })
 

@@ -5,7 +5,7 @@ const HaikusReducer = (state = {}, action) => {
 	const newState = Object.assign({}, state);
 	switch (action.type) {
 		case Types.RECEIVE_HAIKUS:
-			const { haikus } = action;
+      const haikus = action.haikus.data;
 			return Object.assign({}, state, haikus);
 		case Types.RECEIVE_HAIKU:
 			const haiku  = action.haiku.data;
