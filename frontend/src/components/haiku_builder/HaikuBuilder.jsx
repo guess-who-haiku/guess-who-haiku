@@ -5,7 +5,7 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
     //fetch authors on load
     useEffect(() => {
         fetchAuthors();    
-    }, [fetchAuthors])
+    }, [fetchAuthors]);
 
     //set selected authors in local state
     const [haikuAuthors, setHaikuAuthors] = useState([]);
@@ -18,13 +18,12 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
         } else if (haikuAuthors.includes(newAuthor)) {
             setHaikuAuthors(haikuAuthors.filter(author => (author !== newAuthor)) )
         }
-    }
+    };
 
     //create new haiku
-    const generateHaiku = e => {
-        e.preventDefault();
+    const generateHaiku = () => {
         fetchNewHaiku(haikuAuthors)
-    }
+    };
 
     //set selected users to share with in local state
     const [haikuShares, setHaikuShares] = useState([]);
@@ -38,7 +37,7 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
         } else if (haikuShares.includes(newShare)) {
             setHaikuShares(haikuShares.filter(user => (user !== newShare)))
         }
-    }
+    };
 
     //share haiku
 
@@ -54,27 +53,26 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
                     </li>
                 ))}
             </ul>
-            <button onClick={generateHaiku}>Build my Haiku!</button>
+            <button onClick={() => { generateHaiku(); toggleNext(); }}>Build my Haiku!</button>
         </>
     );
 
     const GeneratingHaiku = () => (
         <>
             <h1>Just one moment while we build your haiku...</h1>
+            <button onClick={toggleNext}>Next</button>
         </>
     );
 
     const GeneratedHaiku = () => (
         <>
             <div>
-                <div>{newHaiku}</div>
-                <div>{newHaiku}</div>
-
+                <div>{newHaiku.data["donald trump"][0]}</div>
             </div>
             <button>Regenerate haiku</button>
             <button>Let me start over</button> 
-            <button onClick={openModal}>Save for later</button>
-            <button onClick={openModal}>Share now</button>   
+            <button onClick={() => openModal('test')}>Save for later</button>
+            <button onClick={() => openModal('test')}>Share now</button>   
         </>
     );
 
@@ -93,11 +91,29 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
             <input type="text" name="link"/>
             <button>Share via link</button>
         </>
-    )
+    );
+
+    const [step, setStep] = useState(0);
+    const [reverse, setReverse] = useState(false);
+    const Steps = [ChooseAuthors, GeneratingHaiku, GeneratedHaiku, ShareHaiku];
+
+    const toggleBack = () => {
+        let prevStep = step - 1 < 0 ? Steps.length - 1 : step - 1;
+        setStep(prevStep);
+        setReverse(true);
+    };
+
+    const toggleNext = () => {
+        console.log('toggled next!')
+        let nextStep = step + 1 < Steps.length ? step + 1 : 0;
+        setStep(nextStep);
+        setReverse(false);
+    };
     
     return (
         <div>
-            <ChooseAuthors />
+            {/* <ChooseAuthors /> */}
+            {React.createElement(Steps[step])}
         </div>
     )
 }
