@@ -45,8 +45,8 @@ async function fetchBars() {
       )
        
         return payload; 
-    } catch {
-      console.log("Error fetching from Bars API")
+    } catch (err) {
+      console.log("Error fetching from Bars API", err)
     }
   }
   
@@ -163,7 +163,7 @@ async function fetchBars() {
           library["Game of Thrones"] += ` ${payload.data.quote}`;
         }
       }
-      console.log(library);
+      //console.log(library);
 
   }
 
@@ -192,8 +192,8 @@ async function fetchBars() {
               console.log("Successfully saved library to db", newLibrary)
             )
             .catch(err => console.log(err));
-        } catch {
-      console.log('Error')
+        } catch (err) {
+      console.log('Error', err)
     }
   }
 
