@@ -69,12 +69,13 @@ router.get("/challenges",
 
 
 // fetch haiku for a single haiku id
-
 router.get("/:haikuId",
 
   (req, res) => {
     Haiku.findById(req.params.haikuId)
-      .then(haiku => res.json(haiku))
+      .then(payload => {
+        res.json(payload)}
+      )
       .catch(err => res.status(404).json({ noHaikuError: "No haiku by that id exists" }))
   }
 
@@ -87,7 +88,12 @@ router.get("/user/:userId",
   (req, res) => {
 
     Haiku.find({ creator: req.params.userId })
-      .then(haiku => res.json(haiku))
+      .then(payload => {
+
+        const haikus = {}
+        payload.map((haiku) => haikus[haiku._id] = haiku)
+        res.json(haikus)
+        })
       .catch(err => res.status(404).json({ noHaikuError: "No haiku by that id exists" }))
   }
 
