@@ -5,8 +5,6 @@ import HaikusItem from './HaikusItem';
 export default function Haikus({
     haikus, currentUser, users, type, fetchHaikus, openModal
 }) {
-    console.log("outside", currentUser);
-
     useEffect(
         // () => {
         //     if (Object.values(state.entities.users).length > 0) {
@@ -20,6 +18,7 @@ export default function Haikus({
         () => {     //may need condition logic to only fetchChallenges if able to get current user
             // if (state.entitites !== undefined) {
             console.log("inside", currentUser);
+            if (currentUser) console.log(currentUser[type])
             // console.log(currentUser[type]) //this will go in the argument to fetchHaikus
                 fetchHaikus([
                 "5e289d707a2dcd14d82706b3",
