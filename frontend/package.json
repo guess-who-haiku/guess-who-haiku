@@ -17,6 +17,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.1",
     "color-alpha": "^1.0.4",
+    "formik": "^2.1.2",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
     "lodash.merge": "^4.6.2",
@@ -31,7 +32,8 @@
     "redux-thunk": "^2.3.0",
     "reduxsauce": "^1.1.2",
     "styled-components": "^5.0.0",
-    "styled-map": "^3.3.0"
+    "styled-map": "^3.3.0",
+    "yup": "^0.28.0"
   },
   "scripts": {
     "start": "react-scripts start",

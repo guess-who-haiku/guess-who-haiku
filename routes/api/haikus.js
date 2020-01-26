@@ -34,12 +34,12 @@ async function getAuthorSelection(authors) {
 
 router.get('/new',
 
-  (req, res) => {
+  async function(req, res) {
 
     const authors = Object.values(req.query); /* get authors from request  */
-    console.log('AUTHORS', authors)
+    // console.log('AUTHORS', authors)
     // for each author, assemble a selection of authors from the library and construct the dictionary
-    selection = getAuthorSelection(authors);
+    const selection = await getAuthorSelection(authors);
     console.log('SELECTION', selection)
     selectionDicts = MarkovUtil.generateDictionaries(selection);
     
@@ -47,16 +47,38 @@ router.get('/new',
     let lines = MarkovUtil.generateLines(selectionDicts);
 
     /* return haiku body */
+    console.log('about to return json new haiku', lines)
     res.json(lines);
-
+    
   }
 );
+
+// fetches haiku challenges
+router.get("/challenges",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let haikus = Object.values(req.query);
+    Haiku.find({
+      _id: { $in: haikus }
+    })
+      // .then(haikus => res.json(haikus))
+      .then(payload => {
+
+        const haikus = {}
+        payload.map(haiku => haikus[haiku._id] = haiku)
+        res.json(haikus)
+      })
+      .catch(err =>
+        res.status(404).json({ noHaikuError: "No challenged haikus found" })
+      )
+  }
+);
+
 
 // fetch haiku for a single haiku id
 router.get("/:haikuId",
 
   (req, res) => {
-
     Haiku.findById(req.params.haikuId)
       .then(payload => {
         res.json(payload)}
@@ -65,7 +87,6 @@ router.get("/:haikuId",
   }
 
 );
-
 
 // fetches haikus for a single user 
 

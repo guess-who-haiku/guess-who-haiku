@@ -47,19 +47,20 @@ router.post('/signup', (req, res) => {
 
 // ------------------------------- GET /login
 router.post('/login', (req, res) => {
-  const { errors, isValid } = validateUser(req.body);
-  // debugger;
+  // const { errors, isValid } = validateUser(req.body);
+  // // debugger;
 
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
+  const errors = {};
 
   const { username, password } = req.body;
 
   User.findOne({ username })
     .then(user => {
       if (!user) {
-        errors.username = 'User not found';
+        errors.username = 'Username does not exist';
         return res.status(404).json(errors);
       }
 
@@ -73,7 +74,7 @@ router.post('/login', (req, res) => {
               })
             })
           } else {
-            errors.password = 'Incorrect password'
+            errors.password = 'Invalid password'
             return res.status(400).json(errors);
           }
         })
@@ -85,7 +86,12 @@ router.post('/login', (req, res) => {
 router.get("/",
   (req, res) => {
     User.find(undefined, '_id username score haikusCreated haikusSharedWith')
-      .then(users => res.json(users))
+      // .then(users => res.json(users))
+      .then(payload => {
+        const users = {};
+        payload.map(user => (users[user._id] = user));
+        res.json(users);
+      })
       .catch(err => res.status(404).json({ nousersfound: 'No users found' }));
   }
 );

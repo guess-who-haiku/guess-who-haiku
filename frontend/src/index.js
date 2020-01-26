@@ -8,7 +8,9 @@ import { setAuthToken } from './store/session/api_util';
 import { Thunks as SessionThunks } from './store/session/actions';
 import { Thunks as UsersThunks } from './store/users/actions';
 import Styled from './styled/Styled';
+import axios from 'axios';
 
+window.axios = axios;
 let store;
 
 if (localStorage.jwtToken) {

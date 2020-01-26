@@ -35,6 +35,8 @@ export const colors = {
   primaryLight: havelockBlue,
   utilityYellow: candleLight,
   utilityPink: cabaret,
+  utilityRed: '#EB5757',
+  utilityGreen: '#27AE60'
 }
 // ---------------------- Font
 const fontWeights = {

@@ -7,7 +7,7 @@ module.exports = function parseJoiErrors(joi) {
   const errors = error.details.reduce((acc, err) => {
     let [name, message] = err.message.split('" ')
     name = name.substr(1)
-    acc[name] = message;
+    acc[name] = `${name.charAt(0).toUpperCase() + name.slice(1)} ${message}`;
     return acc
   }, {})
 
