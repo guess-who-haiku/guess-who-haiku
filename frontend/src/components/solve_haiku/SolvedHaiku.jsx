@@ -1,10 +1,9 @@
 import React from 'react';
 
-export default function ChallengesItem() {
-
+export default function SolvedHaiku() {
     return (
         <div>
-            Haiku Item
+            You solved me!
         </div>
     )
 }

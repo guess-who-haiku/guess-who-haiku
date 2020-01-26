@@ -7,7 +7,7 @@ import NavbarContainer from './nav/NavbarContainer';
 import LandingPage from './landing/LandingPageContainer';
 import Scoreboard from './scoreboard/ScoreboardContainer';
 import SolveHaiku from './solve_haiku/SolveHaikuContainer';
-import Challenges from './challenges/ChallengesContainer';
+import HaikusView from './haiku_views/HaikusContainer';
 
 const App = () => (
   <>
@@ -19,6 +19,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/scoreboard" component={Scoreboard} />
+
         <ProtectedRoute exact path="/challenges" component={Challenges} />
         <Route exact path="/haikus/:haikuId" component={SolveHaiku} />
       </Switch>
