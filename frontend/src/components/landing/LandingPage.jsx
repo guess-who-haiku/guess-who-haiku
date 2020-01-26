@@ -9,7 +9,6 @@ const LandingPage = ({ openModal, createHaikuShares, fetchUsers }) => {
       <DescriptionBox>
         Craft outstanding haikus with the help of the witsters of today’s popular culture, and challenge your friends to be the first to GUESS WHO the voice is behind your newfound literary genius.
       </DescriptionBox>
-      <button onClick={() => openModal('test')}>test modal</button>
     </Page>
   );
 }

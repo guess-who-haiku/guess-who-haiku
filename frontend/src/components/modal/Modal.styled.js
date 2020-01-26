@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import α from 'color-alpha';
-import theme from 'styled/theme';
 
 export const ModalBackground = styled.div`
   position: fixed;
@@ -8,7 +7,7 @@ export const ModalBackground = styled.div`
   bottom: 0;
   right: 0;
   left: 0;
-  background: ${α(theme.colors.primary, .95)};
+  background: ${α('#090909', .9)};
   z-index: 10;
 `;
 

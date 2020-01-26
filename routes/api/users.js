@@ -47,19 +47,20 @@ router.post('/signup', (req, res) => {
 
 // ------------------------------- GET /login
 router.post('/login', (req, res) => {
-  const { errors, isValid } = validateUser(req.body);
-  // debugger;
+  // const { errors, isValid } = validateUser(req.body);
+  // // debugger;
 
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
+  const errors = {};
 
   const { username, password } = req.body;
 
   User.findOne({ username })
     .then(user => {
       if (!user) {
-        errors.username = 'User not found';
+        errors.username = 'Username does not exist';
         return res.status(404).json(errors);
       }
 
@@ -73,7 +74,7 @@ router.post('/login', (req, res) => {
               })
             })
           } else {
-            errors.password = 'Incorrect password'
+            errors.password = 'Invalid password'
             return res.status(400).json(errors);
           }
         })
