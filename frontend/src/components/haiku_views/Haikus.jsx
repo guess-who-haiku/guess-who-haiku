@@ -25,7 +25,12 @@ export default function Haikus({
               return haikus[haikuId]
             })
             .map((haikuObj, idx) => {
-              return (<HaikusItem haiku={haikuObj} key={idx} openModal={openModal} />)
+              return (<HaikusItem 
+                haiku={haikuObj} 
+                key={idx}
+                openModal={openModal} 
+                type={type}
+                />)
             })
         )
     };
