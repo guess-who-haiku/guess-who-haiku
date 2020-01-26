@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ScoreboardItem from './ScoreboardItem';
+import { SBcontainer, Table, TDetail } from "./Scoreboard.styled";
 
 export default class Scoreboard extends Component {
     constructor(props) {
@@ -24,10 +25,8 @@ export default class Scoreboard extends Component {
     }
 
     topTenScores() {
-        let copyUsers = this.props.users.data.slice();
+        let copyUsers = Object.values(this.props.users);
         let sortedUsers = copyUsers.sort(this.compare);
-        // console.log(this.props.users.data);
-        console.log(sortedUsers);
         let scoresArray = [];
         for (let i = 0; i < 10; i++) {
             scoresArray.push(
@@ -38,25 +37,25 @@ export default class Scoreboard extends Component {
     }
 
     render() {
-        if (Object.values(this.props.users).length === 0) {
+        if (Object.keys(this.props.users).length === 0) {
             return null;
         }
         return (
-            <div>
-                <table>
+            <SBcontainer>
+                <Table>
                     <tbody>
                         <tr>
-                            <td>
+                            <TDetail>
                                 Username
-                            </td>
-                            <td>
+                            </TDetail>
+                            <TDetail>
                                 Score
-                            </td>
+                            </TDetail>
                         </tr>
                         {this.topTenScores()}
                     </tbody>
-                </table>
-            </div>
+                </Table>
+            </SBcontainer>
         )
     }
 }

@@ -1,14 +1,15 @@
 import React from 'react'
+import { TDetail} from './Scoreboard.styled';
 
 export default function ScoreboardItem({user}) {
     return (
         <tr>
-            <td>
+            <TDetail>
             {user.username}
-            </td>
-            <td>
-            {user.score}
-            </td>
+            </TDetail>
+            <TDetail>
+            {user.score.toFixed(0)}
+            </TDetail>
         </tr>
     )
 }

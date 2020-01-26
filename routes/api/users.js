@@ -86,7 +86,12 @@ router.post('/login', (req, res) => {
 router.get("/",
   (req, res) => {
     User.find(undefined, '_id username score haikusCreated haikusSharedWith')
-      .then(users => res.json(users))
+      // .then(users => res.json(users))
+      .then(payload => {
+        const users = {};
+        payload.map(user => (users[user._id] = user));
+        res.json(users);
+      })
       .catch(err => res.status(404).json({ nousersfound: 'No users found' }));
   }
 );

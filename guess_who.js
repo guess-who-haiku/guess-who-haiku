@@ -11,6 +11,13 @@ const haikuShares = require("./routes/api/haikuShares");
 const authors = require("./routes/api/authors");
 const path = require('path');
 
+const constructLibrary = require('./externalAPI');
+
+/* Uncomment to seed author library */
+// constructLibrary();
+
+/* Ext */
+
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB successfully"))
@@ -34,16 +41,6 @@ require('./config/passport')(passport);
 // Configure bodyparser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-//Configure multer middleware
-// app.use( multer(
-//   {
-//     dest: './uploads',
-//     rename: function(fieldname, filename) {
-//       return filename;
-//     }
-//   }
-// ));
 
 app.use('/api/users', users);
 app.use('/api/haikus', haikus);
