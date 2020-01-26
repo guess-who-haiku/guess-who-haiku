@@ -7,8 +7,12 @@ export const formatHaiku = (data, haikuAuthors) => {
         case 2:
             //if two authors, first two lines come from first auth and last line comes from second auth
             let newHaiku2 = []
-            newHaiku2.push(data[haikuAuthors[0]].slice(0, 2))
-            newHaiku2.push(data[haikuAuthors[1]].slice(2))
+            newHaiku2.push(data[haikuAuthors[0]][0])
+            newHaiku2.push(data[haikuAuthors[0]][1])
+            newHaiku2.push(data[haikuAuthors[1]][2])
+            // newHaiku2.concat(data[haikuAuthors[0]].slice(0, 2))
+            // newHaiku2.concat(data[haikuAuthors[1]].slice(2))
+            console.log('formatted with 2 voices', newHaiku2)
             return newHaiku2;
         case 3:
             //if three authors, one line is taken from each in order of original auth selection
