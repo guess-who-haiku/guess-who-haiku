@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
-import { Nav, MenuIcon, Logo, Menu, MenuLink, MenuItem } from './Navbar.styled';
-const NavBar = ({ history, loggedIn, logout }) => {
+import { Nav, MenuIcon, Logo, Menu, MenuLink, MenuNavLink, MenuItem } from './Navbar.styled';
+const NavBar = ({ history, loggedIn, logout, openModal }) => {
 
   const [isToggled, setIsToggled] = useState(false);
   const toggle = () => setIsToggled(prevState => !prevState);
 
 
   const renderLinks = () => {
-    if (true) {
+    if (loggedIn) {
       return (
         <>
-          <MenuLink to="/haikus">
+          <MenuNavLink to="/haikus">
             <MenuItem>My Haikus</MenuItem>
-          </MenuLink>
-          <MenuLink to="/challenges">
+          </MenuNavLink>
+          <MenuNavLink to="/challenges">
             <MenuItem>My Challenges</MenuItem>
-          </MenuLink>
-          <MenuLink to="/scoreboard">
+          </MenuNavLink>
+          <MenuNavLink to="/scoreboard">
             <MenuItem>Scoreboard</MenuItem>
-          </MenuLink>
-          <MenuLink to="/login">
+          </MenuNavLink>
+          <MenuLink onClick={logout}>
             <MenuItem>Logout</MenuItem>
           </MenuLink>
         </>
@@ -28,6 +28,12 @@ const NavBar = ({ history, loggedIn, logout }) => {
     } else {
       return (
         <>
+          <MenuLink onClick={() => openModal('signup')}>
+            <MenuItem>Signup</MenuItem>
+          </MenuLink>
+          <MenuLink onClick={() => openModal('login')}>
+            <MenuItem>Login</MenuItem>
+          </MenuLink>
         </>
       );
     }
