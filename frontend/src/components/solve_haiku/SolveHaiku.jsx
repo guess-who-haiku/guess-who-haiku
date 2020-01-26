@@ -2,12 +2,12 @@ import React, { Fragment as F, useState, useEffect, memo, useRef } from 'react';
 import { } from './SolveHaiku.styled';
 import { formatHaiku } from 'util/haiku_format_util';
 
-const SolveHaiku = ({getHaiku, getAuthors, completeHaiku, match, haiku, authors, users }) => {
+const SolveHaiku = ({getHaiku, getAuthors, completeHaiku, haikuId, haiku, authors, users }) => {
   
   const AUTHOR_OPTIONS_NUM = 6;
 
   function fetchHaikuData() {
-    getHaiku(match.params.haikuId);
+    getHaiku(haikuId);
   }
   
   /* fetch current haiku from the url on load */

@@ -5,8 +5,9 @@ import Root from './components/Root';
 import configureStore from './store/index';
 import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './store/session/api_util';
-import { Thunks as SessionThunks } from './store/session/actions';
-import { Thunks as UsersThunks } from './store/users/actions';
+import { Thunks as Session } from './store/session/actions';
+import { Thunks as Users } from './store/users/actions';
+import { Thunks as Authors } from './store/authors/actions';
 import Styled from './styled/Styled';
 import axios from 'axios';
 
@@ -22,14 +23,15 @@ if (localStorage.jwtToken) {
 
   const currentTime = Date.now() / 1000;
   if (decodedUser.exp < currentTime) {
-    store.dispatch(SessionThunks.logout());
+    store.dispatch(Session.logout());
     window.location.href = '/login';
   }
 } else {
   store = configureStore({});
 }
 
-store.dispatch(UsersThunks.fetchUsers())
+store.dispatch(Users.fetchUsers())
+store.dispatch(Authors.fetchAuthors())
 
 ReactDOM.render(<Styled><Root store={store} /></Styled>, document.getElementById('root'));
 

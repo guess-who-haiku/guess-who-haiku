@@ -10,7 +10,7 @@ import { selectAllUsers } from 'store/selectors';
 import { Creators } from 'store/modal/actions';
 
 const mapStateToProps = state => ({
-  currentUser: state.session.currentUser,
+  currentUser: state.session.userId,
   authors: state.entities.authors,
   newHaiku: state.entities.newHaiku,
   users: selectAllUsers(state)

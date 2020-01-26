@@ -8,6 +8,6 @@ export const { Types, Creators } = createActions({
 export const Thunks = {};
 Thunks.fetchAuthors = () => dispatch => (
     APIUtil.getAuthors()
-        .then(authors => dispatch(Creators.receiveAuthors(authors.data)))
+        .then(({ data: authors }) => dispatch(Creators.receiveAuthors(authors)))
         .catch(errs => console.log(errs))
 )

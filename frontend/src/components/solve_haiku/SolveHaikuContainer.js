@@ -4,19 +4,17 @@ import { Thunks as AuthorThunks } from 'store/authors/actions';
 import { selectCurrentUser } from "store/selectors";
 import SolveHaiku from './SolveHaiku';
 
-const mapStateToProps = (state, ownProps) => {
-  // console.log('currhaiku id is',ownProps.match.params.haikuId);
-  // console.log('haiku is',state.entities.haikus[ownProps.match.params.haikuId]);
-  // console.log('users are',state.entities.users);
-  return ({
+
+const mapStateToProps = state => ({
 
   currUser: selectCurrentUser(state),
-  haiku: state.entities.haikus[ownProps.match.params.haikuId],
-  authors: state.entities.authors, 
+  haikuId: state.ui.modal.haikuId,
+  haiku: state.entities.haikus[state.ui.modal.haikuId],
+  authors: state.entities.authors,
   users: state.entities.users
+  
+});
 
-})
-};
 
 const mapDispatchToProps = dispatch => ({
 
