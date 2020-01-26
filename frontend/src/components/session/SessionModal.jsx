@@ -4,7 +4,7 @@ import { Topbar, NavLink, CloseBtn, Wrapper, Title, Form, Input, InputGroup, Err
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const SessionModal = ({ history, login, signup, isLoggedIn, openAltModal, closeModal, action }) => {
+const SessionModal = ({ login, signup, openAltModal, closeModal, action }) => {
 
   const initialValues = { username: '', password: '' }
   const validationSchema = Yup.object().shape({
@@ -27,7 +27,6 @@ const SessionModal = ({ history, login, signup, isLoggedIn, openAltModal, closeM
     validationSchema: (action === 'Signup') ? validationSchema : undefined,
     onSubmit: async userData => {
       try {
-        userData.password = '';
         await processForm(userData)
         closeModal()
       } catch (err) {
