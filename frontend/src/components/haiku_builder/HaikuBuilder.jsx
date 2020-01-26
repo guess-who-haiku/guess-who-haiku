@@ -41,7 +41,6 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
 
     //share haiku
 
-    
     //steps
     const ChooseAuthors = () => (
         <>
