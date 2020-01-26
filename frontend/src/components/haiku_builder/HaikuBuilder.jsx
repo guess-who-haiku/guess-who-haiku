@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
 import barackObama from '../../assets/barack_obama.jpg';
+import donaldTrump from '../../assets/donald_trump.jpg';
+import gameOfThrones from '../../assets/game_of_thrones.jpg';
+import homerSimpson from '../../assets/homer_simpson.jpg';
+import janeAusten from '../../assets/jane_austen.jpg';
+import kanyeWest from '../../assets/kanye_west.jpg';
+import rickAndMorty from '../../assets/rick_and_morty.jpg';
 
 import { HBContainer, LIContainer, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
 import { formatHaiku } from '../../util/haiku_format_util';
