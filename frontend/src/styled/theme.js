@@ -1,10 +1,9 @@
 import { css } from 'styled-components'
 
-
 // media query helper
 const breakpoints = {
   desktopL: { px: 1000 },
-  desktopS: { px: 900},
+  desktopS: { px: 900 },
   tablet: { px: 768 },
   mobileL: { px: 600 }
 }
@@ -36,6 +35,8 @@ export const colors = {
   primaryLight: havelockBlue,
   utilityYellow: candleLight,
   utilityPink: cabaret,
+  utilityRed: '#EB5757',
+  utilityGreen: '#27AE60'
 }
 // ---------------------- Font
 const fontWeights = {

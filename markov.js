@@ -12,6 +12,8 @@ function markovChainGenerator(text) {
             }
         }
     }
+    let formattedWords = Object.keys(markovChain)
+    markovChain[formattedWords[formattedWords.length - 1]].push(formattedWords[0])
     return markovChain;
 };
 
@@ -32,6 +34,7 @@ function generateDictionaries(sampleTextsObj) {
     people.forEach(person => {
         dictionaries[person] = markovChainGenerator(sampleTextsObj[person])
     });
+    //console.log('inside generateDictionaries function', dictionaries);
     return dictionaries;
 };
 
@@ -40,15 +43,17 @@ function generateDictionaries(sampleTextsObj) {
 function generateLine(dictionary, syllable) {
     let keys = Object.keys(dictionary);
     let lineArr = [keys[Math.floor(Math.random() * keys.length)]];
-    // logic below will need to be altered to create lines of specified syllable
+    // logic below will need to be altered to create lines of specified syllable in Markov chain gen
     for (let i = 0; i < syllable; i++) {
         let newWords = dictionary[lineArr[i]];
         lineArr.push(newWords[Math.floor(Math.random() * newWords.length)]);
         // lineArr.push(tatiana(newWords));
+        //console.log('inside generate line', lineArr);
     }
+    //need to give ending word starting word as key
+    //console.log('outside of loop lineArr (gen lines func)', lineArr);
     return lineArr.join(" ");
 }
-
 
 /* takes dict object with author, text dictionary key value pairs and returns an object with a haiku body */
 
@@ -76,6 +81,8 @@ function generateLines(dictionaries) {
 // let dicts = generateDictionaries(sarah);
 
 // console.log(generateLines(dicts));
+
+
 
 module.exports = {
 

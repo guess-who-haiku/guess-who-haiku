@@ -1,24 +1,23 @@
-import {
-  RECEIVE_HAIKUS,
-  RECEIVE_HAIKU,
-  RECEIVE_NEW_HAIKU
-} from "./actions";
-import { merge } from "lodash";
+import { Types } from "./actions";
 
 const HaikusReducer = (state = {}, action) => {
-    Object.freeze(state);
-    let newState = Object.assign({}, state);
-    switch (action.type) {
-        case RECEIVE_HAIKUS:
-            return Object.assign({}, action.haikus);
-        case RECEIVE_HAIKU:
-            return merge({}, newState, action.haiku);
-        case RECEIVE_NEW_HAIKU:
-            newState.new = action.haiku;
-            return Object.assign({}, newState);
-        default:
-            return state;
-    }
+	Object.freeze(state);
+	const newState = Object.assign({}, state);
+	switch (action.type) {
+		case Types.RECEIVE_HAIKUS:
+      const haikus = action.haikus.data;
+			return Object.assign({}, state, haikus);
+		case Types.RECEIVE_HAIKU:
+			const haiku  = action.haiku.data;
+			return Object.assign({}, state, { [haiku._id]: haiku }  );
+		case Types.REMOVE_HAIKU:
+				const { haikuId } = action;
+				delete newState[haikuId];
+				return newState;
+		default:
+			return state;
+	}
 };
 
 export default HaikusReducer;
+

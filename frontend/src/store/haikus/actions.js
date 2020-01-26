@@ -1,47 +1,54 @@
-import * as APIUtil from "./api_util";
+import { createActions } from 'reduxsauce';
+import * as APIUtil from './api_util';
+import { Creators as NewHaikuCreators } from '../new_haiku/actions';
 
-export const RECEIVE_HAIKUS = "RECEIVE_HAIKUS";
-export const RECEIVE_HAIKU = "RECEIVE_HAIKU";
-export const RECEIVE_NEW_HAIKU = "RECEIVE_NEW_HAIKU";
+export const { Types, Creators } = createActions({
+  receiveHaikus: ['haikus'],
+  receiveHaiku: ['haiku'],
+  removeHaiku: ['haikuId']
+}, { prefix: '[HAIKUS] ' })
 
-export const receiveHaikus = haikus => ({
-  type: RECEIVE_HAIKUS,
-  haikus
-});
+// const RECEIVE_HAIKUS = '[HAIKUS] RECEIVE_HAIKUS';
 
-export const receiveHaiku = haiku => ({
-  type: RECEIVE_HAIKU,
-  haiku
-});
+// const receiveHaikus = haikus = ({
+//   type: RECEIVE_HAIKUS,
+//   haikus
+// })
 
-export const receiveNewHaiku = haiku => ({
-  type: RECEIVE_NEW_HAIKU,
-  haiku
-});
+export const Thunks = {};
 
-export const fetchNewHaiku = (authors) => dispatch =>
-  APIUtil.getNewHaiku(authors)
-    .then(haiku => dispatch(receiveNewHaiku(haiku)))
-    .catch(err => console.log(err));
-
-export const fetchHaiku = (haikuId) => dispatch =>
+Thunks.fetchHaiku = (haikuId) => dispatch =>
   APIUtil.getHaiku(haikuId)
-    .then(haiku => dispatch(receiveHaiku(haiku)))
+    .then(haiku => dispatch(Creators.receiveHaiku(haiku)))
     .catch(err => console.log(err));
 
-export const fetchHaikusUser = (userId) => dispatch =>
+Thunks.fetchHaikusUser = (userId) => dispatch =>
   APIUtil.getHaikusUser(userId)
-    .then(haikus => dispatch(receiveHaikus(haikus)))
+    .then(haikus => dispatch(Creators.receiveHaikus(haikus)))
     .catch(err => console.log(err));
 
-export const createHaiku = (haiku) => dispatch =>
+Thunks.fetchHaikuChallenges = (haikus) => dispatch =>
+  APIUtil.getHaikuChallenges(haikus)
+    .then(haikus => dispatch(Creators.receiveHaikus(haikus)))
+    .catch(err => console.log(err));
+
+Thunks.createHaiku = (haiku) => dispatch =>
   APIUtil.createHaiku(haiku)
-    .then(haiku => dispatch(receiveHaiku(haiku)))
+    .then(haiku => dispatch(Creators.receiveHaiku(haiku)))
+    .then(haiku => dispatch(NewHaikuCreators.receiveNewHaiku(haiku)))
     .catch(err => console.log(err));
 
-export const deleteHaiku = (haikuId) => dispatch =>
+Thunks.deleteHaiku = (haikuId) => dispatch =>
   APIUtil.deleteHaiku(haikuId)
-    .then(res => {
-        window.location.reload();
-    })
+    .then(({ _id }) => dispatch(Creators.removeHaiku(_id)))
+    .catch(err => console.log(err));
+
+Thunks.createHaikuShares = (haikuId, recipientIds) => dispatch =>
+  APIUtil.createHaikuShares(haikuId, recipientIds)
+    .then(haiku => dispatch(Creators.receiveHaiku(haiku)))
+    .catch(err => console.log(err));
+
+Thunks.updateHaikuShare = (haikuId, userId, openTS, completeTS) => dispatch =>
+  APIUtil.updateHaikuShare(haikuId, userId, openTS, completeTS)
+    .then(haiku => dispatch(Creators.receiveHaiku(haiku)))
     .catch(err => console.log(err));

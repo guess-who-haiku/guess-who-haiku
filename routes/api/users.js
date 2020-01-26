@@ -4,28 +4,26 @@ const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
 const keys = require('../../config/keys');
 const jwt = require('jsonwebtoken');
-const validateUserSignup = require('../../validation/signup');
-const validateUserLogin = require('../../validation/login');
+const validateUser = require('../../validation/user');
 
 // ------------------------------- POST /signup
 router.post('/signup', (req, res) => {
-  const { errors, isValid } = validateUserSignup(req.body);
+  const { errors, isValid } = validateUser(req.body);
 
   if (!isValid) {
     return res.status(400).json(errors);
   }
 
-  const { username, email, password } = req.body;
+  const { username, password } = req.body;
 
-  User.findOne({ email })
+  User.findOne({ username })
     .then(user => {
       if (user) {
-        errors.email = 'Email already exists';
+        errors.username = 'Username already exists';
         return res.status(400).json(errors);
       }
       const newUser = new User({
         username,
-        email,
         passwordDigest: password
       })
 
@@ -36,10 +34,7 @@ router.post('/signup', (req, res) => {
           return newUser.save()
         })
         .then(user => {
-          const { id, username, email} = user;
-          const payload = { id, username, email };
-
-          jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (undefined, token) => {
+          jwt.sign({ userId: user.id }, keys.secretOrKey, { expiresIn: 3600 }, (undefined, token) => {
             res.json({
               success: true,
               token: `Bearer ${token}`
@@ -52,37 +47,34 @@ router.post('/signup', (req, res) => {
 
 // ------------------------------- GET /login
 router.post('/login', (req, res) => {
-  const { errors, isValid } = validateUserLogin(req.body);
-  // debugger;
+  // const { errors, isValid } = validateUser(req.body);
+  // // debugger;
 
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
+  const errors = {};
 
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  User.findOne({ email })
+  User.findOne({ username })
     .then(user => {
       if (!user) {
-        errors.email = 'User not found';
+        errors.username = 'Username does not exist';
         return res.status(404).json(errors);
       }
 
       bcrypt.compare(password, user.passwordDigest)
         .then(isMatch => {
           if (isMatch) {
-            const { id, username, email } = user;
-
-            const payload = { id, username, email };
-
-            jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (undefined, token) => {
+            jwt.sign({ userId: user.id }, keys.secretOrKey, { expiresIn: 3600 }, (undefined, token) => {
               res.json({
                 success: true,
                 token: `Bearer ${token}`
               })
             })
           } else {
-            errors.password = 'Incorrect password'
+            errors.password = 'Invalid password'
             return res.status(400).json(errors);
           }
         })
@@ -93,9 +85,14 @@ router.post('/login', (req, res) => {
 // ------------------------------- GET /
 router.get("/",
   (req, res) => {
-    User.find()
-        .then(users => res.json(users))
-        .catch(err => res.status(404).json({ nousersfound: 'No users found' }));
+    User.find(undefined, '_id username score haikusCreated haikusSharedWith')
+      // .then(users => res.json(users))
+      .then(payload => {
+        const users = {};
+        payload.map(user => (users[user._id] = user));
+        res.json(users);
+      })
+      .catch(err => res.status(404).json({ nousersfound: 'No users found' }));
   }
 );
 

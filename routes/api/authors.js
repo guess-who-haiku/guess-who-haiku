@@ -3,15 +3,19 @@ const router = express.Router();
 const passport = require("passport");
 
 const Author = require("../../models/Author");
+const Library = require("../../models/Library")
 
-// ------------------------------- GET /
 router.get(
   "/",
   (req, res) => {
-    Author.find()
-      .then(authors => res.json(authors))
-      .catch(err => res.status(404).json({ noauthorsfound: "No authors found" }));
+    Library.find()
+      .then(payload => {
+        let authors = (Object.keys(payload[0]["library"]));
+        res.json(authors)
+      })
+      .catch(err => res.status(404).json({ noauthorsfound: err }));
   }
 );
+
 
 module.exports = router;

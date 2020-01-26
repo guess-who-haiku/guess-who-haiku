@@ -1,14 +1,17 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Thunks } from 'store/session/index';
+import { Thunks as Session } from 'store/session/actions';
+import { selectCurrentUser } from 'store/selectors';
+import { Creators as Modal } from 'store/modal/actions';
 import NavBar from './Navbar';
 
 const mapStateToProps = state => ({
-  loggedIn: state.session.isAuthenticated
+  loggedIn: Boolean(selectCurrentUser(state))
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(Thunks.logout())
+  logout: () => dispatch(Session.logout()),
+  openModal: name => dispatch(Modal.openModal(name))
 });
 
 export default withRouter(

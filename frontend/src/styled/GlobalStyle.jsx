@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    font-size: 50%; /* sets the unit 'rem' to (62.5%,10px) (.5%, 8px)  */
+    font-size: 50%; /* sets the unit 'rem' to (62.5%,10px) (50%, 8px)  */
   }
 
   body {
@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ul, li {
-    list-style-image: none;
+    list-style: none;
   }
 
 `;

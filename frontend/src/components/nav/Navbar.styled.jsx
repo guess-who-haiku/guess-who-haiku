@@ -25,6 +25,9 @@ export const Logo = styled(Link).attrs({ to: '/' })`
 
 export const MenuIcon = styled(FontAwesomeIcon).attrs({ icon: menuIcon })`
   font-size: 3rem;
+  ${media.desktopS`
+    display: none;
+  `}
 `;
 
 // ---------------- Menu
@@ -38,22 +41,29 @@ export const Menu = styled.ul`
   overflow: hidden;
   transition-duration: .3s;
   transition-timing-function: ease-in;
-
-  ${media.tablet`
-    background-color: red;
-  `}
+  color: white;
+  
 
   max-height: ${styledMap`
     default: 0;
     isExpanded: 30vh;
   `};
 
+  ${media.desktopS`
+    flex-direction: row;
+    max-height: 5rem;
+    justify-content: start;
+    justify-self: end;
+  `}
+
   
 `;
 
-export const MenuLink = styled(NavLink).attrs({})`
+export const MenuLink = styled.a`
   padding: .9rem 1.2rem;
 `;
+
+export const MenuNavLink = styled(MenuLink).attrs({ as: NavLink })``;
 
 export const MenuItem = styled.li`
   list-style: none;

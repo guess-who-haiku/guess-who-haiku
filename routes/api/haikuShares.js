@@ -23,7 +23,9 @@ router.post('/',
                                 Haiku.updateOne(
                                     { "_id": haiku._id },
                                     { "$push": { "usersSharedWith": { userId: userId } }})
-                                    .then(() => res.json(haiku))
+                                    .then(() => {
+                                        Haiku.findById(req.body.haikuId).then((updatedHaiku) => res.json(updatedHaiku))
+                                    })
                                     //.catch((errs) => console.log('Error updating haiku', errs));
                             })
                             .catch(err => {
@@ -39,6 +41,7 @@ router.post('/',
 router.patch('/:haikuId',
     passport.authenticate('jwt', { session: false }),
         (req, res) => {
+            let score = 0;
             Haiku.findById( req.params.haikuId )
                 .then(haiku => {
                     haiku.usersSharedWith.forEach(user => {
@@ -48,6 +51,9 @@ router.patch('/:haikuId',
                             }
                             if (req.body.completeTimestamp != undefined) {
                                 user.completeTimestamp = req.body.completeTimestamp;
+                                let timeDiff =
+                                  (req.body.completeTimestamp - user.openTimestamp)/1000;
+                                score = 2000 - (2000*timeDiff/(2000 + timeDiff)) + 100;
                             }
                             if (req.body.openTimestamp != undefined) {
                                 user.openTimestamp = req.body.openTimestamp;
@@ -55,6 +61,20 @@ router.patch('/:haikuId',
                         }
                     })
                     haiku.save().then(haiku => res.json(haiku));
+                })
+                .then(() => {
+                    if (req.body.completeTimestamp != undefined) {
+                        User.findById(req.body.userId)
+                        .then(user => {
+                            user.score += score;
+                            user.save();
+                        })
+                        .catch(err => {
+                            res
+                              .status(500)
+                              .json({ updatefailed: "User score update failed" });
+                        })
+                    }
                 })
                 .catch(err => {
                     res.status(500).json({ updatefailed: "Haiku update failed" });
