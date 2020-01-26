@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { font } from './theme';
+import { font, media } from './theme';
 import 'normalize.css';
 
 const GlobalStyle = createGlobalStyle`
@@ -20,6 +20,12 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     font-size: 50%; /* sets the unit 'rem' to (62.5%,10px) (50%, 8px)  */
+    ${media.tablet`
+      font-size: 57%;
+    `}
+    ${media.desktopS`
+      font-size: 62.5%;
+    `}
   }
 
   body {
