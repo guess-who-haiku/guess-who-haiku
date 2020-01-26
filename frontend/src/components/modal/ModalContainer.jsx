@@ -7,7 +7,6 @@ import Modal from './Modal';
 
 const mapStateToProps = state => ({
   modal: state.ui.modal,
-  currentUser: state.session.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

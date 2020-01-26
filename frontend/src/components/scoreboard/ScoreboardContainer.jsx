@@ -4,7 +4,7 @@ import { Thunks } from "store/users/actions";
 import { Creators } from "store/modal/actions";
 
 const mapStateToProps = state => ({
-    users: state.users
+    users: state.entities.users
 });
 
 const mapDispatchToProps = dispatch => ({
