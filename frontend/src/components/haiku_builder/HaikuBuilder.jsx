@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Loader from 'react-loader-spinner';
+
 import { HBContainer } from './HaikuBuilder.styled';
 import { formatHaiku } from '../../util/haiku_format_util';
 
@@ -9,9 +11,14 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
         fetchAuthors();    
     }, [fetchAuthors]);
 
-    //set selected authors in local state
+    //set local state
     const [haikuAuthors, setHaikuAuthors] = useState([]);
+    const [haiku, setHaiku] = useState([]);
+    const [step, setStep] = useState(0);
+    const [reverse, setReverse] = useState(false);
+
     console.log(haikuAuthors);
+   
 
     //update selection of haiku authors
     const handleAuthorSelection = e => {
@@ -23,14 +30,33 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
         }
     };
 
-    //set formatted Haiku in state
-    const [haiku, setHaiku] = useState([]);
-
     //create new haiku
     const generateHaiku = () => {
         fetchNewHaiku(haikuAuthors)
-            // .then(() => setHaiku(newHaiku.data, haikuAuthors))
     };
+
+    useEffect(() => {
+        newHaiku && setHaiku(formatHaiku(newHaiku.data, haikuAuthors))
+        //newHaiku && console.log('inside useEffect', newHaiku)
+    }, [newHaiku])
+
+    //load new haiku
+    useEffect(() => {
+        if (step === 1) {
+            console.log('step is 1')
+            const loading = setTimeout(() => {
+                toggleNext()
+            }, 2000);
+            return () => clearTimeout(loading);
+        }
+    }, [step])
+
+    //start over
+    const startOver = () => {
+        setStep(0);
+        setHaikuAuthors([]);
+        setHaiku([])
+    }
 
     //set selected users to share with in local state
     const [haikuShares, setHaikuShares] = useState([]);
@@ -46,9 +72,6 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
         }
     };
 
-    //share haiku
-
-    
     //steps
     const ChooseAuthors = () => (
         <>
@@ -68,21 +91,26 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
     const GeneratingHaiku = () => (
         <>
             <h1>Just one moment while we build your haiku...</h1>
-            <button onClick={toggleNext}>Next</button>
+            <Loader
+                type="Grid"
+                color="#9277B2"
+                height={80}
+                width={80}
+            />
         </>
     );
 
     const GeneratedHaiku = () => (
         <>
-            <div>
+            <div> 
                 {newHaiku.data && formatHaiku(newHaiku.data, haikuAuthors).map(line => (
-                    <p key={line}>
+                    <li key={line}>
                         {line}
-                    </p>
+                    </li>
                 ))}
             </div>
-            <button>Regenerate haiku</button>
-            <button>Let me start over</button> 
+            <button onClick={() => { generateHaiku(); toggleBack(); }}>Regenerate haiku</button>
+            <button onClick={startOver}>Let me start over</button> 
             <button onClick={() => openModal('test')}>Save for later</button>
             <button onClick={() => openModal('test')}>Share now</button>   
         </>
@@ -105,9 +133,8 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
         </>
     );
 
-    const [step, setStep] = useState(0);
-    const [reverse, setReverse] = useState(false);
     const Steps = [ChooseAuthors, GeneratingHaiku, GeneratedHaiku, ShareHaiku];
+    console.log("HAIKU:", haiku)
 
     const toggleBack = () => {
         let prevStep = step - 1 < 0 ? Steps.length - 1 : step - 1;
