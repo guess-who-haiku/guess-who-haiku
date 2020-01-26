@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
+import barackObama from '../../assets/barack_obama.jpg';
 
-import { HBContainer, LIContainer, Message, ErrorMsg } from './HaikuBuilder.styled';
+import { HBContainer, LIContainer, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
 import { formatHaiku } from '../../util/haiku_format_util';
 
 const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHaiku, authors, newHaiku, users, openModal, currentUser}) => {
+
+    //MVP authors
+    let MVPauthors = ["Donald Trump", "Homer Simpson", "Game of Thrones", "Barack Obama", "Jane Austen", "Rick and Morty", "Kanye West"];
 
     //fetch authors on load
     useEffect(() => {
@@ -22,6 +26,7 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
 
     //update selection of haiku authors
     const handleAuthorSelection = e => {
+        console.log(e.currentTarget);
         let newAuthor = e.currentTarget.dataset.name;
         if (!haikuAuthors.includes(newAuthor) && haikuAuthors.length < 3) {
             setHaikuAuthors([...haikuAuthors, newAuthor])
@@ -94,22 +99,25 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
         <>
             <Message>Choose up to three figures below:</Message>
             <LIContainer>
-                {authors.data && authors.data.map(author => (
-                    <li data-selected={haikuAuthors.includes(author)} key={author} data-name={author} onClick={handleAuthorSelection}>
+                {authors.data && authors.data.map(author => {
+                    if (MVPauthors.includes(author)) {
+                        return (
+                    <AuthorItem data-selected={haikuAuthors.includes(author)} key={author} data-name={author} onClick={handleAuthorSelection}>
+                        <AuthorIcon src={barackObama} alt={author}/>
                         {author}
-                        {/* <img src={author} alt={author} /> */}
-                    </li>
-                ))}
+                    </AuthorItem>
+                        )}    
+                })}
             </LIContainer>
             {authorError ? error : null}
-            <button onClick={generateHaiku}>Build my Haiku!</button>
+            <Btn onClick={generateHaiku}>Build my Haiku!</Btn>
             
         </>
     );
 
     const GeneratingHaiku = () => (
         <>
-            <Message>Good choice! Just one moment while we build your haiku...</Message>
+            <Message>Just one moment while we build your haiku...</Message>
             <LIContainer>
                 <Loader
                     type="Grid"
@@ -130,10 +138,10 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
                     </li>
                 ))}
             </div>
-            <button onClick={() => { generateHaiku(); toggleBack(); }}>Regenerate haiku</button>
-            <button onClick={startOver}>Let me start over</button> 
-            <button onClick={() => openModal('login')}>Save for later</button>
-            <button onClick={() => openModal('login')}>Share now</button>   
+            <Btn onClick={() => { generateHaiku(); toggleBack(); }}>Regenerate haiku</Btn>
+            <Btn onClick={startOver}>Let me start over</Btn> 
+            <Btn onClick={() => openModal('login')}>Save for later</Btn>
+            <Btn onClick={() => openModal('login')}>Share now</Btn>   
         </>
     );
 
@@ -147,10 +155,10 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
                     </li>
                 ))}
             </LIContainer>
-            <button>Share</button>
+            <Btn>Share</Btn>
             {/* set input value to current haiku id */}
             <input type="text" name="link"/>
-            <button>Share via link</button>
+            <Btn>Share via link</Btn>
         </>
     );
 
