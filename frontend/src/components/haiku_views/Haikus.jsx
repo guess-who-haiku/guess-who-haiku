@@ -6,34 +6,21 @@ export default function Haikus({
     haikus, currentUser, users, type, fetchHaikus, openModal
 }) {
     useEffect(
-        // () => {
-        //     if (Object.values(state.entities.users).length > 0) {
-        //         // console.log(selectCurrentUser(state));
-        //         fetchChallenges([
-        //         "5e289d707a2dcd14d82706b3",
-        //         "5e28adea21b1a21a963dbbd1"
-        //         ]);
-        //     }
-        // },
-        () => {     //may need condition logic to only fetchChallenges if able to get current user
-            // if (state.entitites !== undefined) {
-            console.log("inside", currentUser);
-            if (currentUser) console.log(currentUser[type])
-            // console.log(currentUser[type]) //this will go in the argument to fetchHaikus
-                fetchHaikus([
-                "5e289d707a2dcd14d82706b3",
-                "5e28adea21b1a21a963dbbd1"
-                ])
-            // };
+        () => {
+            if (currentUser) {
+                fetchHaikus(currentUser[type])
+            }
         },
-        [users]
+        [users, type]
     );
 
     const renderHaikus = () => {
-        const haikusArr = ["5e289d707a2dcd14d82706b3", "5e28adea21b1a21a963dbbd1"]; //for testing
+        // const haikusArr = ["5e289d707a2dcd14d82706b3", "5e28adea21b1a21a963dbbd1"]; //for testing
+        if (!currentUser) {
+            return null;
+        }
         return (
-            // currentUser.haikusSharedWith
-            haikusArr  //for testing
+            currentUser[type]
             .map(haikuId => {
               return haikus[haikuId]
             })
@@ -43,15 +30,25 @@ export default function Haikus({
         )
     };
 
-    if (Object.keys(haikus).length === 0) {
+    if (!currentUser) {
         return null;
+    }
+
+    if (currentUser[type].length === 0) {
+        return (
+            <HaikuSection>
+                <Title>
+                    {type === 'haikusCreated' ? "You haven't created any haikus" : "You haven't been challenged"}
+                </Title>
+            </HaikuSection>
+        )
     };
 
     return (
         <HaikuSection>
-            <Title>
-                {type}
-            </Title>
+            {/* <Title> */}
+                {/* {type === 'haikusCreated'? 'My Created Haikus' : "My Challenges"} */}
+            {/* </Title> */}
             <HaikuContainer>
                 {renderHaikus()}
             </HaikuContainer>
