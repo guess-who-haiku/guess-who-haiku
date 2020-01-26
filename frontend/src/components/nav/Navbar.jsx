@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
-import { Nav, MenuIcon, Logo, Menu, MenuLink, MenuNavLink, MenuItem } from './Navbar.styled';
+import { Nav, MenuIcon, LogoBox, Logo, Menu, MenuLink, MenuNavLink, MenuItem } from './Navbar.styled';
 const NavBar = ({ history, loggedIn, logout, openModal }) => {
 
   const [isToggled, setIsToggled] = useState(false);
@@ -16,9 +16,6 @@ const NavBar = ({ history, loggedIn, logout, openModal }) => {
           </MenuNavLink>
           <MenuNavLink to="/challenges">
             <MenuItem>My Challenges</MenuItem>
-          </MenuNavLink>
-          <MenuNavLink to="/scoreboard">
-            <MenuItem>Scoreboard</MenuItem>
           </MenuNavLink>
           <MenuLink onClick={logout}>
             <MenuItem>Logout</MenuItem>
@@ -43,9 +40,12 @@ const NavBar = ({ history, loggedIn, logout, openModal }) => {
     <>
       <Nav>
         <MenuIcon onClick={toggle} />
-        <Logo>GWH</Logo>
+        <LogoBox><Logo /></LogoBox>
       </Nav>
       <Menu isExpanded={isToggled}>
+        <MenuNavLink to="/scoreboard">
+          <MenuItem>Scoreboard</MenuItem>
+        </MenuNavLink>
         {renderLinks()}
       </Menu>
     </>
