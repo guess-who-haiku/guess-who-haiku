@@ -12,7 +12,9 @@ const LandingPage = ({ openModal, createHaikuShares, createHaiku, fetchAuthors, 
       <DescriptionBox>
         {description}
       </DescriptionBox>
+
       <HaikuBuilder createHaiku={createHaiku} createHaikuShares={createHaikuShares} fetchAuthors={fetchAuthors} fetchNewHaiku={fetchNewHaiku} authors={authors} newHaiku={newHaiku} users={users} openModal={openModal}/>
+
     </Page>
   );
 }
