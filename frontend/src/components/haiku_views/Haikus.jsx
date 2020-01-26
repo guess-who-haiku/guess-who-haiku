@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HaikuSection, HaikuContainer } from './Haikus.styled';
+import { HaikuSection, HaikuContainer, Title } from './Haikus.styled';
 import HaikusItem from './HaikusItem';
 
 export default function Haikus({
@@ -49,9 +49,9 @@ export default function Haikus({
 
     return (
         <HaikuSection>
-            <h2>
+            <Title>
                 {type}
-            </h2>
+            </Title>
             <HaikuContainer>
                 {renderHaikus()}
             </HaikuContainer>
