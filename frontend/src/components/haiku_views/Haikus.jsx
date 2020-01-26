@@ -3,8 +3,9 @@ import { HaikuSection, HaikuContainer, Title } from './Haikus.styled';
 import HaikusItem from './HaikusItem';
 
 export default function Haikus({
-    haikus, users, type, selectCurrentUser, fetchHaikus
+    haikus, currentUser, users, type, fetchHaikus, openModal
 }) {
+    console.log("outside", currentUser);
 
     useEffect(
         // () => {
@@ -18,8 +19,8 @@ export default function Haikus({
         // },
         () => {     //may need condition logic to only fetchChallenges if able to get current user
             // if (state.entitites !== undefined) {
-
-            // currentUser[type] //this will go in the argument to fetchHaikus
+            console.log("inside", currentUser);
+            // console.log(currentUser[type]) //this will go in the argument to fetchHaikus
                 fetchHaikus([
                 "5e289d707a2dcd14d82706b3",
                 "5e28adea21b1a21a963dbbd1"
@@ -38,7 +39,7 @@ export default function Haikus({
               return haikus[haikuId]
             })
             .map((haikuObj, idx) => {
-              return (<HaikusItem haiku={haikuObj} key={idx} />)
+              return (<HaikusItem haiku={haikuObj} key={idx} openModal={openModal} />)
             })
         )
     };
