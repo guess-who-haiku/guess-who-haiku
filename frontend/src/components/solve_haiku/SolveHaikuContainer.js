@@ -1,19 +1,22 @@
 import { connect } from 'react-redux';
-import { Thunks } from 'store/haikus/actions';
+import { Thunks as HaikuThunks } from 'store/haikus/actions';
+import { Thunks as AuthorThunks } from 'store/authors/actions';
 import { selectCurrentUser } from "store/selectors";
 import SolveHaiku from './SolveHaiku';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
 
-  currUser: selectCurrentUser(state)
+  currUser: selectCurrentUser(state),
+  haiku: state.entities.haikus[ownProps.match.params.haikuId],
+  authors: state.entities.authors
 
 });
 
 const mapDispatchToProps = dispatch => ({
 
-  getHaiku: (haikuId) => dispatch(Thunks.fetchHaiku(haikuId)),
-  completeHaiku: () => dispatch(Thunks.updateHaikuShare),
-  getUserHaikus: (userId) => dispatch(Thunks.fetchHaikusUser(userId))
+  getHaiku: (haikuId) => dispatch(HaikuThunks.fetchHaiku(haikuId)),
+  completeHaiku: (haikuShare) => dispatch(HaikuThunks.updateHaikuShare(haikuShare)), 
+  getAuthors: () => dispatch(AuthorThunks.fetchAuthors())
 
 })
 

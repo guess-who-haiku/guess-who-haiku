@@ -8,8 +8,6 @@ export const { Types, Creators } = createActions({
   removeHaiku: ['haikuId']
 }, { prefix: '[HAIKUS] ' })
 
-
-
 // const RECEIVE_HAIKUS = '[HAIKUS] RECEIVE_HAIKUS';
 
 // const receiveHaikus = haikus = ({
