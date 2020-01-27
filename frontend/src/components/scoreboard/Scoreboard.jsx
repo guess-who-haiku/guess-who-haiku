@@ -28,7 +28,7 @@ export default class Scoreboard extends Component {
         let copyUsers = Object.values(this.props.users);
         let sortedUsers = copyUsers.sort(this.compare);
         let scoresArray = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; (i < 10) && (i < sortedUsers.length); i++) {
             scoresArray.push(
               <ScoreboardItem user={sortedUsers[i]} key={i} />
             );
