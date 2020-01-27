@@ -14,13 +14,13 @@ This app consists of:
 * Mobile-first application design
 * Immersive, delightful UI/UX
 
-Guess Who, Haiku leverages the MERN app development stack which consists of: MongoDB, Express, React, and Nodejs.
+Guess Who, Haiku leverages the MERN app development stack which consists of: MongoDB, Express, React, and Node.js.
 
 ## Functionality and MVP
 
 * User account creation and authentication
 * Markov-chain text generator algorithm in haiku format
-* Twitter API to source input text
+* Third-party APIs to source input text
 * Interactive user experience throughout haiku generation and sharing
 * Mobile first design
 * Progressive Web App
@@ -56,8 +56,9 @@ A design strategy where you start sketching and prototyping the smallest screen 
 
 ### Edward Xiao
 
-* Backend design and setup
+* Backend design, setup and execution
 * Markov Chain algorithm development
+* Frontend execution
 
 ### Sarah Jiang
 
