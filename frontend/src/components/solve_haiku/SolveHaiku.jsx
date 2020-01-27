@@ -61,8 +61,20 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
     startCountDown();
 
   }
+
+    function randomShuffle(array) {
+      //shuffles the author options
+
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+      return array;
+    }
  
-  function generateAuthorOptions() {
+  function setInitialAuthorOptions() {
     
     if(authorOptions.length === 0) {
 
@@ -72,7 +84,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
     }
   }
 
-  function generateAllAuthorOptions() {
+  function generateAllAuthorOptions() {  //adds other options to the authorOptions array
 
     if(authorOptions.length !== 0) {
       
@@ -80,12 +92,11 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
       for (let i = 0; i < AUTHOR_OPTIONS_NUM - authorOptions.length; i++) {
   
           let randomAuthorId = Math.floor(Math.random() * Object.keys(authors).length)
-          // console.log(authors[randomAuthorId]);
           let randomAuthor = authors[randomAuthorId];
-          setAuthorOptions([...authorOptions, randomAuthor]);
-        
+
+          setAuthorOptions([...authorOptions, randomAuthor]); 
       }
-    }
+    } 
 
   }
 
@@ -117,7 +128,16 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
   }
 
   function makeGuessAndToggleNext() {
-    selectionMatches() ? setStep(4) : setStep(3)
+    if (selectionMatches()) {
+      setStep(4); //incorrect guess send to incorrect page
+    } else {
+      setStep(3); //incorrect guess
+    }
+  }
+
+  function backToMakeSelection() {
+    setAuthorSelection([]); //reset the authorSelection
+    toggleBack(); //go back
   }
 
   // ----------------------------------STEPS
@@ -157,7 +177,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
     if (authors) {
 
       // console.log('generating author options')
-      generateAuthorOptions(haikuAuthors);
+      setInitialAuthorOptions(haikuAuthors);
       generateAllAuthorOptions();
 
       let haikuText = formatHaiku(haiku.body, haikuAuthors);
@@ -165,8 +185,8 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
 
       return (
         <>
-          <div>{haikuText}</div>
-          <p>{haikuAuthors.length} authors</p>
+          <div>{haikuText.map((line, idx) => <p key={idx} >{line}</p>)}</div>
+            <p>Pick {haikuAuthors.length} authors</p>
           <div>
             {authorOptions.map((option, idx) => (
               <p onClick={handleAuthorSelect} key={idx}>
@@ -175,7 +195,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
             ))}
           </div>
           <button onClick={() => makeGuessAndToggleNext()}>Make Guess</button>
-          <div>[Timer Placeholder Here]</div>
+          {/* <div>[Timer Placeholder Here]</div> */}
           <p></p>
         </>
       );
@@ -189,7 +209,8 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
 
   const IncorrectSelection = memo(() => (
     <>
-      <p>Nope sorry, wrong guess</p>
+      <p>That was incorrect, keep trying!</p>
+      <button onClick={() => backToMakeSelection()}>Try Again</button>
     </>
   ));
 
