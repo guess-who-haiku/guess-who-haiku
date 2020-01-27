@@ -2,23 +2,19 @@ import React, { Fragment as F, useState, useEffect, memo, useRef } from 'react';
 import { } from './SolveHaiku.styled';
 import { formatHaiku } from 'util/haiku_format_util';
 
-const SolveHaiku = ({getHaiku, getAuthors, completeHaiku, haikuId, haiku, authors, users }) => {
+const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) => {
   
   const AUTHOR_OPTIONS_NUM = 6;
-
-  function fetchHaikuData() {
-    getHaiku(haikuId);
-  }
   
-  /* fetch current haiku from the url on load */
+  // ----------------------------FETCH HAIKU
   useEffect(() => {
 
     if(haiku === undefined) { /* if there isn't already a haiku in state */
-      fetchHaikuData();
+      getHaiku(haikuId);
     }
   }, []);
 
-  // ---------------------------LOCAL STATE
+  // ---------------------------ASSIGN LOCAL STATE
   const [authorSelection, setAuthorSelection] = useState([]);
   const [challengeAccepted, setChallengeAccepted] = useState(false);
   const [authorOptions, setAuthorOptions] = useState([]);
@@ -27,15 +23,10 @@ const SolveHaiku = ({getHaiku, getAuthors, completeHaiku, haikuId, haiku, author
   const [timeLeft, setTimeLeft] = useState(3); 
   const [timeStarted, setTimeStarted] = useState(false);
   
-
   /* step slice of state */
   const [step, setStep] = useState(0);
 
 
-  /* dispatch a get request to get authors + update global store */
-  useEffect(() => {
-    getAuthors();
-  }, [challengeAccepted])
   
   // --------------------------COUNTDOWN TIMER
   const startCountDown = () => { setTimeStarted(true) }
@@ -85,11 +76,11 @@ const SolveHaiku = ({getHaiku, getAuthors, completeHaiku, haikuId, haiku, author
 
     if(authorOptions.length !== 0) {
       
-      console.log(haiku.body);
+      // console.log(haiku.body);
       for (let i = 0; i < AUTHOR_OPTIONS_NUM - authorOptions.length; i++) {
   
           let randomAuthorId = Math.floor(Math.random() * Object.keys(authors).length)
-          console.log(authors[randomAuthorId]);
+          // console.log(authors[randomAuthorId]);
           let randomAuthor = authors[randomAuthorId];
           setAuthorOptions([...authorOptions, randomAuthor]);
         
@@ -99,12 +90,34 @@ const SolveHaiku = ({getHaiku, getAuthors, completeHaiku, haikuId, haiku, author
   }
 
   function handleAuthorSelect(e) {
-
+    
     const selection = e.target.innerText;
-    console.log('selection',selection);
-    setAuthorSelection([...authorSelection, selection])
-    console.log(authorSelection)
+  
+    if (authorSelection.includes(selection)) {  //previously selection, user wants to unselect
+      
+      let newAuthorSelection = authorSelection.slice(0).filter((value, index, arr) => {
+        return value !== selection
+      }); 
+      setAuthorSelection(newAuthorSelection);
 
+    } else if(authorSelection.length < Object.keys(haiku.body).length) { //not previously selected, and there's still open slots
+      setAuthorSelection([...authorSelection, selection])
+    }
+  }
+
+  function selectionMatches() {  //compares the users guess against the correct answer 
+
+    let correctAuthors = Object.keys(haiku.body);
+    console.log('correct Authors are', correctAuthors);
+
+    for(let select of authorSelection) {
+      if (!correctAuthors.includes(select)) return false; 
+    }
+    return true; 
+  }
+
+  function makeGuessAndToggleNext() {
+    selectionMatches() ? setStep(4) : setStep(3)
   }
 
   // ----------------------------------STEPS
@@ -143,19 +156,17 @@ const SolveHaiku = ({getHaiku, getAuthors, completeHaiku, haikuId, haiku, author
 
     if (authors) {
 
-      console.log('generating author options')
+      // console.log('generating author options')
       generateAuthorOptions(haikuAuthors);
       generateAllAuthorOptions();
 
       let haikuText = formatHaiku(haiku.body, haikuAuthors);
-      console.log(haikuText);
+      // console.log(haikuText);
 
       return (
         <>
-          <div>
-            Haiku: 
-            {haikuText}
-          </div>
+          <div>{haikuText}</div>
+          <p>{haikuAuthors.length} authors</p>
           <div>
             {authorOptions.map((option, idx) => (
               <p onClick={handleAuthorSelect} key={idx}>
@@ -163,6 +174,7 @@ const SolveHaiku = ({getHaiku, getAuthors, completeHaiku, haikuId, haiku, author
               </p>
             ))}
           </div>
+          <button onClick={() => makeGuessAndToggleNext()}>Make Guess</button>
           <div>[Timer Placeholder Here]</div>
           <p></p>
         </>
@@ -204,7 +216,7 @@ const SolveHaiku = ({getHaiku, getAuthors, completeHaiku, haikuId, haiku, author
   };
 
   const toggleNext = () => {
-    console.log("toggled next!");
+    // console.log("toggled next!");
     let nextStep = step + 1 < Steps.length ? step + 1 : 0;
     setStep(nextStep);
     setReverse(false);
@@ -212,7 +224,7 @@ const SolveHaiku = ({getHaiku, getAuthors, completeHaiku, haikuId, haiku, author
 
   
   console.log("author options after adding haiku authors", authorOptions);
-
+  console.log('selection', authorSelection);
   return (
     <>
       { (haiku && users) ? React.createElement(Steps[step]): null }
