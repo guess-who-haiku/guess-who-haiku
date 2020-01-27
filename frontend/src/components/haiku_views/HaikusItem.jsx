@@ -1,46 +1,88 @@
 import React from 'react';
-import { HaikuBox, HaikuLine } from './Haikus.styled';
+import { HaikuBox, HaikuLine, UnsharedHaiku, SharedHaiku } from './Haikus.styled';
 import { formatHaiku } from '../../util/haiku_format_util';
 
-export default function HaikusItem({haiku, openModal, type}) {
-    if (haiku === undefined) return null;
+export default function HaikusItem({haiku, openModal, type, currentUser}) {
+  if (haiku === undefined) return null;
 
-    const stats = () => {
-      if (type === 'haikusCreated' && haiku.usersSharedWith.length === 0) {
-        return (
-            'Has not been shared'
-        )
-      }
-      // else if (type === 'haikusCreated' && unsolved) {
-      //   return (
-      //     <p>
-      //       Has not been solved yet
-      //     </p>
-      //   )
-      // }
-      // else if (type === 'haikusCreated' && solved) {
-      //   return (
-      //     <p>
-      //       Solved first by: {haiku.usersSharedWith}
-      //     </p>
-      //   )
-      // }
-      else {
-        return (
-          haiku.creator
-        )
-      }
-    };
-
-    let text = formatHaiku(haiku.body, Object.keys(haiku.body))
+  const displayHaiku = () => {
+    const text = formatHaiku(haiku.body, Object.keys(haiku.body))
     return (
-      <HaikuBox onClick={() => openModal(haiku._id)}>
+      <>
         <HaikuLine>{text[0]}</HaikuLine>
         <HaikuLine>{text[1]}</HaikuLine>
         <HaikuLine>{text[2]}</HaikuLine>
-        <p>{stats()}</p>
-      </HaikuBox>
-    );
+      </>
+    )
+  }
+
+  const displayHaikuStatus = () => {
+
+    if (type === 'haikusCreated') {
+
+      if (haiku.usersSharedWith.length === 0) { //unshared
+        return (
+            <UnsharedHaiku>
+              {displayHaiku()}
+            </UnsharedHaiku>
+        )
+      }
+
+      let fastestSolver = "";
+      let fastestSolve = haiku.usersSharedWith.reduce((acc, cur) => {
+        if (cur.completeTimestamp && cur.completeTimestamp < acc) {
+          fastestSolver = cur.username;
+          return cur;
+        }
+      }, 0)
+
+      if (!fastestSolve) { //shared but unsolved
+        return (
+          <SharedHaiku>
+            {displayHaiku()}
+          </SharedHaiku>
+        )
+      } else { //shared and solved
+        return (
+        < SharedHaiku >
+          { displayHaiku() }
+          < p >
+            `Solved first by: ${fastestSolver}`
+          </p >
+          </SharedHaiku >
+        )
+      }
+
+    }
+
+    if (type === 'haikusSharedWith') {
+
+      let solved = haiku.usersSharedWith.some(user => {
+        return (user._id === currentUser._id && haiku.complete)
+      })
+
+      if (solved) {
+        return (
+          <UnsharedHaiku>
+            {displayHaiku()}
+          </UnsharedHaiku>
+        )
+      } else {
+        return (
+          <SharedHaiku>
+            {displayHaiku()}
+          </SharedHaiku>
+        )
+      }
+
+    }
+  };
+
+  return (
+    <HaikuBox onClick={() => openModal(haiku._id)}>
+      {displayHaikuStatus()}
+    </HaikuBox>
+  );
 }
 
 // Challenges

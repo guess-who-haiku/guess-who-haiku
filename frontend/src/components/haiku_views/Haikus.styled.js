@@ -13,25 +13,39 @@ export const HaikuContainer = styled.div`
 `;
 
 export const HaikuBox = styled.div`
-  padding: 2rem;
   height: 60rem;
+  min-height: 60rem;
   width: 60rem;
+  min-width: 60rem;
   border: 0.4rem solid ${theme.colors.primaryLight};
   margin: 1.5rem;
   &:hover {
     cursor: pointer;
   }
+  /*display: flex;
+  flex-direction: column;
+  justify-content: space-around;*/
+`;
+
+export const UnsharedHaiku = styled.div`
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  background-color: lightgrey;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 `;
 
-// export const HaikuBox = styled(Link).attrs({ to: "#" })`
-//          padding: 2rem;
-//          max-width: 40rem;
-//          border: 0.8rem solid ${theme.colors.utilityYellow};
-//          margin: 1.5rem;
-//        `;
+export const SharedHaiku = styled.div`
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  background-color: lightgreen;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
 
 export const HaikuLine = styled.p`
   font-weight: 700;

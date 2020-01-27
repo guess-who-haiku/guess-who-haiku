@@ -30,6 +30,7 @@ export default function Haikus({
                 key={idx}
                 openModal={openModal} 
                 type={type}
+                currentUser={currentUser}
                 />)
             })
         )
