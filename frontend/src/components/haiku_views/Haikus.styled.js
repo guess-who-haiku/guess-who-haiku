@@ -13,8 +13,10 @@ export const HaikuContainer = styled.div`
 `;
 
 export const HaikuBox = styled.div`
-  height: 50rem;
-  width: 50rem;
+  height: 60rem;
+  min-height: 60rem;
+  width: 60rem;
+  min-width: 60rem;
   border: 0.4rem solid ${theme.colors.primaryLight};
   margin: 1.5rem;
   &:hover {
@@ -48,7 +50,7 @@ export const SharedHaiku = styled.div`
 export const HaikuLine = styled.p`
   font-weight: 700;
   line-height: 1.8;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: ${theme.colors.primaryDark};
   min-width: max-content;
 `;
