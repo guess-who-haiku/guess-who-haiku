@@ -12,7 +12,7 @@ export function useInterval(callback, delay) {
 
   /* set up setInterval */
   useEffect(() => {
-    // if (step === 1) {
+    
       function tock() {
         /* assigns the callback to the function tock */
         myCallback.current();
@@ -28,6 +28,6 @@ export function useInterval(callback, delay) {
 
         return () => clearTimeout(timer);
       }
-    // }
+    
   }, [delay]);
 }
