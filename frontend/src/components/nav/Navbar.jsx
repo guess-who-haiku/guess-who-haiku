@@ -9,6 +9,7 @@ const NavBar = ({ history, loggedIn, logout, openModal }) => {
 
   const renderLinks = () => {
     if (loggedIn) {
+      console.log('I AM LOGGED IN')
       return (
         <>
           <MenuNavLink to="/haikus">
