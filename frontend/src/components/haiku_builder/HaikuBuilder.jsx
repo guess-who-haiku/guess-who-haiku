@@ -12,9 +12,18 @@ import rickAndMorty from '../../assets/rick_and_morty.jpg';
 
 import { HBContainer, LIContainer, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
 import { formatHaiku } from '../../util/haiku_format_util';
-import { camelize } from '../../util/author_img_format_util';
 
 const HaikuBuilder = ({createHaiku, createHaikuShare, fetchAuthors, fetchNewHaiku, authors, newHaiku, users, openModal, currentUser}) => {
+    let imageFiles = {
+        "Donald Trump": donaldTrump,
+        "Homer Simpson": homerSimpson,
+        "Game of Thrones": gameOfThrones,
+        "Barack Obama": barackObama,
+        "Jane Austen": janeAusten,
+        "Rick and Morty": rickAndMorty,
+        "Kanye West": kanyeWest
+    };
+
     let history = useHistory();
     //MVP authors
     let MVPauthors = ["Donald Trump", "Homer Simpson", "Game of Thrones", "Barack Obama", "Jane Austen", "Rick and Morty", "Kanye West"];
@@ -129,11 +138,21 @@ const HaikuBuilder = ({createHaiku, createHaikuShare, fetchAuthors, fetchNewHaik
         } else {
             // createHaikuShare(newHaiku.haiku._id, haikuShares) //getting typeError for thunk
             console.log('shared!')
-            // toggleNext();
+            toggleNext();
         }    
     }
 
-    //
+    //copy to clipboard
+    const copyLink = () => {
+        let copyText = document.getElementById("shareLink");
+        
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        document.execCommand("copy");
+        console.log("Copied the text: " + copyText.value);
+    }
+
     const authError = <ErrorMsg>Please select at least one author</ErrorMsg>
     const shareError = <ErrorMsg>Please select at least one friend to share your haiku with</ErrorMsg>
     console.log(haikuShares);
@@ -147,7 +166,7 @@ const HaikuBuilder = ({createHaiku, createHaikuShare, fetchAuthors, fetchNewHaik
                     if (MVPauthors.includes(author)) {
                         return (
                     <AuthorItem data-selected={haikuAuthors.includes(author)} key={author} data-name={author} onClick={handleAuthorSelection}>
-                        <AuthorIcon src={homerSimpson} alt={author}/>
+                        <AuthorIcon src={imageFiles[author]} alt={author}/>
                         {author}
                     </AuthorItem>
                         )}    
@@ -202,12 +221,20 @@ const HaikuBuilder = ({createHaiku, createHaikuShare, fetchAuthors, fetchNewHaik
             {sharesError ? shareError : null}
             <Btn onClick={shareHaiku}>Share</Btn>
             {/* set input value to current haiku id */}
-            <input type="text" name="link"/>
-            <Btn>Share via link</Btn>
+            <input type="text" value={newHaiku.data ? null : newHaiku.haiku._id} id="shareLink"/>
+            <Btn onClick={copyLink}>Copy link</Btn>
         </>
     );
 
-    const Steps = [ChooseAuthors, GeneratingHaiku, GeneratedHaiku, ShareHaiku];
+    const Confirmation = () => (
+        <>
+            <Message>All set! Use your My Haikus page to check in and see if your friends have Guessed Who!</Message>
+            <Btn onClick={startOver}>Make another Haiku</Btn> 
+            <Btn>My Haikus</Btn>
+        </>
+    )
+
+    const Steps = [ChooseAuthors, GeneratingHaiku, GeneratedHaiku, ShareHaiku, Confirmation];
 
     const toggleBack = () => {
         let prevStep = step - 1 < 0 ? Steps.length - 1 : step - 1;
