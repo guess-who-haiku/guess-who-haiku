@@ -39,7 +39,7 @@ router.post('/',
   
 //update Haiku share
 router.patch('/:haikuId',
-    passport.authenticate('jwt', { session: false }),
+    // passport.authenticate('jwt', { session: false }),
         (req, res) => {
             let score = 0;
             Haiku.findById( req.params.haikuId )
