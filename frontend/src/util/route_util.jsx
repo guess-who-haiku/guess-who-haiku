@@ -29,7 +29,7 @@ const Protected = ({ component: Component, loggedIn, ...rest }) => (
 );
 
 const mapStateToProps = state => (
-  { loggedIn: state.session.isAuthenticated }
+  { loggedIn: state.session.userId }
 );
 
 export const AuthRoute = withRouter(connect(mapStateToProps)(Auth));
