@@ -31,8 +31,8 @@ Guess Who, Haiku leverages the MERN app development stack which consists of: Mon
 
 ### Frontend: React, Redux
 
-### Markov Chain Algorithm
-Markov Chains work by generating sentences based on recombination of elements of history of known sentences to generate meaningful sentences.
+### Markov Chain Algorithm for Natural Language Generation (NLG)
+Markov Chain Text generation algorithm, transform structured data into natural language by generating sentences based on recombination of elements of history of known sentences to generate seemingly semantically meaningful sentences. 
 
 ### A Progressive Web App
 PWAs allow for features including push notification, home screen icon, full-screen and offline first functionality, providing a native-like experience for the user.
@@ -41,9 +41,10 @@ PWAs allow for features including push notification, home screen icon, full-scre
 A design strategy where you start sketching and prototyping the smallest screen first and work your way up to larger screens. Essentially, it’s about delivering the right user experience to the right device.
 
 ### Technical Challenges
-- Configuring the  Markov text generator to output convincing text
-- Responsive and intuitive styling with `styled-components`
-- Finding an elegant frontend file architecture - favored the "duck" react-redux file structure
+- Configuring the  Markov text generator to output convincing text. We added another layer to the semantic parsing by having our generator spit out haiku-formatted text pieces.  
+- Responsive and intuitive styling with `styled-components`. Using `styled-components` greatly reduced redundant styling work across components with shared visual themes. 
+- Finding an elegant frontend file architecture - favored the "duck" react-redux file structure in order to better facilitate collaboration and reduce merge conflicts. 
+- We designed our backend database structure and API endpoint using a non-relational design principles, greatly simplifying API for client (our app), resulting in less overall API calls.  
 
 ## Group Members and Work Breakdown
 
@@ -60,10 +61,11 @@ A design strategy where you start sketching and prototyping the smallest screen 
 
 ### Sarah Jiang
 
-* Database and backend design and setup
+* Database and backend design, setup, execution
 * Markov Chain algorithm development
 * API configuration
-* Frontend design and setup
+* External API configuration and database seeding
+* Frontend design and execution
 
 ### Alex Segers
 
