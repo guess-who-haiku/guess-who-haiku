@@ -16,10 +16,10 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
     //MVP authors
     let MVPauthors = ["Donald Trump", "Homer Simpson", "Game of Thrones", "Barack Obama", "Jane Austen", "Rick and Morty", "Kanye West"];
 
-    //fetch authors on load
-    useEffect(() => {
-        fetchAuthors();    
-    }, [fetchAuthors]);
+    // //fetch authors on load
+    // useEffect(() => {
+    //     fetchAuthors();    
+    // }, [fetchAuthors]);
 
     //set local state
     const [haikuAuthors, setHaikuAuthors] = useState([]);
@@ -105,7 +105,7 @@ const HaikuBuilder = ({createHaiku, createHaikuShares, fetchAuthors, fetchNewHai
         <>
             <Message>Choose up to three figures below:</Message>
             <LIContainer>
-                {authors.data && authors.data.map(author => {
+                {authors && authors.map(author => {
                     if (MVPauthors.includes(author)) {
                         return (
                     <AuthorItem data-selected={haikuAuthors.includes(author)} key={author} data-name={author} onClick={handleAuthorSelection}>
