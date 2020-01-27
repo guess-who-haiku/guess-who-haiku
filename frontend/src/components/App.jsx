@@ -19,8 +19,8 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/scoreboard" component={Scoreboard} />
-        <Route exact path="/challenges" component={HaikusView} />
-        <Route exact path="/haikus" component={HaikusView} />
+        <ProtectedRoute exact path="/challenges" component={HaikusView} />
+        <ProtectedRoute exact path="/haikus" component={HaikusView} />
         <Route exact path="/haikus/:haikuId" component={SolveHaiku} />
       </Switch>
     </main>

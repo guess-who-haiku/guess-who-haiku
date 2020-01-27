@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
   return ({
     haikus: state.entities.haikus,
     currentUser: currentUser,
-    users: state.session.users,
+    users: state.entities.users,
     type: type
   })
 };
