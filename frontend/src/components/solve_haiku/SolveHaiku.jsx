@@ -7,8 +7,31 @@ import { HSContainer,
          MsgSub, 
          Button,
          Countdown,
-         HaikuContainer
+         HaikuContainer,
+         LIContainer,
+         AuthorItem,
+         AuthorIcon
         } from "./SolveHaiku.styled";
+
+
+
+import barackObama from "../../assets/barack_obama.jpg";
+import donaldTrump from "../../assets/donald_trump.jpg";
+import gameOfThrones from "../../assets/game_of_thrones.jpg";
+import homerSimpson from "../../assets/homer_simpson.jpg";
+import janeAusten from "../../assets/jane_austen.jpg";
+import kanyeWest from "../../assets/kanye_west.jpg";
+import rickAndMorty from "../../assets/rick_and_morty.jpg";
+
+const imgHash = {
+  "Barack Obama": barackObama,
+  "Donald Trump": donaldTrump,
+  "Game of Thrones": gameOfThrones,
+  "Homer Simpson": homerSimpson,
+  "Jane Austen": janeAusten,
+  "Kanye West": kanyeWest,
+  "Rick and Morty": rickAndMorty
+};
 
 const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, currUserId }) => {
   
@@ -124,14 +147,18 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
       
       let toShuffle = authorOptions.slice(0);
  
-      for (let i = 0; i < AUTHOR_OPTIONS_NUM - authorOptions.length; i++) {
+
+      while(toShuffle.length < AUTHOR_OPTIONS_NUM) {
   
           let randomAuthorId = Math.floor(Math.random() * Object.keys(authors).length)
           let randomAuthor = authors[randomAuthorId];
 
+          if( !toShuffle.includes(randomAuthor)) {
 
-          toShuffle = toShuffle.concat(randomAuthor);
-          toShuffle = randomShuffle(toShuffle);
+            toShuffle = toShuffle.concat(randomAuthor);
+            toShuffle = randomShuffle(toShuffle);
+
+          }
           
       }
 
@@ -144,7 +171,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
   function handleAuthorSelect(e) {
     
-    const selection = e.target.innerText;
+    const selection = e.currentTarget.innerText;
   
     if (authorSelection.includes(selection)) {  //previously selection, user wants to unselect
       
@@ -236,19 +263,23 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
       return (
         <>
-          
           <HaikuContainer>
-            {haikuText.map((line, idx) => <p key={idx} >{line}</p>)}
+            {haikuText.map((line, idx) => (
+              <p key={idx}>{line}</p>
+            ))}
           </HaikuContainer>
           <Message>Pick {haikuAuthors.length} authors</Message>
-          <div>
+          <LIContainer>
             {authorOptions.map((option, idx) => (
-              <p onClick={handleAuthorSelect} key={idx}>
+              <AuthorItem onClick={handleAuthorSelect} key={idx}>
+                <AuthorIcon src={imgHash[option]} alt={option} />
                 {option}
-              </p>
+              </AuthorItem>
             ))}
-          </div>
-          <Button onClick={() => makeSelectionAndToggleNext()}>Make Guess</Button>
+          </LIContainer>
+          <Button onClick={() => makeSelectionAndToggleNext()}>
+            Make Guess
+          </Button>
           {/* <div>[Timer Placeholder Here]</div> */}
           <p></p>
         </>

@@ -49,9 +49,10 @@ export const HaikuContainer = styled.div`
 `;
 
 export const AuthorIcon = styled.img`
-  height: 6rem;
-  width: 6.5rem;
+  height: 9rem;
+  width: 9rem;
   border-radius: 50%;
+  border: 5px solid lightgrey;
 `;
 
 export const AuthorItem = styled.div`
@@ -60,4 +61,11 @@ export const AuthorItem = styled.div`
   align-items: center;
   padding: 1rem;
   cursor: pointer;
+`;
+
+export const LIContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  padding: 4rem 5rem;
 `;
