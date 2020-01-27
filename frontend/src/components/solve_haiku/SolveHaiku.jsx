@@ -20,6 +20,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   const [challengeCompletedTS, setChallengeCompletedTS] = useState(false);
   const [challengeCompleted, setChallengeCompleted] = useState(false);
   const [authorOptions, setAuthorOptions] = useState([]);
+  const [authorOptionsSelected, setAuthorOptionsSelected] = useState(false);
 
   /* countdown timer */
   const [timeLeft, setTimeLeft] = useState(3); 
@@ -86,13 +87,21 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   function randomShuffle(array) {
     //shuffles the author options
 
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * i);
-      const temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
+     // if the user has made a guess
+      
+      let shuffled = array.slice(0);
+      console.log('to be shuffled', shuffled);
+
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+        const temp = shuffled[i];
+        shuffled[i] = shuffled[j];
+        shuffled[j] = temp;
+      }
+
+      console.log('after shuffling', shuffled);
+      return shuffled
+    
   }
  
   function setInitialAuthorOptions() {
@@ -107,19 +116,27 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
   function generateAllAuthorOptions() {  //adds other options to the authorOptions array
 
-    if(authorOptions.length !== 0) {
+    if(authorOptions.length !== 0 && !authorOptionsSelected) {
       
-      // console.log(haiku.body);
+      let toShuffle = authorOptions.slice(0);
+ 
       for (let i = 0; i < AUTHOR_OPTIONS_NUM - authorOptions.length; i++) {
   
           let randomAuthorId = Math.floor(Math.random() * Object.keys(authors).length)
           let randomAuthor = authors[randomAuthorId];
 
-          setAuthorOptions([...authorOptions, randomAuthor]); 
+
+          toShuffle = toShuffle.concat(randomAuthor);
+          toShuffle = randomShuffle(toShuffle);
+          
       }
+
+      setAuthorOptions(toShuffle);
+      setAuthorOptionsSelected(true);
     } 
 
   }
+
 
   function handleAuthorSelect(e) {
     
@@ -140,8 +157,6 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   function selectionMatches() {  //compares the users guess against the correct answer 
 
     let correctAuthors = Object.keys(haiku.body);
-    // console.log('correct Authors are', correctAuthors);
-
     for(let select of authorSelection) {
       if (!correctAuthors.includes(select)) return false; 
     }
@@ -207,12 +222,10 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
     if (authors) {
 
-      // console.log('generating author options')
       setInitialAuthorOptions(haikuAuthors);
       generateAllAuthorOptions();
 
       let haikuText = formatHaiku(haiku.body, haikuAuthors);
-      // console.log(haikuText);
 
       return (
         <>
@@ -235,7 +248,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
     }
    
     
-    //now we need to render the correct authors for the game and some other authors
+  // -------------------------------------STEPS
   });
 
   const IncorrectSelection = memo(() => (
@@ -269,6 +282,8 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
                   CorrectSelectionNotLoggedIn
                 ];
 
+
+  // ----------------------------------------TOGGLING STEPS              
   const toggleBack = () => {
     let prevStep = step - 1 < 0 ? Steps.length - 1 : step - 1;
     setStep(prevStep);
@@ -276,7 +291,6 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   };
 
   const toggleNext = () => {
-    // console.log("toggled next!");
     let nextStep = step + 1 < Steps.length ? step + 1 : 0;
     setStep(nextStep);
     setReverse(false);
