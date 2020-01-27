@@ -2,7 +2,7 @@ import React, { Fragment as F, useState, useEffect, memo, useRef } from 'react';
 import { } from './SolveHaiku.styled';
 import { formatHaiku } from 'util/haiku_format_util';
 
-const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) => {
+const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, currUserId }) => {
   
   const AUTHOR_OPTIONS_NUM = 6;
   
@@ -16,7 +16,9 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
 
   // ---------------------------ASSIGN LOCAL STATE
   const [authorSelection, setAuthorSelection] = useState([]);
-  const [challengeAccepted, setChallengeAccepted] = useState(false);
+  const [challengeAcceptedTS, setChallengeAcceptedTS] = useState(null);
+  const [challengeCompletedTS, setChallengeCompletedTS] = useState(false);
+  const [challengeCompleted, setChallengeCompleted] = useState(false);
   const [authorOptions, setAuthorOptions] = useState([]);
 
   /* countdown timer */
@@ -54,25 +56,44 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
   }, [timeLeft, timeStarted])
   
 
+  // -------------------------COMPLETED CHALLENGE
+  
+  useEffect(() => {
+    if(challengeCompleted) {
+
+      console.log('UPDATING:', haikuId, currUserId, challengeAcceptedTS, challengeCompletedTS)
+
+      completeHaiku(haikuId, 
+                    currUserId, 
+                    challengeCompleted,
+                    challengeAcceptedTS, 
+                    challengeCompletedTS
+                    );
+    }
+  }, [challengeCompleted])
+
+
+
+
   async function acceptChallengeAndToggleNext() {
 
-    setChallengeAccepted(true);
+    setChallengeAcceptedTS(Date.now());
     toggleNext();
     startCountDown();
 
   }
 
-    function randomShuffle(array) {
-      //shuffles the author options
+  function randomShuffle(array) {
+    //shuffles the author options
 
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * i);
-        const temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-      }
-      return array;
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * i);
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
     }
+    return array;
+  }
  
   function setInitialAuthorOptions() {
     
@@ -119,7 +140,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
   function selectionMatches() {  //compares the users guess against the correct answer 
 
     let correctAuthors = Object.keys(haiku.body);
-    console.log('correct Authors are', correctAuthors);
+    // console.log('correct Authors are', correctAuthors);
 
     for(let select of authorSelection) {
       if (!correctAuthors.includes(select)) return false; 
@@ -127,11 +148,21 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
     return true; 
   }
 
-  function makeGuessAndToggleNext() {
-    if (selectionMatches()) {
-      setStep(4); //incorrect guess send to incorrect page
+  function makeSelectionAndToggleNext() {
+
+    console.log('currUserId is',currUserId);
+
+    if (selectionMatches() && currUserId) { 
+
+      setChallengeCompletedTS(Date.now());
+      setChallengeCompleted(true);
+      setStep(4); //send to Correct SelectionLoggedIn 
+
+    } else if (selectionMatches() && !currUserId) {
+      setStep(5); //send to CorrectSelectionNotLoggedIn 
+      
     } else {
-      setStep(3); //incorrect guess
+      setStep(3); //send to IncorrectSelection step
     }
   }
 
@@ -194,7 +225,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
               </p>
             ))}
           </div>
-          <button onClick={() => makeGuessAndToggleNext()}>Make Guess</button>
+          <button onClick={() => makeSelectionAndToggleNext()}>Make Guess</button>
           {/* <div>[Timer Placeholder Here]</div> */}
           <p></p>
         </>
@@ -214,9 +245,16 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
     </>
   ));
 
-  const CorrectSelection = memo(() => (
+   const CorrectSelectionLoggedIn = memo(() => (
+     <>
+       <p>CORRECT! Recording your score!</p>
+     </>
+   ));
+
+
+  const CorrectSelectionNotLoggedIn = memo(() => (
     <>
-      <p>Wooohoo yes, now make an account to share</p>
+      <p>CORRECT! Now make an account to share</p>
     </>
   ));
 
@@ -227,7 +265,8 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users }) 
                   GetReadyPage, 
                   MakeSelection, 
                   IncorrectSelection, 
-                  CorrectSelection
+                  CorrectSelectionLoggedIn,
+                  CorrectSelectionNotLoggedIn
                 ];
 
   const toggleBack = () => {
