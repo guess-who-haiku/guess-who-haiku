@@ -111,22 +111,19 @@ const SolveHaiku = ({getHaiku, getAuthors, completeHaiku, haikuId, haiku, author
 
   const AcceptChallenge = memo(() => {
 
-    let username = (users && haiku) ? users[haiku.creator].username : undefined;
+    let username = (users && haiku && users[haiku.creator]) ? users[haiku.creator].username : undefined;
     
-
-    if(username) {
-
+    if (username) {
       return (
-      <>
-        <p>You've been challenged by:</p>
-        <p>{username}</p>
-        <p>Ready to Guess Who?</p>
-        <button onClick={() => acceptChallengeAndToggleNext()}>
-          Accept Challenge
-        </button>
-      </>
-      )
-
+        <>
+          <p>You've been challenged by:</p>
+          <p>{users[haiku.creator].username}</p>
+          <p>Ready to Guess Who?</p>
+          <button onClick={() => acceptChallengeAndToggleNext()}>
+            Accept Challenge
+          </button>
+        </>
+      );
     }
 
 });
