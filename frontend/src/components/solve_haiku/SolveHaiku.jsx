@@ -1,6 +1,14 @@
 import React, { Fragment as F, useState, useEffect, memo, useRef } from 'react';
 import { } from './SolveHaiku.styled';
 import { formatHaiku } from 'util/haiku_format_util';
+import { HSContainer, 
+         Message, 
+         MsgHighlight,
+         MsgSub, 
+         Button,
+         Countdown,
+         HaikuContainer
+        } from "./SolveHaiku.styled";
 
 const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, currUserId }) => {
   
@@ -85,12 +93,9 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   }
 
   function randomShuffle(array) {
-    //shuffles the author options
-
      // if the user has made a guess
       
       let shuffled = array.slice(0);
-      console.log('to be shuffled', shuffled);
 
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * i);
@@ -99,7 +104,6 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
         shuffled[j] = temp;
       }
 
-      console.log('after shuffling', shuffled);
       return shuffled
     
   }
@@ -156,6 +160,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
   function selectionMatches() {  //compares the users guess against the correct answer 
 
+    if (authorSelection.length === 0) return false;
     let correctAuthors = Object.keys(haiku.body);
     for(let select of authorSelection) {
       if (!correctAuthors.includes(select)) return false; 
@@ -165,7 +170,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
   function makeSelectionAndToggleNext() {
 
-    console.log('currUserId is',currUserId);
+    if(authorSelection.length === 0) return;
 
     if (selectionMatches() && currUserId) { 
 
@@ -195,12 +200,12 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
     if (username) {
       return (
         <>
-          <p>You've been challenged by:</p>
-          <p>{users[haiku.creator].username}</p>
-          <p>Ready to Guess Who?</p>
-          <button onClick={() => acceptChallengeAndToggleNext()}>
+          <Message>You've been challenged by</Message>
+          <MsgHighlight>{users[haiku.creator].username}</MsgHighlight>
+          <MsgSub>Ready to Guess Who?</MsgSub>
+          <Button onClick={() => acceptChallengeAndToggleNext()}>
             Accept Challenge
-          </button>
+          </Button>
         </>
       );
     }
@@ -209,9 +214,11 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   
   const GetReadyPage = memo(() => (
     <>
-      <p>The faster you answer correctly, the more your points</p>
-      <p>Ready, in:</p>
-      <p>{timeLeft}</p>
+      <Message>The faster you answer correctly, the more your points</Message>
+      <MsgSub>Ready, in:</MsgSub>
+      <MsgHighlight>
+        <Countdown>{timeLeft}</Countdown>
+      </MsgHighlight>
     </>
   ));
 
@@ -229,8 +236,11 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
       return (
         <>
-          <div>{haikuText.map((line, idx) => <p key={idx} >{line}</p>)}</div>
-            <p>Pick {haikuAuthors.length} authors</p>
+          
+          <HaikuContainer>
+            {haikuText.map((line, idx) => <p key={idx} >{line}</p>)}
+          </HaikuContainer>
+          <Message>Pick {haikuAuthors.length} authors</Message>
           <div>
             {authorOptions.map((option, idx) => (
               <p onClick={handleAuthorSelect} key={idx}>
@@ -238,7 +248,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
               </p>
             ))}
           </div>
-          <button onClick={() => makeSelectionAndToggleNext()}>Make Guess</button>
+          <Button onClick={() => makeSelectionAndToggleNext()}>Make Guess</Button>
           {/* <div>[Timer Placeholder Here]</div> */}
           <p></p>
         </>
@@ -300,9 +310,9 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   console.log("author options after adding haiku authors", authorOptions);
   console.log('selection', authorSelection);
   return (
-    <>
+    <HSContainer>
       { (haiku && users) ? React.createElement(Steps[step]): null }
-    </>
+    </HSContainer>
   );  
 
 
