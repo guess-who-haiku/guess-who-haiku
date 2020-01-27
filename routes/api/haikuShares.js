@@ -41,6 +41,10 @@ router.post('/',
 router.patch('/:haikuId',
     // passport.authenticate('jwt', { session: false }),
         (req, res) => {
+
+            console.log('PASSED THE PASSWORD AUTHENTICATION');
+            console.log('REQUEST BODY', req);
+
             let score = 0;
             Haiku.findById( req.params.haikuId )
                 .then(haiku => {

@@ -48,7 +48,7 @@ Thunks.createHaikuShares = (haikuId, recipientIds) => dispatch =>
     .then(({ data: haiku }) => dispatch(Creators.receiveHaiku(haiku)))
     .catch(err => console.log(err));
 
-Thunks.updateHaikuShare = (haikuId, userId, openTS, completeTS) => dispatch =>
-  APIUtil.updateHaikuShare(haikuId, userId, openTS, completeTS)
+Thunks.updateHaikuShare = (haikuId, userId, complete, openTS, completeTS) => dispatch =>
+  APIUtil.updateHaikuShare(haikuId, userId, complete, openTS, completeTS)
     .then(({ data: haiku }) => dispatch(Creators.receiveHaiku(haiku)))
     .catch(err => console.log(err));
