@@ -7,7 +7,7 @@ export default function HaikusItem({haiku, openModal, type, currentUser, users})
 
 
   const displayHaiku = () => {
-    console.log('Haiku: ', haiku)
+    // console.log('Haiku: ', haiku)
     const text = formatHaiku(haiku.body, Object.keys(haiku.body))
     return (
       <>

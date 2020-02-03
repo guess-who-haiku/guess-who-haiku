@@ -2,10 +2,25 @@ import React, {Fragment} from 'react'
 import SolvedHaiku from '../solve_haiku/SolvedHaiku';
 import SolveHaiku from '../solve_haiku/SolveHaikuContainer';
 
-export default function Haiku({currentUser, solved, creator, users}) {
+export default function Haiku({currentUser, solved, creator, users, fastestSolvers}) {
     console.log("currentUser", currentUser);
     console.log("solved", solved);
     console.log("creator", creator);
+    console.log("fastest solvers", fastestSolvers);
+
+    const formatSolvers = () => {
+      if (!fastestSolvers) {
+        return null;
+      }
+      return fastestSolvers.map( (user, idx) => {
+        return (
+          <p>
+            {idx+1+". "+user}
+          </p>
+        )
+      })
+    }
+
     const determineHaikuShow = () => {
         //if creator of haiku      //not tested
         if (creator) return (
@@ -34,6 +49,7 @@ export default function Haiku({currentUser, solved, creator, users}) {
                         {/* set input value to current haiku id */}
                         <input type="text" name="link" />
                         <button>Share via link</button>
+                        {formatSolvers()}
                       </>
                     );
         //if not logged in or unsolved     //not tested
