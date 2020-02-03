@@ -16,7 +16,6 @@ let store;
 
 if (localStorage.jwtToken) {
 
-  console.log('TOKEN TESTING: JWT TOKEN', localStorage.jwtToken)
   setAuthToken(localStorage.jwtToken);
   const decodedUser = jwt_decode(localStorage.jwtToken);
 
