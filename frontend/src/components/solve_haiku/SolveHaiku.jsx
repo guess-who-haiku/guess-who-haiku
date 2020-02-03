@@ -14,7 +14,6 @@ import { HSContainer,
         } from "./SolveHaiku.styled";
 
 
-
 import barackObama from "../../assets/barack_obama.jpg";
 import donaldTrump from "../../assets/donald_trump.jpg";
 import gameOfThrones from "../../assets/game_of_thrones.jpg";
@@ -93,8 +92,6 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   useEffect(() => {
     if(challengeCompleted) {
 
-      console.log('UPDATING:', haikuId, currUserId, challengeAcceptedTS, challengeCompletedTS)
-
       completeHaiku(haikuId, 
                     currUserId, 
                     challengeCompleted,
@@ -103,8 +100,6 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
                     );
     }
   }, [challengeCompleted])
-
-
 
 
   async function acceptChallengeAndToggleNext() {
@@ -128,7 +123,6 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
       }
 
       return shuffled
-    
   }
  
   function setInitialAuthorOptions() {
@@ -237,7 +231,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
       );
     }
 
-});
+  });
   
   const GetReadyPage = memo(() => (
     <>
@@ -289,7 +283,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
     }
    
     
-  // -------------------------------------STEPS
+  
   });
 
   const IncorrectSelection = memo(() => (
@@ -336,10 +330,10 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
     setStep(nextStep);
     setReverse(false);
   };
-
   
-  console.log("author options after adding haiku authors", authorOptions);
-  console.log('selection', authorSelection);
+  // console.log("author options after adding haiku authors", authorOptions);
+  // console.log('selection', authorSelection);
+
   return (
     <HSContainer>
       { (haiku && users) ? React.createElement(Steps[step]): null }

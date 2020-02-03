@@ -106,7 +106,7 @@ const HaikuBuilder = ({createHaiku, createHaikuShare, fetchAuthors, fetchNewHaik
 
     //update selection of users shared with
     const handleShareSelection = e => {
-        let newShare = e.currentTarget.dataset.username;
+        let newShare = e.currentTarget.dataset.id;
         console.log(newShare);
         if (!haikuShares.includes(newShare)) {
             setHaikuShares([...haikuShares, newShare])
@@ -125,7 +125,11 @@ const HaikuBuilder = ({createHaiku, createHaikuShare, fetchAuthors, fetchNewHaik
         if (!currentUser) {
             openModal('login')
         } else {
+
             Object.assign(h, { creator: currentUser });
+
+            console.log('HHHHHHH', h);
+
             createHaiku(h);
             toggleNext();
         }
@@ -136,8 +140,9 @@ const HaikuBuilder = ({createHaiku, createHaikuShare, fetchAuthors, fetchNewHaik
         if (haikuShares.length === 0) {
             setSharesError(true)
         } else {
-            // createHaikuShare(newHaiku.haiku._id, haikuShares) //getting typeError for thunk
-            console.log('shared!')
+
+            createHaikuShare(newHaiku.haiku._id, haikuShares) //getting typeError for thunk
+            // console.log('shared!')
             toggleNext();
         }    
     }
@@ -213,7 +218,7 @@ const HaikuBuilder = ({createHaiku, createHaikuShare, fetchAuthors, fetchNewHaik
             <Message>Challenge your friends to solve your haiku by choosing them below, or generating a link to share with them!</Message>
             <LIContainer>
                 {users && users.map(user => (
-                    <li data-selected={haikuShares.includes(user.username)} key={user.username} data-username={user.username} onClick={handleShareSelection}>
+                    <li data-selected={haikuShares.includes(user.username)} key={user.username} data-id={user._id} onClick={handleShareSelection}>
                         <strong>{user.username}</strong>
                     </li>
                 ))}
@@ -249,6 +254,7 @@ const HaikuBuilder = ({createHaiku, createHaikuShare, fetchAuthors, fetchNewHaik
     };
     
     return (
+        
         <HBContainer>
             {React.createElement(Steps[step])}
         </HBContainer>

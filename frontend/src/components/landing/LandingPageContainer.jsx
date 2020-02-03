@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   openModal: modal => dispatch(Creators.openModal(modal)),
-  createHaikuShare: (haikuId, recipientIds) => dispatch(HaikuThunks.createHaikuShare(haikuId, recipientIds)),
+  createHaikuShare: (haikuId, recipientIds) => dispatch(HaikuThunks.createHaikuShares(haikuId, recipientIds)),
   createHaiku: (haiku) => dispatch(HaikuThunks.createHaiku(haiku)),
   fetchNewHaiku: (authors) => dispatch(NewHaikuThunks.fetchNewHaiku(authors)),
   fetchUsers: () => dispatch(UserThunks.fetchUsers()),
