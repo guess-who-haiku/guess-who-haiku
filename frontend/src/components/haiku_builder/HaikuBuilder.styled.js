@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import theme from 'styled/theme';
+import { colors, font } from 'styled/theme';
+import styledMap from 'styled-map';
 
 export const HBContainer = styled.div`
-    background-color: ${theme.colors.primary};
-    border: 1rem solid ${theme.colors.primaryDark};
+    background-color: ${colors.primary};
+    border: 1rem solid ${colors.primaryDark};
     font-weight: 200;
     line-height: 1.5;  
     margin: 4rem 5rem;
@@ -23,10 +24,18 @@ export const AuthorItem = styled.div`
     align-items: center;
     padding: 1rem;
     cursor: pointer;
+    img:hover {border: 3px solid white;}
+    img {
+        border: ${styledMap`
+            default: 3px solid transparent;
+            data-selected: 3px solid ${colors.utilityYellow};
+        `}  
+    }
+    
 `;
 
 export const Message = styled.h3`
-    color: ${theme.colors.utilityYellow};
+    color: ${colors.utilityYellow};
     font-size: 2.5rem; 
 `;
 
@@ -34,21 +43,22 @@ export const ErrorMsg = styled.span`
     font-size: 1.6rem;
     height: 3rem;
     padding: 1rem 0;
-    color: ${theme.colors.utilityRed};
-    font-weight: ${theme.font.weights.bold};
+    color: ${colors.utilityRed};
+    font-weight: ${font.weights.bold};
 `;
 
 //add selected effect
 export const AuthorIcon = styled.img`
-    height: 6rem;
+    height: 6.5rem;
     width: 6.5rem;
     border-radius: 50%;
-    
+    object-fit: cover;
+    object-position: center;
 `;
 
 export const Btn = styled.button`
     cursor: pointer;
-    font-weight: ${theme.font.weights.bold};
+    font-weight: ${font.weights.bold};
     width: 15rem;
     border-radius: 2px;
     padding: 1.5rem 2rem;
