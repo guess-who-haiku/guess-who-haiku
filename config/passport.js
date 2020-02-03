@@ -8,13 +8,9 @@ options.secretOrKey = keys.secretOrKey;
 
 module.exports = passport => {
   passport.use(
-    new JwtStrategy(options, (jwt_payload, done) => {
+    new JwtStrategy( options, (jwt_payload, done) => {
 
-      console.log('OPTIONS', options);
-      console.log('JWT PAYLOAD', jwt_payload)
-      // console.log('JWT FROM REQUEST', options.jwtFromRequest());      
-
-      User.findById(jwt_payload.id)
+      User.findById(jwt_payload.userId)
         .then(user => {
           if (user) {
             // return the user to the frontend
@@ -24,7 +20,6 @@ module.exports = passport => {
           return done(null, false);
         })
         .catch(err => { 
-          console.log('SUPER ERROR');
           console.log(err);
         });
     })

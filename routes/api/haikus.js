@@ -37,7 +37,6 @@ router.get('/new',
   async function(req, res) {
 
     const authors = Object.values(req.query); /* get authors from request  */
-    // console.log('AUTHORS', authors)
     // for each author, assemble a selection of authors from the library and construct the dictionary
     const selection = await getAuthorSelection(authors);
     console.log('SELECTION', selection)
