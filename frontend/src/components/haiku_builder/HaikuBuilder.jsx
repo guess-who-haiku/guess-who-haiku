@@ -6,6 +6,7 @@ import authorAvatars from 'assets/index';
 
 import { HBContainer, LIContainer, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
 import { formatHaiku } from 'util/haiku_format_util';
+import useOnAuth from './useOnAuth'
 
 const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku, authors, newHaiku, users, openModal, currentUser }) => {
 
@@ -18,6 +19,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const [reverse, setReverse] = useState(false);
 	const [authorError, setAuthorError] = useState(false);
 	const [sharesError, setSharesError] = useState(false);
+	const onAuth = useOnAuth(currentUser);
 
 	//update selection of haiku authors
 	const handleAuthorSelection = e => {
@@ -65,30 +67,25 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 
 	//handle save
 	const saveHaiku = () => {
-		let h = {};
-		Object.assign(h, { body: newHaiku });
-		if (!currentUser) {
-			openModal('login')
-		} else {
-			Object.assign(h, { creator: currentUser });
+		let h = { body: newHaiku };
+		if (!currentUser) { openModal('login') }
+		onAuth(() => {
+			h.creator = currentUser;
 			createHaiku(h)
 				.then(() => fetchUsers())
 				.then(() => history.push("/haikus"));
-		}
+		})
 	}
-
 
 	//go to share view
 	const toShareView = () => {
-		let h = {};
-		Object.assign(h, { body: newHaiku });
-		if (!currentUser) {
-			openModal('login')
-		} else {
-			Object.assign(h, { creator: currentUser });
+		let h = { body: newHaiku };
+		if (!currentUser) { openModal('login') }
+		onAuth(() => {
+			h.creator = currentUser;
 			createHaiku(h);
 			toggleNext();
-		}
+		})
 	}
 
 	//set selected users to share with in local state
