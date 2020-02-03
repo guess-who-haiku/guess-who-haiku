@@ -35,7 +35,6 @@ Thunks.fetchHaikuChallenges = (haikus) => dispatch =>
 Thunks.createHaiku = (haiku) => dispatch =>
   APIUtil.createHaiku(haiku)
     .then(({ data: haiku }) => dispatch(Creators.receiveHaiku(haiku)))
-    .then(haiku => dispatch(NewHaikuCreators.receiveNewHaiku(haiku)))
     .catch(err => console.log(err));
 
 Thunks.deleteHaiku = (haikuId) => dispatch =>

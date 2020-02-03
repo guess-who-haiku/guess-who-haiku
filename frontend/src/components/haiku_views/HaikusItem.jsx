@@ -2,10 +2,12 @@ import React from 'react';
 import { HaikuBox, HaikuLine, UnsharedHaiku, SharedHaiku } from './Haikus.styled';
 import { formatHaiku } from '../../util/haiku_format_util';
 
-export default function HaikusItem({haiku, openModal, type, currentUser}) {
-  if (haiku === undefined) return null;
+export default function HaikusItem({haiku, openModal, type, currentUser, users}) {
+  if (haiku === undefined || haiku.body === undefined) return null;
+
 
   const displayHaiku = () => {
+    console.log('Haiku: ', haiku)
     const text = formatHaiku(haiku.body, Object.keys(haiku.body))
     return (
       <>
@@ -22,9 +24,9 @@ export default function HaikusItem({haiku, openModal, type, currentUser}) {
 
       if (haiku.usersSharedWith.length === 0) { //unshared
         return (
-            <UnsharedHaiku>
-              {displayHaiku()}
-            </UnsharedHaiku>
+          <UnsharedHaiku>
+            {displayHaiku()}
+          </UnsharedHaiku>
         )
       }
 
@@ -44,33 +46,47 @@ export default function HaikusItem({haiku, openModal, type, currentUser}) {
         )
       } else { //shared and solved
         return (
-        < SharedHaiku >
-          { displayHaiku() }
-          < p >
-            `Solved first by: ${fastestSolver}`
+
+          < SharedHaiku >
+            {displayHaiku()}
+            < p >
+              `Solved first by: ${fastestSolver}`
           </p >
           </SharedHaiku >
+
         )
       }
 
     }
 
     if (type === 'haikusSharedWith') {
-
+      let completedTS = "";
       let solved = haiku.usersSharedWith.some(user => {
-        return (user._id === currentUser._id && haiku.complete)
+        if (user._id === currentUser._id && user.complete) {
+          completedTS = Date(user.completeTimestamp).toString();
+          return true;
+        }
+        return false;
       })
+
+      let creator = "";
+      if (users[haiku.creator]) {
+        creator = users[haiku.creator].username
+      }
 
       if (solved) {
         return (
           <UnsharedHaiku>
             {displayHaiku()}
+            <p>Creator: {creator}</p>
+            <p>Completed on: {completedTS}</p>
           </UnsharedHaiku>
         )
       } else {
         return (
           <SharedHaiku>
             {displayHaiku()}
+            <p>Creator: {creator}</p>
           </SharedHaiku>
         )
       }
@@ -85,7 +101,7 @@ export default function HaikusItem({haiku, openModal, type, currentUser}) {
   );
 }
 
-// Challenges
+//Challenges
 //author
 //completed?
 //completedTS
