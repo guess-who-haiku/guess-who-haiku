@@ -2,10 +2,11 @@ import React from 'react';
 import { HaikuBox, HaikuLine, UnsharedHaiku, SharedHaiku } from './Haikus.styled';
 import { formatHaiku } from '../../util/haiku_format_util';
 
-export default function HaikusItem({haiku, openModal, type, currentUser}) {
+export default function HaikusItem({ haiku, openModal, type, currentUser }) {
   if (haiku === undefined) return null;
 
   const displayHaiku = () => {
+    console.log('Haiku: ', haiku)
     const text = formatHaiku(haiku.body, Object.keys(haiku.body))
     return (
       <>
@@ -22,9 +23,9 @@ export default function HaikusItem({haiku, openModal, type, currentUser}) {
 
       if (haiku.usersSharedWith.length === 0) { //unshared
         return (
-            <UnsharedHaiku>
-              {displayHaiku()}
-            </UnsharedHaiku>
+          <UnsharedHaiku>
+            {displayHaiku()}
+          </UnsharedHaiku>
         )
       }
 
@@ -44,10 +45,10 @@ export default function HaikusItem({haiku, openModal, type, currentUser}) {
         )
       } else { //shared and solved
         return (
-        < SharedHaiku >
-          { displayHaiku() }
-          < p >
-            `Solved first by: ${fastestSolver}`
+          < SharedHaiku >
+            {displayHaiku()}
+            < p >
+              `Solved first by: ${fastestSolver}`
           </p >
           </SharedHaiku >
         )
