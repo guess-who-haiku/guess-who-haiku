@@ -10,5 +10,5 @@ export const Thunks = {};
 
 Thunks.fetchNewHaiku = (authors) => dispatch =>
   APIUtil.getNewHaiku(authors)
-    .then(haiku => dispatch(Creators.receiveNewHaiku(haiku)))
+    .then(({ data: haiku }) => dispatch(Creators.receiveNewHaiku(haiku)))
     .catch(err => console.log(err));

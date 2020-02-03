@@ -5,7 +5,9 @@ import { formatHaiku } from '../../util/haiku_format_util';
 export default function HaikusItem({haiku, openModal, type, currentUser, users}) {
   if (haiku === undefined || haiku.body === undefined) return null;
 
+
   const displayHaiku = () => {
+    console.log('Haiku: ', haiku)
     const text = formatHaiku(haiku.body, Object.keys(haiku.body))
     return (
       <>
@@ -44,12 +46,14 @@ export default function HaikusItem({haiku, openModal, type, currentUser, users})
         )
       } else { //shared and solved
         return (
-        < SharedHaiku >
-          { displayHaiku() }
-          <p>
-            `Solved first by: ${fastestSolver}`
-          </p>
-        </SharedHaiku >
+
+          < SharedHaiku >
+            {displayHaiku()}
+            < p >
+              `Solved first by: ${fastestSolver}`
+          </p >
+          </SharedHaiku >
+
         )
       }
 

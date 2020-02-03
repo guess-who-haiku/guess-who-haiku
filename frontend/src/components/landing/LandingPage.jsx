@@ -13,15 +13,16 @@ const LandingPage = ({ openModal, createHaikuShare, createHaiku, fetchAuthors, f
         {description}
       </DescriptionBox>
 
-      <HaikuBuilder 
-        createHaiku={createHaiku} 
-        createHaikuShare={createHaikuShare} 
-        fetchAuthors={fetchAuthors} 
-        fetchNewHaiku={fetchNewHaiku} 
-        authors={authors} 
-        newHaiku={newHaiku} 
-        users={users} 
-        openModal={openModal} 
+      <HaikuBuilder
+        createHaiku={createHaiku}
+        createHaikuShare={createHaikuShare}
+        fetchAuthors={fetchAuthors}
+        fetchUsers={fetchUsers}
+        fetchNewHaiku={fetchNewHaiku}
+        authors={authors}
+        newHaiku={newHaiku}
+        users={users}
+        openModal={openModal}
         currentUser={currentUser}
       />
 
