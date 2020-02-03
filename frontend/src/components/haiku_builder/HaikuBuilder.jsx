@@ -77,7 +77,6 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 		}
 	}
 
-
 	//go to share view
 	const toShareView = () => {
 		let h = {};
@@ -95,29 +94,32 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const [haikuShares, setHaikuShares] = useState([]);
 
 	//update selection of users shared with
-	const handleShareSelection = e => {
-		let newShare = e.currentTarget.dataset.username;
-		if (!haikuShares.includes(newShare)) {
-			setHaikuShares(prevShares => [...prevShares, newShare])
-		} else if (haikuShares.includes(newShare)) {
-			setHaikuShares(prevShares => prevShares.filter(user => (user !== newShare)))
-		}
-		if (haikuShares.length > 0) {
-			setSharesError(false)
-		}
-	};
+    const handleShareSelection = e => {
+        let newShare = e.currentTarget.dataset.id;
+        console.log(newShare);
+        if (!haikuShares.includes(newShare)) {
+            setHaikuShares([...haikuShares, newShare])
+        } else if (haikuShares.includes(newShare)) {
+            setHaikuShares(haikuShares.filter(user => (user !== newShare)))
+        }
+        if (haikuShares.length > 0) {
+            setSharesError(false)
+        }
+    };
 
 
 
-	//share haiku with selected users
-	const shareHaiku = () => {
-		if (haikuShares.length === 0) {
-			setSharesError(true)
-		} else {
-			// createHaikuShare(newHaiku.haiku._id, haikuShares) //getting typeError for thunk
-			toggleNext();
-		}
-	}
+  //share haiku with selected users
+    const shareHaiku = () => {
+        if (haikuShares.length === 0) {
+            setSharesError(true)
+        } else {
+
+            createHaikuShare(newHaiku.haiku._id, haikuShares)
+     
+            toggleNext();
+        }    
+    };
 
 	//copy to clipboard
 	const copyLink = () => {
@@ -185,23 +187,23 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 		</>
 	);
 
-	const ShareHaiku = () => (
-		<>
-			<Message>Challenge your friends to solve your haiku by choosing them below, or generating a link to share with them!</Message>
-			<LIContainer>
-				{users && users.map(user => (
-					<li data-selected={haikuShares.includes(user.username)} key={user.username} data-username={user.username} onClick={handleShareSelection}>
-						<strong>{user.username}</strong>
-					</li>
-				))}
-			</LIContainer>
-			{sharesError ? shareError : null}
-			<Btn onClick={shareHaiku}>Share</Btn>
-			{/* set input value to current haiku id */}
-			<input type="text" value={newHaiku ? null : newHaiku.haiku._id} id="shareLink" />
-			<Btn onClick={copyLink}>Copy link</Btn>
-		</>
-	);
+ const ShareHaiku = () => (
+        <>
+            <Message>Challenge your friends to solve your haiku by choosing them below, or generating a link to share with them!</Message>
+            <LIContainer>
+                {users && users.map(user => (
+                    <li data-selected={haikuShares.includes(user.username)} key={user.username} data-id={user._id} onClick={handleShareSelection}>
+                        <strong>{user.username}</strong>
+                    </li>
+                ))}
+            </LIContainer>
+            {sharesError ? shareError : null}
+            <Btn onClick={shareHaiku}>Share</Btn>
+            {/* set input value to current haiku id */}
+            <input type="text" value={newHaiku.data ? null : newHaiku.haiku._id} id="shareLink"/>
+            <Btn onClick={copyLink}>Copy link</Btn>
+        </>
+   );
 
 	const Confirmation = () => (
 		<>
