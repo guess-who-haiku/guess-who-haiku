@@ -1,15 +1,15 @@
 import React from 'react'
-import { TDetail} from './Scoreboard.styled';
+import { TRow, TDetail } from './Scoreboard.styled';
 
-export default function ScoreboardItem({user}) {
+export default function ScoreboardItem({ user, currentUser }) {
     return (
-        <tr>
+        <TRow data-current-user={user === currentUser}>
             <TDetail>
-            {user.username}
+                {user.username}
             </TDetail>
             <TDetail>
-            {user.score.toFixed(0)}
+                {user.score.toFixed(0)}
             </TDetail>
-        </tr>
+        </TRow>
     )
 }
