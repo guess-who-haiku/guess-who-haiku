@@ -1,13 +1,17 @@
 import React, {Fragment, useState} from 'react'
 import SolvedHaiku from '../solve_haiku/SolvedHaiku';
 import SolveHaiku from '../solve_haiku/SolveHaikuContainer';
+import { formatHaiku } from 'util/haiku_format_util';
 import { LIContainer, Message, Btn, ErrorMsg } from '../haiku_builder/HaikuBuilder.styled';
+import { HContainer } from './Haiku.styled';
 
-export default function Haiku({currentUser, solved, creator, users, fastestSolvers}) {
-    console.log("currentUser", currentUser);
-    console.log("solved", solved);
-    console.log("creator", creator);
-    console.log("fastest solvers", fastestSolvers);
+export default function Haiku({currentUser, solved, creator, users, fastestSolvers, haiku, fetchUsers, createHaikuShare}) {
+    // console.log("currentUser", currentUser);
+    // console.log("solved", solved);
+    // console.log("creator", creator);
+    // console.log("fastest solvers", fastestSolvers);
+    console.log("THIS HAIKU", haiku);
+    let usersArr = Object.values(users);
 
     const formatSolvers = () => {
       if (!fastestSolvers) {
@@ -22,10 +26,31 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
       })
     }
 
+    let haikuAuthors = Object.keys(haiku.body);
+    let haikuText = formatHaiku(haiku.body, haikuAuthors);
+
     //set selected users to share with in local state
     const [haikuShares, setHaikuShares] = useState([]);
     const [sharesError, setSharesError] = useState(false);
     const shareError = <ErrorMsg>Please select at least one friend to share your haiku with</ErrorMsg>
+
+    //set list of users haiku is already shared with
+    const currentShares = haiku.usersSharedWith.map(share => share.userId);
+
+    const alreadySharedWith = () => {
+      if (currentShares.length > 0) {
+        return currentShares.map((user) => {
+          let curr = users[user];
+          return (
+            <li>{curr.username}</li>
+          )
+        })
+      } else {
+        return (
+          null
+        )
+      }
+    }
 
     //update selection of users shared with
     const handleShareSelection = e => {
@@ -46,54 +71,35 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
       if (haikuShares.length === 0) {
         setSharesError(true)
       } else {
-        console.log('newHaiku about to be created', newHaiku)
-        createHaikuShare(newHaiku._id, haikuShares)
+        createHaikuShare(haiku._id, haikuShares)
+          .then(() => fetchUsers()) //fetch all users after sharing
       }
     };
+
+    console.log("USERS INSIDE HAIKU MODAL", haikuShares);
+
 
     const determineHaikuShow = () => {
         //if creator of haiku      //not tested
         if (creator) return (
-                      // <>
-                      //   <p>
-                      //     Challenge a friend (or a few friends) to solve your
-                      //     haiku by choosing them below, or generating a link and
-                      //     sending it to them.
-                      //   </p>
-                      //   {/* <ul>
-                      //     {users &&
-                      //       users.map(user => (
-                      //         <li
-                      //           data-selected={haikuShares.includes(
-                      //             user.username
-                      //           )}
-                      //           key={user.username}
-                      //           data-username={user.username}
-                      //           onClick={handleShareSelection}
-                      //         >
-                      //           <strong>{user.username}</strong>
-                      //         </li>
-                      //       ))}
-                      //   </ul> */}
-                      //   <button>Share</button>
-                      //   {/* set input value to current haiku id */}
-                      //   <input type="text" name="link" />
-                      //   <button>Share via link</button>
-                      //   {formatSolvers()}
-                      // </>
                 <>
-                  <Message>Challenge your friends to solve your haiku by choosing them below,
-                     or generating a link to share with them!</Message>
+                  <Message>
+                    {haikuText.map((line, idx) => (
+                      <p key={idx}>{line}</p>
+                    ))}
+                  </Message>
+                  <Message>Challenge your friends to solve your haiku!</Message>
                   <LIContainer>
-                    {users && users.filter(user => (user._id !== currentUser._id)).map(user => (
+                    {users && usersArr.filter(user => ((user._id !== currentUser._id) && (!currentShares.includes(user._id)))).map(user => (
                       <li data-selected={haikuShares.includes(user.username)} key={user.username} data-id={user._id} onClick={handleShareSelection}>
-                        <strong>{user.username}</strong>
+                        {user.username}
                       </li>
                     ))}
                   </LIContainer>
                   {sharesError ? shareError : null}
                   <Btn onClick={shareHaiku}>Share</Btn>
-                  {formatSolvers()}
+                  {/* {formatSolvers()} */}
+                  {alreadySharedWith()}
                 </>
                     );
         //if not logged in or unsolved     //not tested
@@ -103,8 +109,8 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
     }
 
     return (
-        <div>
+        <HContainer>
             {determineHaikuShow()}
-        </div>
+        </HContainer>
     )
 }
