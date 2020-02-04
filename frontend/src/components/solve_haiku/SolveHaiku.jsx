@@ -91,13 +91,13 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   
   useEffect(() => {
     if(challengeCompleted) {
-
+      console.log('challenge completed', haikuId, currUserId, challengeCompleted, challengeAcceptedTS, challengeCompletedTS)
       completeHaiku(haikuId, 
                     currUserId, 
                     challengeCompleted,
                     challengeAcceptedTS, 
                     challengeCompletedTS
-                    );
+                    );    
     }
   }, [challengeCompleted])
 
@@ -197,10 +197,11 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
       setChallengeCompletedTS(Date.now());
       setChallengeCompleted(true);
+
       setStep(4); //send to Correct SelectionLoggedIn 
 
     } else if (selectionMatches() && !currUserId) {
-      setStep(5); //send to CorrectSelectionNotLoggedIn 
+      setStep(5); //send to CorrectSelectionNotLoggedIn
       
     } else {
       setStep(3); //send to IncorrectSelection step
@@ -295,7 +296,8 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
    const CorrectSelectionLoggedIn = memo(() => (
      <>
-       <p>CORRECT! Recording your score!</p>
+       <p>CORRECT</p>
+
      </>
    ));
 
