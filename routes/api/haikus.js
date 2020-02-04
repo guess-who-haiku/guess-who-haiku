@@ -15,7 +15,7 @@ async function getAuthorSelection(authors) {
 
   const payload = await Library.find();
   const library = payload[0].library;
-  console.log('library', library);
+  // console.log('library', library);
   /* goes through each others and returns a selection with just the authors */
   
   let selection = {};
@@ -39,7 +39,7 @@ router.get('/new',
     const authors = Object.values(req.query); /* get authors from request  */
     // for each author, assemble a selection of authors from the library and construct the dictionary
     const selection = await getAuthorSelection(authors);
-    console.log('SELECTION', selection)
+    // console.log('SELECTION', selection)
     selectionDicts = MarkovUtil.generateDictionaries(selection);
     
     // use the selection dictionaries to generate haiku lines
