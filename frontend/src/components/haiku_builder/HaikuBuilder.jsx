@@ -133,7 +133,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 					if (Object.keys(authorAvatars).includes(author)) {
 						return (
 							<AuthorItem data-selected={haikuAuthors.includes(author)} key={author} data-name={author} onClick={handleAuthorSelection}>
-								<AuthorIcon src={authorAvatars[author]} alt={author} />
+								<AuthorIcon src={authorAvatars[author].url} alt={author} />
 								{author}
 							</AuthorItem>
 						)
@@ -163,7 +163,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const GeneratedHaiku = () => (
 		<>
 			<div>
-				{newHaiku && formatHaiku(newHaiku, haikuAuthors).map(line => (
+				{newHaiku && !newHaiku.body && formatHaiku(newHaiku, haikuAuthors).map(line => (
 					<li key={line}>
 						{line}
 					</li>
