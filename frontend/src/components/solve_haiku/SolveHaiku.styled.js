@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import theme from "styled/theme";
+import styledMap from 'styled-map';
 
 export const HSContainer = styled.div`
   font-family: ${theme.font.family};
@@ -36,6 +37,9 @@ export const Button = styled.button`
   outline: none;
   background-color: ${theme.colors.utilityYellow};
   padding: 1rem;
+  border-radius: .3rem;
+
+  transition: all .3s ease;
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
@@ -47,16 +51,35 @@ export const Countdown = styled.div`
 `;
 
 export const HaikuContainer = styled.div`
-  background-color: ${theme.colors.utilityYellow};
-  padding: 5rem;
-  border-radius: .5rem;
+  background-color: ${styledMap`
+          default: ${theme.colors.utilityYellow};
+          data-success: ${theme.colors.utilityGreen};
+      `};
+  font-family: 'Satisfy';
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
+
+export const Haiku = styled.div`
+  background-color: white;
+  padding: 5rem;
+  width: 95%;
+  height: 95%;
+  font-size: 3rem;
+`
 
 export const AuthorIcon = styled.img`
   height: 10rem;
   width: 10rem;
   border-radius: 50%;
-  border: 5px solid lightgrey;
+  &:hover {
+    border: 5px solid ${theme.colors.utilityYellow};
+  };
+  border: ${styledMap`
+          data-selected: 5px solid ${theme.colors.utilityYellow};
+          default: 5px solid lightgrey;
+      `};
 `;
 
 export const AuthorItem = styled.div`
@@ -73,3 +96,16 @@ export const LIContainer = styled.div`
   flex-flow: row wrap;
   padding: 2rem 3rem;
 `;
+
+export const AuthorLineReveal = styled.div`
+
+  display: flex;
+  align-items: center;
+  font-family: 'Satisfy';
+`;
+
+export const SuccessMsg = styled.p`
+    font-size: 5rem;
+    font-weight: bold;
+    color: ${theme.colors.utilityGreen};
+`;  
