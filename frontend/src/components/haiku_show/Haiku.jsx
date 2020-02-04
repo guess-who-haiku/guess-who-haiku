@@ -46,8 +46,8 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
       if (haikuShares.length === 0) {
         setSharesError(true)
       } else {
-        console.log('newHaiku about to be created', newHaiku)
-        createHaikuShare(newHaiku._id, haikuShares)
+        // console.log('newHaiku about to be created', newHaiku)
+        // createHaikuShare(newHaiku._id, haikuShares)
       }
     };
 

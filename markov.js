@@ -2,13 +2,13 @@ function markovChainGenerator(text) {
     const textArr = text.split(' ');
     const markovChain = {};
     for (let i = 0; i < textArr.length; i++) {
-        let word = textArr[i].toLowerCase().replace(/[\W_]/, "")
+        let word = textArr[i].toLowerCase().replace(/[\W_]/g, "") //replaces any non letter including underscore
         if (word) {
             if (!markovChain[word]) {
                 markovChain[word] = []
             }
             if (textArr[i + 1]) { //this is not working, last word of string is getting added as a base word due to punctuation being replaced as empty string
-                markovChain[word].push(textArr[i + 1].toLowerCase().replace(/[\W_]/, ""));
+                markovChain[word].push(textArr[i + 1].toLowerCase().replace(/[\W_]/g, ""));
             }
         }
     }
