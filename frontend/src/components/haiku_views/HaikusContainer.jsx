@@ -10,7 +10,6 @@ const mapStateToProps = (state, ownProps) => {
   const type =
     ownProps.match.path === "/haikus" ? "haikusCreated" : "haikusSharedWith";
   const currentUser = selectCurrentUser(state);
-  debugger;
   return ({
     haikus: state.entities.haikus,
     currentUser: currentUser,
