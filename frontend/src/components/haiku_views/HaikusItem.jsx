@@ -1,8 +1,8 @@
 import React from 'react';
-import { HaikuBox, HaikuLine, UnsharedHaiku, SharedHaiku } from './Haikus.styled';
+import { HaikuBox, HaikuLine, Haiku, SharedIcon } from './Haikus.styled';
 import { formatHaiku } from '../../util/haiku_format_util';
 
-export default function HaikusItem({haiku, openModal, type, currentUser, users}) {
+export default function HaikusItem({ haiku, openModal, type, currentUser, users }) {
   if (haiku === undefined || haiku.body === undefined) return null;
 
 
@@ -24,9 +24,9 @@ export default function HaikusItem({haiku, openModal, type, currentUser, users})
 
       if (haiku.usersSharedWith.length === 0) { //unshared
         return (
-          <UnsharedHaiku>
+          <Haiku>
             {displayHaiku()}
-          </UnsharedHaiku>
+          </Haiku>
         )
       }
 
@@ -40,19 +40,20 @@ export default function HaikusItem({haiku, openModal, type, currentUser, users})
 
       if (!fastestSolve) { //shared but unsolved
         return (
-          <SharedHaiku>
+          <Haiku>
             {displayHaiku()}
-          </SharedHaiku>
+            <SharedIcon />
+          </Haiku>
         )
       } else { //shared and solved
         return (
 
-          < SharedHaiku >
+          <Haiku>
             {displayHaiku()}
             < p >
               `Solved first by: ${fastestSolver}`
           </p >
-          </SharedHaiku >
+          </Haiku>
 
         )
       }
@@ -76,18 +77,18 @@ export default function HaikusItem({haiku, openModal, type, currentUser, users})
 
       if (solved) {
         return (
-          <UnsharedHaiku>
+          <Haiku>
             {displayHaiku()}
             <p>Creator: {creator}</p>
             <p>Completed on: {completedTS}</p>
-          </UnsharedHaiku>
+          </Haiku>
         )
       } else {
         return (
-          <SharedHaiku>
+          <Haiku>
             {displayHaiku()}
             <p>Creator: {creator}</p>
-          </SharedHaiku>
+          </Haiku>
         )
       }
 
