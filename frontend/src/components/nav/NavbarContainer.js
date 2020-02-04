@@ -6,7 +6,7 @@ import { Creators as Modal } from 'store/modal/actions';
 import NavBar from './Navbar';
 
 const mapStateToProps = state => ({
-  loggedIn: Boolean(state.session.userId)
+  currentUser: selectCurrentUser(state)
 });
 
 const mapDispatchToProps = dispatch => ({

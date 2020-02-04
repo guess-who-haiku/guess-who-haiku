@@ -34,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 2rem;
     margin: 0;
     padding: 0;
+    background: #f2f1f0;
   }
 
   h1, h2, h3, h4, h5, h6 {
