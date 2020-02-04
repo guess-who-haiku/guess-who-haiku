@@ -4,6 +4,7 @@ const passport = require('passport');
 
 const User = require('../../models/User');
 const Haiku = require('../../models/Haiku');
+// const ObjectId = require("mongodb").ObjectID;
 
 //create new Haiku share //tested
 router.post('/',
@@ -13,25 +14,34 @@ router.post('/',
           
           req.body.recipientIds.forEach(userId => {
                 
-                User.findById(userId)
-                    .then(user => {
-                        User.updateOne(
-                            { "_id": user._id },
-                            {"$push": { "haikusSharedWith": req.body.haikuId }})
+            console.log('REQ BODY',req.body);
+                // User.findById(userId)
+                //     .then(user => {
+                    User.updateOne(
+                      { "_id": userId },
+                      {"$addToSet": { "haikusSharedWith": req.body.haikuId }},
+                      function(err, obj) {
+
+                        if (err) throw err;
+                        console.log('updated haiku share', obj)
+                      }
+                    ).catch(errs => console.log('errors with user update one', errs))
                             //.catch((errs) => console.log('Error updating User', errs))
-                    })
+                    // })
                     .then(() => {
                         Haiku.findById(req.body.haikuId)
                             .then(haiku => {
                                 Haiku.updateOne(
                                     { "_id": haiku._id },
-                                    { "$push": { "usersSharedWith": { userId: userId } }})
+                                    { "$addToSet": { "usersSharedWith": { userId: userId } }})
                                     .then(() => {
                                         Haiku.findById(req.body.haikuId).then((updatedHaiku) => res.json(updatedHaiku))
                                     })
                                     //.catch((errs) => console.log('Error updating haiku', errs));
                             })
                             .catch(err => {
+
+                               
                                 res
                                     .status(500)
                                     .json({ createfailed: "Haiku share failed" });

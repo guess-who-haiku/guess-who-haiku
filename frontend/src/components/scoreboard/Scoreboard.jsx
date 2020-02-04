@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import ScoreboardItem from './ScoreboardItem';
 import { SBcontainer, Table, TDetail } from "./Scoreboard.styled";
 
-export default class Scoreboard extends Component {
-    constructor(props) {
-        super(props);
-    }
+const Scoreboard = ({ fetchUsers, users, currentUser }) => {
 
-    componentDidMount() {
-        this.props.fetchUsers();
-    }
+    useEffect(() => {
+        fetchUsers()
+    }, [])
 
-    compare(a,b) {
+    const compare = (a, b) => {
         const userA = a.score;
         const userB = b.score;
 
@@ -24,38 +21,41 @@ export default class Scoreboard extends Component {
         return comparison;
     }
 
-    topTenScores() {
-        let copyUsers = Object.values(this.props.users);
-        let sortedUsers = copyUsers.sort(this.compare);
+    const topTenScores = () => {
+        let copyUsers = Object.values(users);
+        let sortedUsers = copyUsers.sort(compare);
         let scoresArray = [];
         for (let i = 0; (i < 10) && (i < sortedUsers.length); i++) {
             scoresArray.push(
-              <ScoreboardItem user={sortedUsers[i]} key={i} />
+                <ScoreboardItem key={i}
+                    currentUser={currentUser}
+                    user={sortedUsers[i]}
+                />
             );
         }
         return scoresArray;
     }
 
-    render() {
-        if (Object.keys(this.props.users).length === 0) {
-            return null;
-        }
-        return (
-            <SBcontainer>
-                <Table>
-                    <tbody>
-                        <tr>
-                            <TDetail>
-                                Username
-                            </TDetail>
-                            <TDetail>
-                                Score
-                            </TDetail>
-                        </tr>
-                        {this.topTenScores()}
-                    </tbody>
-                </Table>
-            </SBcontainer>
-        )
+    if (Object.keys(users).length === 0) {
+        return null;
     }
+    return (
+        <SBcontainer>
+            <Table>
+                <tbody>
+                    <tr>
+                        <TDetail>
+                            Username
+                        </TDetail>
+                        <TDetail>
+                            Score
+                        </TDetail>
+                    </tr>
+                    {topTenScores()}
+                </tbody>
+            </Table>
+        </SBcontainer>
+    )
 }
+
+export default Scoreboard;

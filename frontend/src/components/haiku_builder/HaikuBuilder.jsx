@@ -44,9 +44,10 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 		}
 	};
 
-	useEffect(() => {
-		newHaiku && setHaiku(formatHaiku(newHaiku, haikuAuthors))
-	}, [newHaiku])
+	// useEffect(() => {
+  //   console.log('INSIDE USE EFFECT', newHaiku);
+	// 	newHaiku && setHaiku(formatHaiku(newHaiku, haikuAuthors))
+	// }, [newHaiku])
 
 	//load new haiku
 	useEffect(() => {
@@ -112,9 +113,8 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
         if (haikuShares.length === 0) {
             setSharesError(true)
         } else {
-
-            createHaikuShare(newHaiku.haiku._id, haikuShares)
-     
+          console.log('newHaiku about to be created', newHaiku)
+            createHaikuShare(newHaiku._id, haikuShares)
             toggleNext();
         }    
     };
@@ -198,7 +198,8 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
             {sharesError ? shareError : null}
             <Btn onClick={shareHaiku}>Share</Btn>
             {/* set input value to current haiku id */}
-            <input type="text" value={newHaiku.data ? null : newHaiku.haiku._id} id="shareLink"/>
+            { console.log('newHaiku',newHaiku)}
+            {/* <input type="text" value={newHaiku.haiku ? null : newHaiku.haiku._id} id="shareLink"/> */}
             <Btn onClick={copyLink}>Copy link</Btn>
         </>
    );
