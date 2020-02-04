@@ -142,7 +142,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 					if (Object.keys(authorAvatars).includes(author)) {
 						return (
 							<AuthorItem data-selected={haikuAuthors.includes(author)} key={author} data-name={author} onClick={handleAuthorSelection}>
-								<AuthorIcon src={authorAvatars[author]} alt={author} />
+								<AuthorIcon src={authorAvatars[author].url} alt={author} />
 								{author}
 							</AuthorItem>
 						)

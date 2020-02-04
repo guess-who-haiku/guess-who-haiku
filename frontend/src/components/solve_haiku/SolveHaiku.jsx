@@ -13,24 +13,7 @@ import { HSContainer,
          AuthorIcon
         } from "./SolveHaiku.styled";
 
-
-import barackObama from "../../assets/barack_obama.jpg";
-import donaldTrump from "../../assets/donald_trump.jpg";
-import gameOfThrones from "../../assets/game_of_thrones.jpg";
-import homerSimpson from "../../assets/homer_simpson.jpg";
-import janeAusten from "../../assets/jane_austen.jpg";
-import kanyeWest from "../../assets/kanye_west.jpg";
-import rickAndMorty from "../../assets/rick_and_morty.jpg";
-
-const imgHash = {
-  "Barack Obama": barackObama,
-  "Donald Trump": donaldTrump,
-  "Game of Thrones": gameOfThrones,
-  "Homer Simpson": homerSimpson,
-  "Jane Austen": janeAusten,
-  "Kanye West": kanyeWest,
-  "Rick and Morty": rickAndMorty
-};
+import authorAvatars from 'assets/index';
 
 const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, currUserId }) => {
   
@@ -91,7 +74,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   
   useEffect(() => {
     if(challengeCompleted) {
-      console.log('challenge completed', haikuId, currUserId, challengeCompleted, challengeAcceptedTS, challengeCompletedTS)
+  
       completeHaiku(haikuId, 
                     currUserId, 
                     challengeCompleted,
@@ -139,9 +122,10 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
     if(authorOptions.length !== 0 && !authorOptionsSelected) {
       
+      console.log('AUTHORS', authors);
+
       let toShuffle = authorOptions.slice(0);
  
-
       while(toShuffle.length < AUTHOR_OPTIONS_NUM) {
   
           let randomAuthorId = Math.floor(Math.random() * Object.keys(authors).length)
@@ -166,11 +150,14 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   function handleAuthorSelect(e) {
     
     const selection = e.currentTarget.innerText;
+
+    console.log("console.log",e.currentTarget);
   
     if (authorSelection.includes(selection)) {  //previously selection, user wants to unselect
       
       let newAuthorSelection = authorSelection.slice(0).filter((value, index, arr) => {
         return value !== selection
+      
       }); 
       setAuthorSelection(newAuthorSelection);
 
@@ -236,7 +223,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   
   const GetReadyPage = memo(() => (
     <>
-      <Message>The faster you answer correctly, the more your points</Message>
+      <Message>Answer faster for a higher score:</Message>
       <MsgSub>Ready, in:</MsgSub>
       <MsgHighlight>
         <Countdown>{timeLeft}</Countdown>
@@ -263,11 +250,11 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
               <p key={idx}>{line}</p>
             ))}
           </HaikuContainer>
-          <Message>Pick {haikuAuthors.length} authors</Message>
+          <Message>Pick {haikuAuthors.length} author(s):</Message>
           <LIContainer>
             {authorOptions.map((option, idx) => (
               <AuthorItem onClick={handleAuthorSelect} key={idx}>
-                <AuthorIcon src={imgHash[option]} alt={option} />
+                <AuthorIcon src={authorAvatars[option].url} alt={option} />
                 {option}
               </AuthorItem>
             ))}
@@ -297,7 +284,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
    const CorrectSelectionLoggedIn = memo(() => (
      <>
        <p>CORRECT</p>
-
+      
      </>
    ));
 
