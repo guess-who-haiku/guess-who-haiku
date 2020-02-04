@@ -163,7 +163,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const GeneratedHaiku = () => (
 		<>
 			<div>
-				{newHaiku && formatHaiku(newHaiku, haikuAuthors).map(line => (
+				{newHaiku && !newHaiku.body && formatHaiku(newHaiku, haikuAuthors).map(line => (
 					<li key={line}>
 						{line}
 					</li>
