@@ -24,10 +24,10 @@ const toryBlue = '#155cac';
 const bostonBlue = '#418bc8';
 const havelockBlue = '#66a8dc';
 const cabaret = '#d8526a';
-const lavendarPurple = '#9277B2';
-const hotCinnamon = '#e05624';
+// const lavendarPurple = '#9277B2';
+// const hotCinnamon = '#e05624';
 const candleLight = '#f9cc10';
-const forestGreen = '#1d8941';
+// const forestGreen = '#1d8941';
 
 export const colors = {
   primaryDark: toryBlue,
@@ -48,8 +48,8 @@ const fontWeights = {
 export const font = {
   sizes: [],
   weights: fontWeights,
-  family: "'Merriweather Sans', sans-serif",
-  url: 'https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700,800&display=swap',
+  family: "'Martel Sans', sans-serif",
+  url: 'https://fonts.googleapis.com/css?family=Martel+Sans:300,400,600,700,800,900|Molle:400i&display=swap',
 }
 
 const theme = {

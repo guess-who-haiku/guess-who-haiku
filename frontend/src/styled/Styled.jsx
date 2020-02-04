@@ -5,8 +5,8 @@ import theme from './theme';
 
 const Styled = ({ children }) => (
   <ThemeProvider theme={theme}>
-    {children}
     <GlobalStyle />
+    {children}
   </ThemeProvider>
 )
 
