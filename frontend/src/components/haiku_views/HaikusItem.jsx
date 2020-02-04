@@ -31,14 +31,14 @@ export default function HaikusItem({haiku, openModal, type, currentUser, users})
       }
 
       let fastestSolver = "";
-      let fastestSolve = haiku.usersSharedWith.reduce((acc, cur) => {
-        if (cur.completeTimestamp && cur.completeTimestamp < acc) {
-          fastestSolver = cur.username;
-          return cur;
+      haiku.usersSharedWith.reduce((acc, cur) => {
+        if (cur.completeTimestamp && new Date(cur.completeTimestamp) < new Date(acc)) {
+          fastestSolver = users[cur.userId].username;
+          return cur.completeTimestamp;
         }
-      }, 0)
+      }, (new Date("2030-01-01T00:00:00.000Z")))
 
-      if (!fastestSolve) { //shared but unsolved
+      if (!fastestSolver) { //shared but unsolved
         return (
           <SharedHaiku>
             {displayHaiku()}
@@ -50,8 +50,8 @@ export default function HaikusItem({haiku, openModal, type, currentUser, users})
           < SharedHaiku >
             {displayHaiku()}
             < p >
-              `Solved first by: ${fastestSolver}`
-          </p >
+              {`First Solver: ${fastestSolver}`}
+            </p >
           </SharedHaiku >
 
         )
@@ -62,8 +62,9 @@ export default function HaikusItem({haiku, openModal, type, currentUser, users})
     if (type === 'haikusSharedWith') {
       let completedTS = "";
       let solved = haiku.usersSharedWith.some(user => {
-        if (user._id === currentUser._id && user.complete) {
-          completedTS = Date(user.completeTimestamp).toString();
+        if (user.userId === currentUser._id && user.complete) {
+          completedTS = Date(user.completeTimestamp).toString()
+                        .split(" ").slice(0,4).join(" ");
           return true;
         }
         return false;
