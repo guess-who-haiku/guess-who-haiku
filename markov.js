@@ -38,21 +38,53 @@ function generateDictionaries(sampleTextsObj) {
     return dictionaries;
 };
 
-/* generates a single line of a haiku */
+/* generates a single line of a haiku, old */
 
-function generateLine(dictionary, syllable) {
-    let keys = Object.keys(dictionary);
-    let lineArr = [keys[Math.floor(Math.random() * keys.length)]];
-    // logic below will need to be altered to create lines of specified syllable in Markov chain gen
-    for (let i = 0; i < syllable; i++) {
-        let newWords = dictionary[lineArr[i]];
-        lineArr.push(newWords[Math.floor(Math.random() * newWords.length)]);
-        // lineArr.push(tatiana(newWords));
-        //console.log('inside generate line', lineArr);
+// function generateLine(dictionary, syllable) {
+//     let keys = Object.keys(dictionary); //base words
+//     let lineArr = [keys[Math.floor(Math.random() * keys.length)]]; //select first word in line
+
+//     // logic below will need to be altered to create lines of specified syllable in Markov chain gen
+//     for (let i = 0; i < syllable; i++) {
+//         let newWords = dictionary[lineArr[i]];
+//         lineArr.push(newWords[Math.floor(Math.random() * newWords.length)]);
+//         // lineArr.push(tatiana(newWords));
+//         //console.log('inside generate line', lineArr);
+//     }
+//     //need to give ending word starting word as key
+//     //console.log('outside of loop lineArr (gen lines func)', lineArr);
+//     return lineArr.join(" ");
+// }
+
+//up to date generate line function with enforced syllable count
+function genLine(dictionary, visitedWords = [], targetSyllCount, baseWord) {
+    let wordsArray = [];
+    if (!baseWord) {
+        wordsArray = Object.keys(dictionary).sort(() => Math.random() - 0.5)
+    } else {
+        wordsArray = dictionary[baseWord]
     }
-    //need to give ending word starting word as key
-    //console.log('outside of loop lineArr (gen lines func)', lineArr);
-    return lineArr.join(" ");
+
+    for (let i = 0; i < wordsArray.length; i++) {
+        let word = wordsArray[i]
+        let syllCount = countSyllables(word)  //can memoize here, add to arguments
+        //syllable count is 0, we found our completed line!
+        if (targetSyllCount - syllCount === 0) {
+            visitedWords.push(word)
+            return visitedWords.join(" ")
+        }
+        //syllable count is < 0, return null
+
+        //syllable count is > 0, keep going
+        if (targetSyllCount - syllCount > 0) {
+            visitedWords.push(word)
+
+            const result = genLine(dictionary, visitedWords, targetSyllCount - syllCount, word)
+            if (result) {
+                return result
+            }
+        }
+    }
 }
 
 /* takes dict object with author, text dictionary key value pairs and returns an object with a haiku body */
@@ -64,9 +96,12 @@ function generateLines(dictionaries) {
         if (!finalObj[person]) {
           finalObj[person] = [];
         }
-        finalObj[person].push(generateLine(dictionaries[person],5))
-        finalObj[person].push(generateLine(dictionaries[person],7))
-        finalObj[person].push(generateLine(dictionaries[person],5))
+        // console.log(genLine(dictionaries[person], [], 10, null))
+        // console.log(genLine(dictionaries[person], [], 5, null))
+        // console.log(genLine(dictionaries[person], [], 10, null))
+        finalObj[person].push(genLine(dictionaries[person], [], 5, null))
+        finalObj[person].push(genLine(dictionaries[person], [], 7, null))
+        finalObj[person].push(genLine(dictionaries[person], [], 5, null))
     })
 
     return finalObj;
@@ -108,6 +143,7 @@ function countSyllables(word) {
 //     rj: rjtext
 // };
 // let dicts = generateDictionaries(sarah);
+// // console.log(dicts)
 
 // console.log(generateLines(dicts));
 
