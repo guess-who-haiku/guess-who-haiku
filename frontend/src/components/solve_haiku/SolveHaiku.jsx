@@ -154,6 +154,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
     const selection = e.currentTarget.innerText;
     e.target.dataset.selected = true;
     console.log("console.log", e.target);
+
   
     //previously selection, user wants to unselect
     if (authorSelection.includes(selection)) {  
@@ -264,6 +265,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
             {authorOptions.map((option, idx) => (
               <AuthorItem onClick={handleAuthorSelect} key={idx}>
                 <AuthorIcon data-selected={authorSelection.includes(option)} src={authorAvatars[option].url} alt={option} />
+
                 {option}
               </AuthorItem>
             ))}
@@ -301,6 +303,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
      return (
      <>
+
       <SuccessMsg>CORRECT!</SuccessMsg>
       <HaikuContainer data-success={true}>
         <Haiku>
@@ -319,6 +322,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
           })}
         </Haiku>
       </HaikuContainer>
+
      </>
     )
         }
