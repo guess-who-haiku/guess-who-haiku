@@ -285,7 +285,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   const IncorrectSelection = memo(() => (
     <>
       <p>That was incorrect, keep trying!</p>
-      <button onClick={() => backToMakeSelection()}>Try Again</button>
+      <Button onClick={() => backToMakeSelection()}>Try Again</Button>
     </>
   ));
 

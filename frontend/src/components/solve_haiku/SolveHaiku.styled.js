@@ -91,10 +91,12 @@ export const AuthorItem = styled.div`
 `;
 
 export const LIContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
   flex-flow: row wrap;
   padding: 2rem 3rem;
+  overflow-y: auto;
 `;
 
 export const AuthorLineReveal = styled.div`
