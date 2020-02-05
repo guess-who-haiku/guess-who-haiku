@@ -1,5 +1,7 @@
 import { connect } from "react-redux";
-import { Thunks } from "store/haikus/actions";
+import { Thunks as HaikuThunks } from "store/haikus/actions";
+import { Thunks as UserThunks } from "store/users/actions";
+// import { Thunks }
 import { selectCurrentUser } from "store/selectors";
 import { Creators as Modal } from "store/modal/actions";
 import Haiku from "./Haiku";
@@ -36,15 +38,20 @@ const mapStateToProps = (state) => {
   return {
     solved: solved,
     currentUser: currentUser,
-    users: state.session.users,
+    users: state.entities.users,
     creator: creator,
-    fastestSolvers: sortedSolved
+    fastestSolvers: sortedSolved,
+    haiku: state.entities.haikus[haikuId],
+
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-//   fetchHaikus: haikuIds => dispatch(Thunks.fetchHaikuChallenges(haikuIds)),
-//   closeModal: () => dispatch(Modal.closeModal())
+  fetchHaikus: haikuIds => dispatch(HaikuThunks.fetchHaikuChallenges(haikuIds)),
+  fetchUsers: () => dispatch(UserThunks.fetchUsers()),
+  // closeModal: () => dispatch(Modal.closeModal()),
+  // getHaiku: (haikuId) => dispatch(HaikuThunks.fetchHaiku(haikuId)), 
+  createHaikuShare: (haikuId, recipientIds) => dispatch(HaikuThunks.createHaikuShares(haikuId, recipientIds)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Haiku);

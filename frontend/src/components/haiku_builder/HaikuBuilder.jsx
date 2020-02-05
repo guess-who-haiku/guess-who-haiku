@@ -54,7 +54,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 		if (step === 1) {
 			const loading = setTimeout(() => {
 				toggleNext()
-			}, 2000);
+			}, 2500);
 			return () => clearTimeout(loading);
 		}
 	}, [step])
@@ -114,7 +114,6 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
         if (haikuShares.length === 0) {
             setSharesError(true)
         } else {
-          	console.log('newHaiku about to be created', newHaiku)
 			createHaikuShare(newHaiku._id, haikuShares)
 				.then(() => fetchUsers())
             toggleNext();
@@ -178,7 +177,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 
  const ShareHaiku = () => (
         <>
-            <Message>Challenge your friends to solve your haiku by choosing them below, or generating a link to share with them!</Message>
+            <Message>Challenge your friends to solve your haiku by choosing them below!</Message>
             <LIContainer>
 			 {users && users.filter(user => (user._id !== currentUser)).map(user => (
                     <li data-selected={haikuShares.includes(user.username)} key={user.username} data-id={user._id} onClick={handleShareSelection}>

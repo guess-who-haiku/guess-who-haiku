@@ -27,6 +27,7 @@ import nelson from './muntz.jpg';
 import duff from './duff.png';
 
 export default {
+
   "Donald Trump": { url: donaldTrump, color: '#FFA726' },
   "Homer Simpson": { url: homerSimpson, color: '#FC66FC' },
   "Game of Thrones": { url: gameOfThrones, color: '#C5501D' },
@@ -54,4 +55,5 @@ export default {
   "Milhouse Van Houten": { url: milhouse, color: '#E0C3DD' },
   "Nelson Muntz": { url: nelson, color: '#F5AF7E' },
   "Duffman": { url: duff, color: '#BE0301' }
+
 };

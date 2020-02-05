@@ -2,13 +2,13 @@ function markovChainGenerator(text) {
     const textArr = text.split(' ');
     const markovChain = {};
     for (let i = 0; i < textArr.length; i++) {
-        let word = textArr[i].toLowerCase().replace(/[\W_]/, "")
+        let word = textArr[i].toLowerCase().replace(/[\W_]/g, "") //replaces any non letter including underscore
         if (word) {
             if (!markovChain[word]) {
                 markovChain[word] = []
             }
             if (textArr[i + 1]) { //this is not working, last word of string is getting added as a base word due to punctuation being replaced as empty string
-                markovChain[word].push(textArr[i + 1].toLowerCase().replace(/[\W_]/, ""));
+                markovChain[word].push(textArr[i + 1].toLowerCase().replace(/[\W_]/g, ""));
             }
         }
     }
@@ -70,6 +70,35 @@ function generateLines(dictionaries) {
     })
 
     return finalObj;
+}
+
+function countSyllables(word) {
+    let syl_count = 0;
+    let vowels = "aeiouyAEIOUY";
+    let secondVow = "aouAOU"
+
+    if (vowels.includes(word[0])) {
+        syl_count += 1
+    }
+    for (let i = 1; i < word.length; i++) {
+        let letter = word.charAt(i);
+        if (vowels.includes(letter) && !vowels.includes(word.charAt(i - 1))) {
+            syl_count += 1;
+        }
+        if ((letter === "i" || letter === "u") && secondVow.includes(word.charAt(i + 1))) {
+            syl_count += 1;
+        }
+    }
+    if (word[word.length - 1] === "e") {
+        syl_count -= 1;
+    }
+    if ((word.substring(word.length - 2) === "le") && (!vowels.includes(word[word.length - 3])) && word.length > 2) {
+        syl_count += 1;
+    }
+    if (syl_count === 0) {
+        syl_count += 1
+    }
+    return syl_count;
 }
 
 // let hptext = "Nearly ten years had passed since the Dursleys had woken up to find their nephew on the front step, but Privet Drive had hardly changed at all. The sun rose on the same tidy front gardens and lit up the brass number four on the Dursleys' front door; it crept into their living room, which was almost exactly the same as it had been on the night when Mr.Dursley had seen that fateful news report about the owls. Only the photographs on the mantelpiece really showed how much time had passed. Ten years ago, there had been lots of pictures of what looked like a large pink beach ball wearing different - colored bonnets - but Dudley Dursley was no longer a baby, and now the photographs showed a large blond boy riding his first bicycle, on a carousel at the fair, playing a computer game with his father, being hugged and kissed by his mother. The room held no sign at all that another boy lived in the house, too."
