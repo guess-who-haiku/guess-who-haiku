@@ -70,16 +70,19 @@ function genLine(dictionary, visitedWords = [], targetSyllCount, baseWord) {
         let syllCount = countSyllables(word)  //can memoize here, add to arguments
         //syllable count is 0, we found our completed line!
         if (targetSyllCount - syllCount === 0) {
-            visitedWords.push(word)
-            return visitedWords.join(" ")
+            if (!["the", "i", "of", "a", "if", "an"].includes(word)) {
+                visitedWords.push(word)
+                return visitedWords.join(" ")
+            }
         }
         //syllable count is < 0, return null
 
         //syllable count is > 0, keep going
         if (targetSyllCount - syllCount > 0) {
-            visitedWords.push(word)
-
-            const result = genLine(dictionary, visitedWords, targetSyllCount - syllCount, word)
+            // visitedWords.push(word)
+            newVisitedWords = visitedWords.slice(0);
+            newVisitedWords.push(word)
+            const result = genLine(dictionary, newVisitedWords, targetSyllCount - syllCount, word)
             if (result) {
                 return result
             }
@@ -155,3 +158,11 @@ module.exports = {
   generateLines: generateLines
 
 }
+
+
+// let chiefText = 'dont see colors crackpot colors crackpot see colors crackpot colors crackpot crackpot toys when i look at when i look at people people at people people dont see colors crackpot colors crackpot see colors crackpot colors crackpot just see colors crackpot colors crackpot see colors crackpot colors crackpot look at people people at people people dont see colors crackpot colors crackpot see colors crackpot colors crackpot just see colors crackpot colors crackpot see colors crackpot colors crackpot i look at people people at people people dont see colors crackpot colors crackpot see colors crackpot colors crackpot just see colors crackpot colors crackpot see colors crackpot colors crackpot look at people people at people people dont see colors crackpot colors crackpot see colors crackpot colors crackpot just see colors crackpot colors crackpot see colors crackpot colors crackpot at people i look at at dont see see just see see look at at dont see see just see see i look at at dont see see just see see look at at dont see see just see see people i look at at dont see see just see see look at at dont see see just see see i look at at dont see see just see see look at at dont see see just see see the chief here bake him away away toys when people i look at'
+// let chiefObj = {
+//     "chief wiggum": chiefText
+// }
+// let dicts = generateDictionaries(chiefObj);
+// console.log(generateLines(dicts));
