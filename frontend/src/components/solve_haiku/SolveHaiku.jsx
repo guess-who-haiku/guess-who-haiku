@@ -280,8 +280,6 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
       return null;
     }
    
-    
-  
   });
 
   const IncorrectSelection = memo(() => (
@@ -293,8 +291,6 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
 
   function getKeyByValue(object, value) {
-    console.log('HAIKU BODY', haiku, "VALUE", value);
-
     return Object.keys(object).find(key => object[key].includes(value));
   }
 
