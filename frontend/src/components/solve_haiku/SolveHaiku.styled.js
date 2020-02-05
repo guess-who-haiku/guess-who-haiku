@@ -51,6 +51,7 @@ export const Countdown = styled.div`
 `;
 
 export const HaikuContainer = styled.div`
+
   background-color: ${styledMap`
           default: ${theme.colors.utilityYellow};
           data-success: ${theme.colors.utilityGreen};
@@ -96,6 +97,7 @@ export const LIContainer = styled.div`
   justify-content: center;
   flex-flow: row wrap;
   padding: 2rem 3rem;
+
   overflow-y: auto;
 `;
 
@@ -111,3 +113,4 @@ export const SuccessMsg = styled.p`
     font-weight: bold;
     color: ${theme.colors.utilityGreen};
 `;  
+

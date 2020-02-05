@@ -42,6 +42,7 @@ const mapStateToProps = (state) => {
     creator: creator,
     fastestSolvers: sortedSolved,
     haiku: state.entities.haikus[haikuId],
+
   };
 };
 
