@@ -41,7 +41,6 @@ router.get('/new',
     const selection = await getAuthorSelection(authors);
     // console.log('SELECTION', selection)
     selectionDicts = MarkovUtil.generateDictionaries(selection);
-    
     // use the selection dictionaries to generate haiku lines
     let lines = MarkovUtil.generateLines(selectionDicts);
 
