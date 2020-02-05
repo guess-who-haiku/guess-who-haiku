@@ -8,9 +8,12 @@ import { HSContainer,
          Button,
          Countdown,
          HaikuContainer,
+         Haiku,
          LIContainer,
          AuthorItem,
-         AuthorIcon
+         AuthorIcon,
+         AuthorLineReveal,
+         SuccessMsg
         } from "./SolveHaiku.styled";
 
 import authorAvatars from 'assets/index';
@@ -93,8 +96,8 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
   }
 
+  // if the user has made a guess
   function randomShuffle(array) {
-     // if the user has made a guess
       
       let shuffled = array.slice(0);
 
@@ -118,7 +121,8 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
     }
   }
 
-  function generateAllAuthorOptions() {  //adds other options to the authorOptions array
+   //adds other options to the authorOptions array
+  function generateAllAuthorOptions() { 
 
     if(authorOptions.length !== 0 && !authorOptionsSelected) {
       
@@ -135,9 +139,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
             toShuffle = toShuffle.concat(randomAuthor);
             toShuffle = randomShuffle(toShuffle);
-
           }
-          
       }
 
       setAuthorOptions(toShuffle);
@@ -150,10 +152,11 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   function handleAuthorSelect(e) {
     
     const selection = e.currentTarget.innerText;
-
-    console.log("console.log",e.currentTarget);
+    e.target.dataset.selected = true;
+    console.log("console.log", e.target);
   
-    if (authorSelection.includes(selection)) {  //previously selection, user wants to unselect
+    //previously selection, user wants to unselect
+    if (authorSelection.includes(selection)) {  
       
       let newAuthorSelection = authorSelection.slice(0).filter((value, index, arr) => {
         return value !== selection
@@ -161,18 +164,22 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
       }); 
       setAuthorSelection(newAuthorSelection);
 
-    } else if(authorSelection.length < Object.keys(haiku.body).length) { //not previously selected, and there's still open slots
+    //not previously selected, and there's still open slots
+    } else if(authorSelection.length < Object.keys(haiku.body).length) { 
       setAuthorSelection([...authorSelection, selection])
     }
   }
 
-  function selectionMatches() {  //compares the users guess against the correct answer 
+  //compares the users guess against the correct answer 
+  function selectionMatches() { 
 
     if (authorSelection.length === 0) return false;
     let correctAuthors = Object.keys(haiku.body);
+    
     for(let select of authorSelection) {
       if (!correctAuthors.includes(select)) return false; 
     }
+
     return true; 
   }
 
@@ -246,15 +253,17 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
       return (
         <>
           <HaikuContainer>
+            <Haiku>
             {haikuText.map((line, idx) => (
               <p key={idx}>{line}</p>
             ))}
+            </Haiku>
           </HaikuContainer>
           <Message>Pick {haikuAuthors.length} author(s):</Message>
           <LIContainer>
             {authorOptions.map((option, idx) => (
               <AuthorItem onClick={handleAuthorSelect} key={idx}>
-                <AuthorIcon src={authorAvatars[option].url} alt={option} />
+                <AuthorIcon data-selected={authorSelection.includes(option)} src={authorAvatars[option].url} alt={option} />
                 {option}
               </AuthorItem>
             ))}
@@ -262,7 +271,6 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
           <Button onClick={() => makeSelectionAndToggleNext()}>
             Make Guess
           </Button>
-          {/* <div>[Timer Placeholder Here]</div> */}
           <p></p>
         </>
       );
@@ -277,16 +285,48 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   const IncorrectSelection = memo(() => (
     <>
       <p>That was incorrect, keep trying!</p>
-      <button onClick={() => backToMakeSelection()}>Try Again</button>
+      <Button onClick={() => backToMakeSelection()}>Try Again</Button>
     </>
   ));
 
-   const CorrectSelectionLoggedIn = memo(() => (
+
+  function getKeyByValue(object, value) {
+    console.log('HAIKU BODY', haiku, "VALUE", value);
+
+    return Object.keys(object).find(key => object[key].includes(value));
+  }
+
+   const CorrectSelectionLoggedIn = memo(() => {
+
+     let haikuAuthors = Object.keys(haiku.body);
+     console.log('haiku BODY', haiku.body);
+     let haikuText = formatHaiku(haiku.body, haikuAuthors);
+     
+
+     return (
      <>
-       <p>CORRECT</p>
-      
+      <SuccessMsg>CORRECT!</SuccessMsg>
+      <HaikuContainer data-success={true}>
+        <Haiku>
+          {haikuText.map((line, idx) => {
+            let author = getKeyByValue(haiku.body, line);
+            return(
+
+              <AuthorLineReveal>
+                <AuthorItem key={idx}>
+                  <AuthorIcon src={authorAvatars[author].url} alt={author} />
+                </AuthorItem>
+                <p key={idx}>{line}</p>
+              </AuthorLineReveal>
+            )
+
+          })}
+        </Haiku>
+      </HaikuContainer>
      </>
-   ));
+    )
+        }
+        );
 
 
   const CorrectSelectionNotLoggedIn = memo(() => (
@@ -319,9 +359,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
     setStep(nextStep);
     setReverse(false);
   };
-  
-  // console.log("author options after adding haiku authors", authorOptions);
-  // console.log('selection', authorSelection);
+
 
   return (
     <HSContainer>
