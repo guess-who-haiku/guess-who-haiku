@@ -3,7 +3,7 @@ import theme from "styled/theme";
 
 export const HSContainer = styled.div`
   font-family: ${theme.font.family};
-  background-color: white;
+  background-color: ${theme.colors.primary};
   font-weight: 200;
   line-height: 1.5;  
   margin: 4rem 5rem;
@@ -16,13 +16,11 @@ export const HSContainer = styled.div`
 export const Message = styled.h3`
   color: ${theme.colors.utilityYellow};
   font-size: 2.5rem;
-  padding-top: 1rem;
 `;
 
 export const MsgHighlight = styled.div`
   color: ${theme.colors.utilityPink};
   font-size: 3.5rem;
-  padding-top: .5rem;
   font-weight: ${theme.font.weights.bold};
 `;
 
@@ -31,7 +29,6 @@ export const MsgSub = styled.div`
 `;
 
 export const Button = styled.button`
-  cursor: pointer;
   border: none;
   outline: none;
   background-color: ${theme.colors.utilityYellow};
@@ -47,14 +44,13 @@ export const Countdown = styled.div`
 `;
 
 export const HaikuContainer = styled.div`
-  background-color: ${theme.colors.utilityYellow};
+  background-color: ${theme.colors.primaryLight};
   padding: 5rem;
-  border-radius: .5rem;
 `;
 
 export const AuthorIcon = styled.img`
-  height: 10rem;
-  width: 10rem;
+  height: 9rem;
+  width: 9rem;
   border-radius: 50%;
   border: 5px solid lightgrey;
 `;
@@ -71,5 +67,5 @@ export const LIContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
-  padding: 2rem 3rem;
+  padding: 4rem 5rem;
 `;

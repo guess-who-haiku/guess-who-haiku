@@ -70,7 +70,8 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const saveHaiku = () => {
 		let h = { body: newHaiku };
 		if (!currentUser) { openModal('login') }
-		onAuth(() => {
+		onAuth((currentUser) => {
+			console.log(currentUser);
 			h.creator = currentUser;
 			createHaiku(h)
 				.then(() => fetchUsers())
@@ -82,7 +83,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const toShareView = () => {
 		let h = { body: newHaiku };
 		if (!currentUser) { openModal('login') }
-		onAuth(() => {
+		onAuth((currentUser) => {
 			h.creator = currentUser;
 			createHaiku(h);
 			toggleNext();
@@ -113,22 +114,12 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
         if (haikuShares.length === 0) {
             setSharesError(true)
         } else {
-          console.log('newHaiku about to be created', newHaiku)
-            createHaikuShare(newHaiku._id, haikuShares)
+          	console.log('newHaiku about to be created', newHaiku)
+			createHaikuShare(newHaiku._id, haikuShares)
+				.then(() => fetchUsers())
             toggleNext();
         }    
     };
-
-	//copy to clipboard
-	const copyLink = () => {
-		let copyText = document.getElementById("shareLink");
-
-		copyText.select();
-		copyText.setSelectionRange(0, 99999); // For mobile devices
-
-		document.execCommand("copy");
-		console.log("Copied the text: " + copyText.value);
-	}
 
 	const authError = <ErrorMsg>Please select at least one author</ErrorMsg>
 	const shareError = <ErrorMsg>Please select at least one friend to share your haiku with</ErrorMsg>
@@ -142,7 +133,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 					if (Object.keys(authorAvatars).includes(author)) {
 						return (
 							<AuthorItem data-selected={haikuAuthors.includes(author)} key={author} data-name={author} onClick={handleAuthorSelection}>
-								<AuthorIcon src={authorAvatars[author]} alt={author} />
+								<AuthorIcon src={authorAvatars[author].url} alt={author} />
 								{author}
 							</AuthorItem>
 						)
@@ -172,7 +163,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const GeneratedHaiku = () => (
 		<>
 			<div>
-				{newHaiku && formatHaiku(newHaiku, haikuAuthors).map(line => (
+				{newHaiku && !newHaiku.body && formatHaiku(newHaiku, haikuAuthors).map(line => (
 					<li key={line}>
 						{line}
 					</li>
@@ -189,7 +180,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
         <>
             <Message>Challenge your friends to solve your haiku by choosing them below, or generating a link to share with them!</Message>
             <LIContainer>
-                {users && users.map(user => (
+			 {users && users.filter(user => (user._id !== currentUser)).map(user => (
                     <li data-selected={haikuShares.includes(user.username)} key={user.username} data-id={user._id} onClick={handleShareSelection}>
                         <strong>{user.username}</strong>
                     </li>
@@ -197,10 +188,6 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
             </LIContainer>
             {sharesError ? shareError : null}
             <Btn onClick={shareHaiku}>Share</Btn>
-            {/* set input value to current haiku id */}
-            { console.log('newHaiku',newHaiku)}
-            {/* <input type="text" value={newHaiku.haiku ? null : newHaiku.haiku._id} id="shareLink"/> */}
-            <Btn onClick={copyLink}>Copy link</Btn>
         </>
    );
 
@@ -208,7 +195,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 		<>
 			<Message>All set! Use your My Haikus page to check in and see if your friends have Guessed Who!</Message>
 			<Btn onClick={startOver}>Make another Haiku</Btn>
-			<Btn>My Haikus</Btn>
+			<Btn onClick={() => history.push("/haikus")}>My Haikus</Btn>
 		</>
 	)
 

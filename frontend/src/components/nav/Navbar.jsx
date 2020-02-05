@@ -18,7 +18,7 @@ const NavBar = ({ history, currentUser, logout, openModal }) => {
             <MenuItem>My Challenges</MenuItem>
           </MenuNavLink>
           <MenuLink alignLeft bold>
-             <MenuItem><AvatarIcon/>{currentUser.username}</MenuItem>
+            <MenuItem><AvatarIcon />{currentUser.username}</MenuItem>
           </MenuLink>
           <MenuLink onClick={logout}>
             <MenuItem>Logout</MenuItem>

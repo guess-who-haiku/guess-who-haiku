@@ -6,7 +6,7 @@ const useOnAuth = currentUser => {
 
   const onAuth = cb => {
     if (currentUser) {
-      cb()
+      cb(currentUser)
     } else {
       setFn(() => cb)
     }
@@ -14,7 +14,7 @@ const useOnAuth = currentUser => {
 
   useEffect(() => {
     if (fn && currentUser) {
-      fn()
+      fn(currentUser)
     }
 
   }, [currentUser])
