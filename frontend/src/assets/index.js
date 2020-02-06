@@ -34,7 +34,7 @@ export default {
   "Barack Obama": { url: barackObama, color: '#264A92' },
   "Jane Austen": { url: janeAusten, color: '#3B4739' },
   "Rick and Morty": { url: rickAndMorty, color: '#B1EAFE' },
-  "Kanye West": { url: kanyeWest, color: '#EFE9D9' },
+  "Kanye West": { url: kanyeWest, color: '#98917E' },
   "Principal Skinner": { url: principalSkinner, color: '#B583C4' },
   "Bart Simpson": { url: bartSimpson, color: '#F14E29' },
   "Lisa Simpson": { url: lisaSimpson, color: '#F05E30' },

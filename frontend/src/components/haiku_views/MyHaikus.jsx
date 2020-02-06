@@ -10,18 +10,18 @@ import { formatHaiku, formatHaikuLines } from 'util/haiku_format_util';
 
 const Haiku = memo(({ haiku, openHaikuShow }) => {
   const lines = formatHaikuLines(haiku.body)
-  // const lines = []
+  const authorColors = lines.map(line => line.author.color);
   return (
-    <UserHaiku>
+    <UserHaiku data-author-colors={authorColors}>
       <LineIndex>
-        {lines.map(({author, text}, idx) => (
+        {lines.map(({ author, text }, idx) => (
           <LineIndexItem key={idx}>
             <LineAvatar
               data-color={author.color}
               src={author.url}
               alt={author.name}
             />
-            <LineText>{text}</LineText>
+            <LineText data-color={author.color}>{text}</LineText>
           </LineIndexItem>
         ))}
       </LineIndex>
