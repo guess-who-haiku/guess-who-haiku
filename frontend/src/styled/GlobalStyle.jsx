@@ -42,8 +42,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
-  a {
+  a, button {
     &, &:focus, &:hover, &:active {
+      outline: none;
       text-decoration: none;
       color: inherit;
     }
