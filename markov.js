@@ -130,6 +130,9 @@ function countSyllables(word) {
     if (word[word.length - 1] === "e") {
         syl_count -= 1;
     }
+    if (word[word.length - 2] === "e" && word[word.length - 1] === "d" && !(word[word.length - 3] === "d" || word[word.length - 3] === "t")) {
+        syl_count -= 1;
+    }
     if ((word.substring(word.length - 2) === "le") && (!vowels.includes(word[word.length - 3])) && word.length > 2) {
         syl_count += 1;
     }
