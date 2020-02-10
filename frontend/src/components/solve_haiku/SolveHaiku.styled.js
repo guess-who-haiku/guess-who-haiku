@@ -33,15 +33,17 @@ export const MsgSub = styled.div`
 
 export const Button = styled.button`
   cursor: pointer;
-  border: none;
+  border: 2px solid black;
   outline: none;
-  background-color: ${theme.colors.utilityYellow};
+  background-color: white;
   padding: 1rem;
   border-radius: .3rem;
 
   transition: all .3s ease;
 
   &:hover {
+    background-color: black;
+    color: white;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
   }
 `;
@@ -53,7 +55,7 @@ export const Countdown = styled.div`
 export const HaikuContainer = styled.div`
 
   background-color: ${styledMap`
-          default: ${theme.colors.utilityYellow};
+          default: lightgray;
           data-success: ${theme.colors.utilityGreen};
       `};
   font-family: 'Satisfy';
@@ -74,6 +76,7 @@ export const AuthorIcon = styled.img`
   height: 10rem;
   width: 10rem;
   border-radius: 50%;
+  margin: .5rem;
   &:hover {
     border: 5px solid ${theme.colors.utilityYellow};
   };
@@ -81,6 +84,13 @@ export const AuthorIcon = styled.img`
           data-selected: 5px solid ${theme.colors.utilityYellow};
           default: 5px solid lightgrey;
       `};
+`;
+
+export const AuthorIconSm = styled.img`
+  height: 6.5rem;
+  width: 6.5rem;
+  border-radius: 50%;
+  border: 5px solid lightgrey;
 `;
 
 export const AuthorItem = styled.div`
@@ -101,7 +111,8 @@ export const LIContainer = styled.div`
   overflow-y: auto;
 `;
 
-export const AuthorLineReveal = styled.div`
+
+export const AuthorLineIndex = styled.div`
 
   display: flex;
   align-items: center;

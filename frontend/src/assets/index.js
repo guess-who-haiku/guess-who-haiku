@@ -25,6 +25,7 @@ import smithers from './smithers.jpg';
 import milhouse from './milhouse.jpg';
 import nelson from './muntz.jpg';
 import duff from './duff.png';
+import unknown from './question-option-2.jpg';
 
 export default {
 
@@ -54,6 +55,6 @@ export default {
   "Waylon Smithers": { url: smithers, color: '#654495' },
   "Milhouse Van Houten": { url: milhouse, color: '#E0C3DD' },
   "Nelson Muntz": { url: nelson, color: '#F5AF7E' },
-  "Duffman": { url: duff, color: '#BE0301' }
-
+  "Duffman": { url: duff, color: '#BE0301' },
+  "Unknown": { url: unknown, color: 'lightgray'}
 };

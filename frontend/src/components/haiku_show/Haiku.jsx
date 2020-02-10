@@ -105,7 +105,11 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
         //if not logged in or unsolved     //not tested
         if (!currentUser || !solved) return <SolveHaiku />;
         //if solved     //not tested
-        if (solved) return <SolvedHaiku />;
+        if (solved) {
+          return (
+          <SolvedHaiku />
+          )
+        };
     }
 
     return (

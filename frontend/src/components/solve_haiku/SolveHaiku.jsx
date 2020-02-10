@@ -1,4 +1,4 @@
-import React, { Fragment as F, useState, useEffect, memo, useRef } from 'react';
+import React, { useState, useEffect, memo} from 'react';
 import { } from './SolveHaiku.styled';
 import { formatHaiku } from 'util/haiku_format_util';
 import { HSContainer, 
@@ -12,7 +12,8 @@ import { HSContainer,
          LIContainer,
          AuthorItem,
          AuthorIcon,
-         AuthorLineReveal,
+         AuthorIconSm,
+         AuthorLineIndex,
          SuccessMsg
         } from "./SolveHaiku.styled";
 
@@ -254,11 +255,25 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
       return (
         <>
           <HaikuContainer>
+
             <Haiku>
-            {haikuText.map((line, idx) => (
-              <p key={idx}>{line}</p>
-            ))}
+            {haikuText.map((line, idx) => {
+
+              // if idx is 1 or three, insert an image on the left
+              // if idex is 2 insert and image on the right
+
+              return (
+                <AuthorLineIndex key={idx}>
+                  { (idx === 0 || idx === 2) ? <AuthorIconSm src={authorAvatars["Unknown"].url}></AuthorIconSm> : null }
+                  <p>{line}</p>
+                  {(idx === 1) ? <AuthorIconSm src={authorAvatars["Unknown"].url}></AuthorIconSm> : null}
+                </AuthorLineIndex>
+              )
+
+
+            })}
             </Haiku>
+            
           </HaikuContainer>
           <Message>Pick {haikuAuthors.length} author(s):</Message>
           <LIContainer>
@@ -304,19 +319,19 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
      return (
      <>
 
-      <SuccessMsg>CORRECT!</SuccessMsg>
+      <SuccessMsg>You guessed correctly!</SuccessMsg>
       <HaikuContainer data-success={true}>
         <Haiku>
           {haikuText.map((line, idx) => {
             let author = getKeyByValue(haiku.body, line);
             return(
 
-              <AuthorLineReveal>
-                <AuthorItem key={idx}>
+              <AuthorLineIndex key={idx}>
+                <AuthorItem >
                   <AuthorIcon src={authorAvatars[author].url} alt={author} />
                 </AuthorItem>
-                <p key={idx}>{line}</p>
-              </AuthorLineReveal>
+                <p>{line}</p>
+              </AuthorLineIndex>
             )
 
           })}
