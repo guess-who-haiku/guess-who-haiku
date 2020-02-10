@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import α from 'color-alpha';
 import { colors, font } from 'styled/theme';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle as avatarIcon } from '@fortawesome/free-solid-svg-icons';
 import styledMap from 'styled-map';
 
 
@@ -19,7 +21,8 @@ export const HBContainer = styled.div`
 `;
 
 export const LineIndex = styled.ul`
-  padding-top: 5.5rem;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
   height: 100%;
   background-color: #fff;
   font-family: 'Satisfy', cursive;
@@ -44,7 +47,7 @@ export const LIContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
-    padding: 4rem 5rem;
+    padding: 3rem 5rem;
 `;
 
 export const AuthorItem = styled.div`
@@ -69,14 +72,13 @@ export const Message = styled.h3`
 `;
 
 export const ErrorMsg = styled.span`
+    display: block;
     font-size: 1.6rem;
-    height: 3rem;
-    padding: 1rem 0;
+    margin: 0 0 1rem 0;
     color: ${colors.utilityRed};
     font-weight: ${font.weights.bold};
 `;
 
-//add selected effect
 export const AuthorIcon = styled.img`
     height: 6.5rem;
     width: 6.5rem;
@@ -85,15 +87,20 @@ export const AuthorIcon = styled.img`
     object-position: center;
 `;
 
+export const AvatarIcon = styled(FontAwesomeIcon).attrs({ icon: avatarIcon })`
+  height: 2.5rem;
+  font-size: 3rem;
+`;
+
 export const Btn = styled.button`
   cursor: pointer;
   transition: all 0.25s ease 0s;
   border-radius: 3px;
   border: 1.5px solid #495057;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.5;
   padding: .6rem .7rem .2rem;
-  margin: 0 1rem;
+  margin: 2rem;
   width: 15rem;
   
   &:active {
