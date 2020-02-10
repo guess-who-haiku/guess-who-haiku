@@ -25,7 +25,8 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const handleAuthorSelection = e => {
 		let newAuthor = e.currentTarget.dataset.name;
 		if (!haikuAuthors.includes(newAuthor) && haikuAuthors.length < 3) {
-			setHaikuAuthors(prevAuthors => [newAuthor, ...prevAuthors])
+			setHaikuAuthors(prevAuthors => [newAuthor, ...prevAuthors]);
+			setAuthorError(false);
 		} else if (haikuAuthors.includes(newAuthor)) {
 			setHaikuAuthors(prevAuthors => prevAuthors.filter(author => (author !== newAuthor)))
 		}
@@ -93,7 +94,8 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
         let newShare = e.currentTarget.dataset.id;
         console.log(newShare);
         if (!haikuShares.includes(newShare)) {
-            setHaikuShares([...haikuShares, newShare])
+			setHaikuShares([...haikuShares, newShare]);
+			setSharesError(false);
         } else if (haikuShares.includes(newShare)) {
             setHaikuShares(haikuShares.filter(user => (user !== newShare)))
         }
@@ -133,7 +135,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 				})}
 			</LIContainer>
 			{authorError ? authError : null}
-			<Btn onClick={generateHaiku}>Build my Haiku!</Btn>
+			<Btn onClick={generateHaiku}>Write my Haiku!</Btn>
 
 		</>
 	);
@@ -161,8 +163,8 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 					</li>
 				))}
 			</LineIndex>
-			<Btn onClick={() => { generateHaiku(); toggleBack(); }}>Regenerate haiku</Btn>
-			<Btn onClick={startOver}>Let me start over</Btn>
+			<Btn onClick={() => { generateHaiku(); toggleBack(); }}>Regenerate</Btn>
+			<Btn onClick={startOver}>Start over</Btn>
 			<Btn onClick={saveHaiku}>Save for later</Btn>
 			<Btn onClick={toShareView}>Share now</Btn>
 		</>
@@ -186,8 +188,8 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const Confirmation = () => (
 		<>
 			<Message>All set! Use your My Haikus page to check in and see if your friends have Guessed Who!</Message>
-			<Btn onClick={startOver}>Make another Haiku</Btn>
-			<Btn onClick={() => history.push("/haikus")}>My Haikus</Btn>
+			<Btn onClick={startOver}>Write another</Btn>
+			<Btn onClick={() => history.push("/haikus")}>My haikus</Btn>
 		</>
 	)
 
