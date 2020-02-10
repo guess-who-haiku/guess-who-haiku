@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, Title, DescriptionBox } from './LandingPage.styled';
+import { Page, PageTitle, DescriptionBox } from './LandingPage.styled';
 import HaikuBuilder from '../haiku_builder/HaikuBuilder';
 
 const LandingPage = ({ openModal, createHaikuShare, createHaiku, fetchAuthors, fetchNewHaiku, fetchUsers, currentUser, authors, newHaiku, users }) => {
@@ -8,7 +8,7 @@ const LandingPage = ({ openModal, createHaikuShare, createHaiku, fetchAuthors, f
 
   return (
     <Page>
-      <Title>Guess, Who Haiku</Title>
+      <PageTitle>Guess Who Haiku</PageTitle>
       <DescriptionBox>
         {description}
       </DescriptionBox>

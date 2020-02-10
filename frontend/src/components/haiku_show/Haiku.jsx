@@ -10,7 +10,7 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
     // console.log("solved", solved);
     // console.log("creator", creator);
     // console.log("fastest solvers", fastestSolvers);
-    console.log("THIS HAIKU", haiku);
+    // console.log("THIS HAIKU", haiku);
     let usersArr = Object.values(users);
 
     const formatSolvers = () => {
@@ -57,7 +57,8 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
       let newShare = e.currentTarget.dataset.id;
       // console.log(newShare);
       if (!haikuShares.includes(newShare)) {
-        setHaikuShares([...haikuShares, newShare])
+        setHaikuShares([...haikuShares, newShare]);
+        setSharesError(false);
       } else if (haikuShares.includes(newShare)) {
         setHaikuShares(haikuShares.filter(user => (user !== newShare)))
       }
@@ -65,6 +66,7 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
         setSharesError(false)
       }
     };
+    const sharedMsg = <p>You've already share this haiku with the following friends:</p>
 
     //share haiku with selected users
     const shareHaiku = () => {
@@ -75,9 +77,6 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
           .then(() => fetchUsers()) //fetch all users after sharing
       }
     };
-
-    console.log("USERS INSIDE HAIKU MODAL", haikuShares);
-
 
     const determineHaikuShow = () => {
         //if creator of haiku      //not tested
@@ -99,6 +98,7 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
                   {sharesError ? shareError : null}
                   <Btn onClick={shareHaiku}>Share</Btn>
                   {/* {formatSolvers()} */}
+                  {alreadySharedWith() ? sharedMsg : null}
                   {alreadySharedWith()}
                 </>
                     );
