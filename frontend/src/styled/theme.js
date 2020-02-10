@@ -52,7 +52,13 @@ export const font = {
   url: 'https://fonts.googleapis.com/css?family=Martel+Sans:300,400,600,700,800,900|Molle:400i&display=swap',
 }
 
+// ---------------------- Box Shadows
+export const boxShadows = {
+  still: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)', hover: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)'
+}
+
 const theme = {
+  boxShadows,
   colors,
   font
 }

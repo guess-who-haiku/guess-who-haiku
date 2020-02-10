@@ -34,7 +34,7 @@ router.post('/signup', (req, res) => {
           return newUser.save()
         })
         .then(user => {
-          jwt.sign({ userId: user.id }, keys.secretOrKey, { expiresIn: 3600 }, (undefined, token) => {
+          jwt.sign({ userId: user.id }, keys.secretOrKey, { expiresIn: "10 days" }, (undefined, token) => {
             res.json({
               success: true,
               token: `Bearer ${token}`
