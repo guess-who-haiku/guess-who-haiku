@@ -18,8 +18,8 @@ import { HSContainer,
 
 import authorAvatars from 'assets/index';
 
-const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, currUserId }) => {
-  
+const SolveHaiku = ({getHaiku, updateHaiku, haikuId, haiku, authors, users, currUserId, openTS }) => {
+
   const AUTHOR_OPTIONS_NUM = 6;
   
   // ----------------------------FETCH HAIKU
@@ -78,7 +78,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   useEffect(() => {
     if(challengeCompleted) {
   
-      completeHaiku(haikuId, 
+      updateHaiku(haikuId, 
                     currUserId, 
                     challengeCompleted,
                     challengeAcceptedTS, 
@@ -87,10 +87,27 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
     }
   }, [challengeCompleted])
 
+  // -------------------------OPENED CHALLENGE
+  
+  useEffect(() => {
+    if(challengeAcceptedTS) {
+      // console.log("AJAX to openTS")
+      updateHaiku(haikuId, 
+                    currUserId, 
+                    challengeCompleted,
+                    challengeAcceptedTS, 
+                    challengeCompletedTS
+                    );    
+    }
+  }, [challengeAcceptedTS])
+
 
   async function acceptChallengeAndToggleNext() {
 
-    setChallengeAcceptedTS(Date.now());
+    // console.log("openTS from container", openTS)
+    if (!openTS) {
+      setChallengeAcceptedTS(Date.now());
+    }
     toggleNext();
     startCountDown();
 
