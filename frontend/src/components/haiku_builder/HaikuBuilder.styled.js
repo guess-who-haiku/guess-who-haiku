@@ -3,8 +3,9 @@ import α from 'color-alpha';
 import { colors, font } from 'styled/theme';
 import styledMap from 'styled-map';
 
+
 export const HBContainer = styled.div`
-    background-color: ${colors.primary};
+    background-color: white;
     border: 1rem solid ${colors.primaryDark};
     border-radius: 2px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -13,7 +14,8 @@ export const HBContainer = styled.div`
     font-weight: 200;
     line-height: 1.5;  
     margin: 4rem 5rem;
-    min-height: 70%;
+    min-height: 40rem;
+    padding: 2.5rem;
 `;
 
 export const LineIndex = styled.ul`
@@ -51,7 +53,7 @@ export const AuthorItem = styled.div`
     align-items: center;
     padding: 1rem;
     cursor: pointer;
-    img:hover {border: 3px solid white;}
+    img:hover {border: 3px solid black;}
     img {
         border: ${styledMap`
             default: 3px solid transparent;
@@ -62,7 +64,7 @@ export const AuthorItem = styled.div`
 `;
 
 export const Message = styled.h3`
-    color: ${colors.utilityYellow};
+    color: black;
     font-size: 2.5rem; 
 `;
 
