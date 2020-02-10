@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import authorAvatars from 'assets/index';
 
-import { HBContainer, LIContainer, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
+import { HBContainer, LIContainer, LineIndex, LineIndexItem, Message, ErrorMsg, AuthorIcon, AvatarIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
 import { formatHaiku } from 'util/haiku_format_util';
 import useOnAuth from './useOnAuth'
 
@@ -43,11 +43,6 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 			toggleNext();
 		}
 	};
-
-	// useEffect(() => {
-  //   console.log('INSIDE USE EFFECT', newHaiku);
-	// 	newHaiku && setHaiku(formatHaiku(newHaiku, haikuAuthors))
-	// }, [newHaiku])
 
 	//load new haiku
 	useEffect(() => {
@@ -107,9 +102,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
         }
     };
 
-
-
-  //share haiku with selected users
+  	//share haiku with selected users
     const shareHaiku = () => {
         if (haikuShares.length === 0) {
             setSharesError(true)
@@ -120,8 +113,8 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
         }    
     };
 
-	const authError = <ErrorMsg>Please select at least one author</ErrorMsg>
-	const shareError = <ErrorMsg>Please select at least one friend to share your haiku with</ErrorMsg>
+	const authError = <ErrorMsg>Please select at least one author.</ErrorMsg>
+	const shareError = <ErrorMsg>Please select at least one friend to share your haiku with.</ErrorMsg>
 
 	//steps
 	const ChooseAuthors = () => (
@@ -150,10 +143,10 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 			<Message>Just one moment while we build your haiku...</Message>
 			<LIContainer>
 				<Loader
-					type="Grid"
+					type="MutatingDots"
 					color="#f9cc10"
-					height={80}
-					width={80}
+					height={110}
+					width={110}
 				/>
 			</LIContainer>
 		</>
@@ -161,13 +154,13 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 
 	const GeneratedHaiku = () => (
 		<>
-			<div>
+			<LineIndex>
 				{newHaiku && !newHaiku.body && formatHaiku(newHaiku, haikuAuthors).map(line => (
 					<li key={line}>
 						{line}
 					</li>
 				))}
-			</div>
+			</LineIndex>
 			<Btn onClick={() => { generateHaiku(); toggleBack(); }}>Regenerate haiku</Btn>
 			<Btn onClick={startOver}>Let me start over</Btn>
 			<Btn onClick={saveHaiku}>Save for later</Btn>
