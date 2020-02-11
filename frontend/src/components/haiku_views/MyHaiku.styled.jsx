@@ -22,6 +22,7 @@ export const Details = styled.div`
 
 // ----------------- Share -----------------
 export const Share = styled.div`
+  cursor: pointer;
   ${flexCenter};
   &:hover {
     color: ${α('#000', .85)};
@@ -43,7 +44,7 @@ export const Modify = styled.div`
   margin-left: auto;
 `;
 
-export const ScoreboardToggle = styled.button`
+export const SolversToggle = styled.button`
   cursor: pointer;
   border-radius: 3px;
   border: 1.5px solid #495057;
@@ -67,5 +68,25 @@ export const DeleteIcon = styled(FontAwesomeIcon).attrs({ icon: iTrash })`
   transition: all 0.2s ease 0s;
   &:hover {
     color: ${α('#c81912', .85)};
+  }
+`;
+
+// ----------------- Solvers -----------------
+export const SolversTable = styled.table`
+  ${flexCenter};
+  flex-direction: column;
+  background-color: orangered;
+  th, td {
+    padding: 2rem;
+  }
+
+  tr {
+
+  }
+  th {
+
+  }
+  td {
+
   }
 `;

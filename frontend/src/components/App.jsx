@@ -7,8 +7,9 @@ import NavbarContainer from './nav/NavbarContainer';
 import LandingPage from './landing/LandingPageContainer';
 import Scoreboard from './scoreboard/ScoreboardContainer';
 import SolveHaiku from './solve_haiku/SolveHaikuContainer';
-import HaikusView from './haiku_views/HaikusContainer';
+// import HaikusView from './haiku_views/HaikusContainer';
 import MyHaikus from './haiku_views/MyHaikus';
+import MyChallenges from './haiku_views/MyChallenges';
 const App = () => (
   <>
     <ModalContainer />
@@ -19,7 +20,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/scoreboard" component={Scoreboard} />
-        <ProtectedRoute exact path="/challenges" component={HaikusView} />
+        <ProtectedRoute exact path="/challenges" component={MyChallenges} />
         <ProtectedRoute exact path="/haikus" component={MyHaikus} />
         <Route exact path="/haikus/:haikuId" component={SolveHaiku} />
       </Switch>

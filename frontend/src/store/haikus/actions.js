@@ -27,8 +27,8 @@ Thunks.fetchHaikusUser = (userId) => dispatch =>
     .then(({ data: haikus }) => dispatch(Creators.receiveHaikus(haikus)))
     .catch(err => console.log(err));
 
-Thunks.fetchHaikuChallenges = (haikus) => dispatch =>
-  APIUtil.getHaikuChallenges(haikus)
+Thunks.fetchHaikuChallenges = haikuIds => dispatch =>
+  APIUtil.getHaikuChallenges(haikuIds)
     .then(({ data: haikus }) => dispatch(Creators.receiveHaikus(haikus)))
     .catch(err => console.log(err));
 
