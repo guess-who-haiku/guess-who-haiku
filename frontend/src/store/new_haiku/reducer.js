@@ -7,6 +7,8 @@ const NewHaikuReducer = (state = _initialState, action) => {
     case Types.RECEIVE_NEW_HAIKU:
       const { haiku } = action;
       return haiku;
+    case Types.RESET_BUILDER:
+      return 'reset';
     default:
       return state;
   }
