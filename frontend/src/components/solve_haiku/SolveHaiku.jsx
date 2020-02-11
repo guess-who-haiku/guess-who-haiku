@@ -1,6 +1,5 @@
 import React, { useState, useEffect, memo} from 'react';
-import { } from './SolveHaiku.styled';
-import { formatHaiku, getKeyByValue } from 'util/haiku_format_util';
+import { formatHaiku } from 'util/haiku_format_util';
 import { HSContainer, 
          Message, 
          MsgHighlight,
