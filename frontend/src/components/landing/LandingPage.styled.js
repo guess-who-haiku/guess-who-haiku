@@ -10,6 +10,7 @@ export const DescriptionBox = styled.p`
   line-height: 1.8;
   font-size: 1.5rem;
   color: black;
+  padding: 1rem 5rem;
 `;
 
 export const PageTitle = styled.h1`
