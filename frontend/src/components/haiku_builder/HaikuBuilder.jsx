@@ -4,12 +4,11 @@ import { useHistory } from 'react-router-dom';
 
 import authorAvatars from 'assets/index';
 
-import { HBContainer, LIContainer, LineIndex, LineIndexItem, Message, ErrorMsg, AuthorIcon, AvatarIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
-import { formatHaiku } from 'util/haiku_format_util';
+import { HBContainer, LIContainer, LineIndex, LineItem, LineText, Message, ErrorMsg, AuthorIcon, AvatarIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
+import { formatHaiku, formatHaikuLines } from 'util/haiku_format_util';
 import useOnAuth from './useOnAuth'
 
 const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku, authors, newHaiku, users, openModal, currentUser }) => {
-
 	let history = useHistory();
 
 	//set local state
@@ -157,10 +156,18 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const GeneratedHaiku = () => (
 		<>
 			<LineIndex>
-				{newHaiku && !newHaiku.body && formatHaiku(newHaiku, haikuAuthors).map(line => (
-					<li key={line}>
+				{/* {newHaiku && !newHaiku.body && formatHaiku(newHaiku, haikuAuthors).map(line => (
+					<LineItem key={line}>
 						{line}
-					</li>
+					</LineItem>
+				))} */}
+				{newHaiku && !newHaiku.body && formatHaikuLines(newHaiku).map(({ author, text }, lineIdx) => (
+					<LineItem key={lineIdx}>
+						<AuthorItem borderColor={author.color}>
+							<AuthorIcon src={author.url} alt={author.name} />
+						</AuthorItem>
+						<LineText highlightColor={author.color}>{text}</LineText>
+					</LineItem>
 				))}
 			</LineIndex>
 			<Btn onClick={() => { generateHaiku(); toggleBack(); }}>Regenerate</Btn>

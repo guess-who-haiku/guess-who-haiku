@@ -28,12 +28,11 @@ export const LineIndex = styled.ul`
   font-family: 'Satisfy', cursive;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-around; */
   position: relative;
 `;
 
-export const LineIndexItem = styled.li`
-  margin: .8rem;
+export const LineItem = styled.li`
+   margin: .8rem;
   display: grid;
   grid-template-areas: "avatarLeft text avatarRight";
   grid-template-columns: minmax(min-content, 1fr) minmax(min-content, max-content) minmax(min-content, 1fr);
@@ -56,7 +55,7 @@ export const AuthorItem = styled.div`
     align-items: center;
     padding: 1rem;
     cursor: pointer;
-    img:hover {border: 3px solid black;}
+    img:hover {border: 3px solid ${colors.utilityYellow};}
     img {
         border: ${styledMap`
             default: 3px solid transparent;
@@ -64,6 +63,16 @@ export const AuthorItem = styled.div`
         `}  
     }
     
+`;
+
+export const LineText = styled.span`
+  grid-area: text;
+  justify-self: center;
+  padding: .8rem 1.2rem .5rem;
+  background-color: ${styledMap`
+      default: transparent;
+      highlightColor: ${props => α(props.highlightColor, .3)};
+    `};
 `;
 
 export const Message = styled.h3`
