@@ -93,7 +93,6 @@ export const formatHaikuLines = body => {
         default:
             break;
     }
-    console.log('LINES', lines);
     return lines;
 }
 
