@@ -2,7 +2,8 @@ import { createActions } from 'reduxsauce';
 import * as APIUtil from './api_util';
 
 export const { Types, Creators } = createActions({
-  receiveNewHaiku: ['haiku']
+  receiveNewHaiku: ['haiku'],
+  resetBuilder: null
 }, { prefix: '[NEW HAIKU] ' })
 
 

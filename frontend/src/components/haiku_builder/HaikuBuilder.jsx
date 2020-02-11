@@ -54,6 +54,13 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 		}
 	}, [step])
 
+	//listen for resetting haiku builder
+	useEffect(() => {
+		if (newHaiku === 'reset') {
+			startOver();
+		}
+	}, [newHaiku])
+
 	//start over
 	const startOver = () => {
 		setStep(0);

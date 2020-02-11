@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { Nav, MenuIcon, AvatarIcon, LogoBox, Logo, Menu, MenuLink, MenuNavLink, MenuItem } from './Navbar.styled';
-const NavBar = ({ history, currentUser, logout, openModal }) => {
+const NavBar = ({ history, currentUser, logout, openModal, resetBuilder }) => {
 
   const [isToggled, setIsToggled] = useState(false);
   const toggle = () => setIsToggled(prevState => !prevState);
@@ -43,7 +43,7 @@ const NavBar = ({ history, currentUser, logout, openModal }) => {
     <>
       <Nav>
         <MenuIcon onClick={toggle} />
-        <LogoBox><Logo /></LogoBox>
+        <LogoBox onClick={() => resetBuilder()}><Logo /></LogoBox>
       </Nav>
       <Menu isExpanded={isToggled}>
         <MenuNavLink to="/scoreboard">
