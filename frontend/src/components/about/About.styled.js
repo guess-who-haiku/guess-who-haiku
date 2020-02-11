@@ -7,6 +7,7 @@ export const Header = styled.h1`
 `
 export const Details = styled.p`
   margin: 2rem 5rem;
+  width: 50vw;
 `
 
 export const ProfileContainer = styled.div`
