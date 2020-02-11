@@ -1,10 +1,12 @@
 import authorData from 'assets/index';
+
+
+
 export const formatHaiku = (data, haikuAuthors) => {
     //this function will return an array of lines to facilitate haiku formatting on FE
 
     // console.log('data', data, 'haiku authors', haikuAuthors);
     let newHaiku1 = data[haikuAuthors[0]]
-
 
     switch (haikuAuthors.length) {
         case 1:
@@ -68,4 +70,8 @@ export const formatHaikuLines = body => {
     }
 
     return lines;
+}
+
+export const getKeyByValue = (object, value) => {
+  return Object.keys(object).find(key => object[key].includes(value));
 }

@@ -55,24 +55,26 @@ router.patch('/:haikuId',
     passport.authenticate('jwt', { session: false }),
         (req, res) => {
 
-            console.log('PASSED THE PASSWORD AUTHENTICATION');
-            console.log('REQUEST BODY', req);
+            // console.log('PASSED THE PASSWORD AUTHENTICATION');
+            // console.log('REQUEST BODY', req);
 
             let score = 0;
             Haiku.findById( req.params.haikuId )
                 .then(haiku => {
                     haiku.usersSharedWith.forEach(user => {
                         if (user.userId === req.body.userId) {
-                            if (req.body.complete != undefined) {
+                            if (req.body.complete) {
                                 user.complete = req.body.complete;
                             }
-                            if (req.body.completeTimestamp != undefined) {
+                            if (req.body.completeTimestamp) {
+                                // console.log("openTS", user.openTimestamp)
+                                // console.log("completeTS", req.body.completeTimestamp)
                                 user.completeTimestamp = req.body.completeTimestamp;
                                 let timeDiff =
                                   (req.body.completeTimestamp - user.openTimestamp)/1000;
                                 score = 2000 - (2000*timeDiff/(2000 + timeDiff)) + 100;
                             }
-                            if (req.body.openTimestamp != undefined) {
+                            if (req.body.openTimestamp) {
                                 user.openTimestamp = req.body.openTimestamp;
                             }
                         }
@@ -95,6 +97,7 @@ router.patch('/:haikuId',
                 })
                 .catch(err => {
                     res.status(500).json({ updatefailed: "Haiku update failed" });
+                    // console.log("error updating score");
                 });
         }
 );
