@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo} from 'react';
 import { } from './SolveHaiku.styled';
-import { formatHaiku } from 'util/haiku_format_util';
+import { formatHaiku, getKeyByValue } from 'util/haiku_format_util';
 import { HSContainer, 
          Message, 
          MsgHighlight,
@@ -10,11 +10,11 @@ import { HSContainer,
          HaikuContainer,
          Haiku,
          LIContainer,
-         AuthorItem,
+         LIElement,
+         HaikuLine,
          AuthorIcon,
          AuthorIconSm,
-         AuthorLineIndex,
-         SuccessMsg
+         HaikuLineIndex,
         } from "./SolveHaiku.styled";
 
 import authorAvatars from 'assets/index';
@@ -105,7 +105,6 @@ const SolveHaiku = ({getHaiku, updateHaiku, haikuId, haiku, authors, users, curr
 
   async function acceptChallengeAndToggleNext() {
 
-    // console.log("openTS from container", openTS)
     if (!openTS) {
       setChallengeAcceptedTS(Date.now());
     }
@@ -144,7 +143,6 @@ const SolveHaiku = ({getHaiku, updateHaiku, haikuId, haiku, authors, users, curr
 
     if(authorOptions.length !== 0 && !authorOptionsSelected) {
       
-      console.log('AUTHORS', authors);
 
       let toShuffle = authorOptions.slice(0);
  
@@ -171,7 +169,6 @@ const SolveHaiku = ({getHaiku, updateHaiku, haikuId, haiku, authors, users, curr
     
     const selection = e.currentTarget.innerText;
     e.target.dataset.selected = true;
-    console.log("console.log", e.target);
 
   
     //previously selection, user wants to unselect
@@ -210,8 +207,6 @@ const SolveHaiku = ({getHaiku, updateHaiku, haikuId, haiku, authors, users, curr
 
       setChallengeCompletedTS(Date.now());
       setChallengeCompleted(true);
-
-      setStep(4); //send to Correct SelectionLoggedIn 
 
     } else if (selectionMatches() && !currUserId) {
       setStep(5); //send to CorrectSelectionNotLoggedIn
@@ -276,15 +271,12 @@ const SolveHaiku = ({getHaiku, updateHaiku, haikuId, haiku, authors, users, curr
             <Haiku>
             {haikuText.map((line, idx) => {
 
-              // if idx is 1 or three, insert an image on the left
-              // if idex is 2 insert and image on the right
-
               return (
-                <AuthorLineIndex key={idx}>
+                <HaikuLineIndex key={idx}>
                   { (idx === 0 || idx === 2) ? <AuthorIconSm src={authorAvatars["Unknown"].url}></AuthorIconSm> : null }
-                  <p>{line}</p>
+                  <HaikuLine>{line}</HaikuLine>
                   {(idx === 1) ? <AuthorIconSm src={authorAvatars["Unknown"].url}></AuthorIconSm> : null}
-                </AuthorLineIndex>
+                </HaikuLineIndex>
               )
 
 
@@ -295,11 +287,11 @@ const SolveHaiku = ({getHaiku, updateHaiku, haikuId, haiku, authors, users, curr
           <Message>Pick {haikuAuthors.length} author(s):</Message>
           <LIContainer>
             {authorOptions.map((option, idx) => (
-              <AuthorItem onClick={handleAuthorSelect} key={idx}>
+              < LIElement onClick={handleAuthorSelect} key={idx}>
                 <AuthorIcon data-selected={authorSelection.includes(option)} src={authorAvatars[option].url} alt={option} />
 
                 {option}
-              </AuthorItem>
+              </LIElement>
             ))}
           </LIContainer>
           <Button onClick={() => makeSelectionAndToggleNext()}>
@@ -321,46 +313,6 @@ const SolveHaiku = ({getHaiku, updateHaiku, haikuId, haiku, authors, users, curr
     </>
   ));
 
-
-  function getKeyByValue(object, value) {
-    return Object.keys(object).find(key => object[key].includes(value));
-  }
-
-   const CorrectSelectionLoggedIn = memo(() => {
-
-     let haikuAuthors = Object.keys(haiku.body);
-     console.log('haiku BODY', haiku.body);
-     let haikuText = formatHaiku(haiku.body, haikuAuthors);
-     
-
-     return (
-     <>
-
-      <SuccessMsg>You guessed correctly!</SuccessMsg>
-      <HaikuContainer data-success={true}>
-        <Haiku>
-          {haikuText.map((line, idx) => {
-            let author = getKeyByValue(haiku.body, line);
-            return(
-
-              <AuthorLineIndex key={idx}>
-                <AuthorItem >
-                  <AuthorIcon src={authorAvatars[author].url} alt={author} />
-                </AuthorItem>
-                <p>{line}</p>
-              </AuthorLineIndex>
-            )
-
-          })}
-        </Haiku>
-      </HaikuContainer>
-
-     </>
-    )
-        }
-        );
-
-
   const CorrectSelectionNotLoggedIn = memo(() => (
     <>
       <p>CORRECT! Now make an account to share</p>
@@ -374,7 +326,6 @@ const SolveHaiku = ({getHaiku, updateHaiku, haikuId, haiku, authors, users, curr
                   GetReadyPage, 
                   MakeSelection, 
                   IncorrectSelection, 
-                  CorrectSelectionLoggedIn,
                   CorrectSelectionNotLoggedIn
                 ];
 

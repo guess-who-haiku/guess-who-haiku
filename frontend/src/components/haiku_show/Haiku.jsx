@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react'
+import React, {useState} from 'react'
 import SolvedHaiku from '../solve_haiku/SolvedHaiku';
 import SolveHaiku from '../solve_haiku/SolveHaikuContainer';
 import { formatHaiku } from 'util/haiku_format_util';
@@ -6,11 +6,7 @@ import { LIContainer, Message, Btn, ErrorMsg } from '../haiku_builder/HaikuBuild
 import { HContainer } from './Haiku.styled';
 
 export default function Haiku({currentUser, solved, creator, users, fastestSolvers, haiku, fetchUsers, createHaikuShare}) {
-    // console.log("currentUser", currentUser);
-    // console.log("solved", solved);
-    // console.log("creator", creator);
-    // console.log("fastest solvers", fastestSolvers);
-    // console.log("THIS HAIKU", haiku);
+   
     let usersArr = Object.values(users);
 
     const formatSolvers = () => {
@@ -106,8 +102,14 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
         if (!currentUser || !solved) return <SolveHaiku />;
         //if solved     //not tested
         if (solved) {
+
           return (
-          <SolvedHaiku />
+
+          <SolvedHaiku haiku={haiku} 
+                       fastestSolvers={fastestSolvers} 
+                       creator={creator}
+          />
+
           )
         };
     }
