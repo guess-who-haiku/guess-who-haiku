@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import styledMap from "styled-map";
-import { colors } from "styled/theme";
+import { media, colors } from "styled/theme";
 import star from 'assets/star.png';
+import abstract from 'assets/abstract.jpg';
 
 export const SBcontainer = styled.div`
   display: flex;
@@ -9,9 +10,39 @@ export const SBcontainer = styled.div`
 `;
 
 export const SBIndex = styled.div`
-  display: flex;
+  display: block;
   justify-content: space-around;
+
+  ${media.mobileL`
+    display: flex;
+  `}
+
+   ${media.tablet`
+    display: flex;
+  `}
+
 `;
+
+export const SBIndexLink = styled.a.attrs({
+  href: "#HaikusMade"
+})`
+  display: block; 
+  font-size: 1.8rem;
+
+  ${media.mobileL`
+    display: none;
+  `}
+
+   ${media.tablet`
+    display: none;
+  `}
+
+   &:hover {
+    color: purple;
+  }
+
+`;
+
 
 export const Table = styled.table`
     margin: 1rem;

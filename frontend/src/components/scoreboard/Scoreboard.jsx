@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { ScoreboardItem } from './ScoreboardItem';
-import { SBcontainer, Table, TDetail, SBIndex } from "./Scoreboard.styled";
+import { SBcontainer, Table, TDetail, SBIndex, SBIndexLink } from "./Scoreboard.styled";
 import { PageTitle } from 'styled/base/Page.styled';
 
 
@@ -83,6 +83,7 @@ const Scoreboard = ({ fetchUsers, users, currentUser }) => {
         <SBIndex>
           <div>
             <PageTitle>Top Scorers</PageTitle>
+            <SBIndexLink>Go to Most Haikus Made</SBIndexLink>
             <SBcontainer>
               <Table>
                 <tbody>
@@ -98,6 +99,7 @@ const Scoreboard = ({ fetchUsers, users, currentUser }) => {
             </SBcontainer>
           </div>
           <div>
+            <a name="HaikusMade"></a>
             <PageTitle>Most Haikus Made</PageTitle>
             <SBcontainer>
               <Table>
