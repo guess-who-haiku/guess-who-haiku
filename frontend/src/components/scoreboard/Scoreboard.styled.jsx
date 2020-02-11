@@ -8,10 +8,9 @@ export const SBcontainer = styled.div`
 `;
 
 export const Table = styled.table`
-    margin: 8rem;
-    border: 0.8rem solid ${colors.utilityYellow};
-    color: ${colors.primary};
-    padding: 2rem;
+    margin: 1rem;
+    color: black;
+    padding: 1rem;
     font-weight: 600;
     line-height: 1.8;
     font-size: 3rem;
@@ -21,9 +20,15 @@ export const TDetail = styled.td`
     padding: 1rem;
 `;
 
+export const TDetailImage = styled.img`
+  height: 8rem;
+  width: 8rem;
+`;
+
 export const TRow = styled.tr`
  color: ${styledMap`
-    default: ${colors.primary};
+    default: black;
     data-current-user:  ${colors.utilityRed};
  `};
 `;
+

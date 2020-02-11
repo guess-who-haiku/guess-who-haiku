@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import ScoreboardItem from './ScoreboardItem';
 import { SBcontainer, Table, TDetail } from "./Scoreboard.styled";
+import { Page, PageTitle } from 'styled/base/Page.styled';
+
 
 const Scoreboard = ({ fetchUsers, users, currentUser }) => {
 
@@ -28,6 +30,7 @@ const Scoreboard = ({ fetchUsers, users, currentUser }) => {
         for (let i = 0; (i < 10) && (i < sortedUsers.length); i++) {
             scoresArray.push(
                 <ScoreboardItem key={i}
+                    rank = {i + 1}
                     currentUser={currentUser}
                     user={sortedUsers[i]}
                 />
@@ -40,21 +43,30 @@ const Scoreboard = ({ fetchUsers, users, currentUser }) => {
         return null;
     }
     return (
+      <>
+        <PageTitle>Top Scorers</PageTitle>
         <SBcontainer>
             <Table>
                 <tbody>
                     <tr>
                         <TDetail>
+                          {""}
+                        </TDetail>
+                        <TDetail>
+                            Rank
+                        </TDetail>
+                        <TDetail>
                             Username
                         </TDetail>
                         <TDetail>
-                            Score
+                          Score
                         </TDetail>
                     </tr>
                     {topTenScores()}
                 </tbody>
             </Table>
         </SBcontainer>
+      </>
     )
 }
 
