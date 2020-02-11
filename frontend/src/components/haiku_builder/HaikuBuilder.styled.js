@@ -1,23 +1,16 @@
 import styled from 'styled-components';
 import α from 'color-alpha';
 import { colors, font } from 'styled/theme';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle as avatarIcon } from '@fortawesome/free-solid-svg-icons';
 import styledMap from 'styled-map';
 
 
 export const HBContainer = styled.div`
-    background-color: white;
-    border: 1rem solid ${colors.primaryDark};
     border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    cursor: pointer;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     font-weight: 200;
     line-height: 1.5;  
-    margin: 4rem 5rem;
+    margin: 4rem 3rem;
     min-height: 40rem;
-    padding: 2.5rem;
 `;
 
 export const LineIndex = styled.ul`
@@ -25,6 +18,7 @@ export const LineIndex = styled.ul`
   padding-bottom: 3rem;
   height: 100%;
   background-color: #fff;
+  width: 40rem;
   font-family: 'Satisfy', cursive;
   display: flex;
   flex-direction: column;
@@ -32,7 +26,7 @@ export const LineIndex = styled.ul`
 `;
 
 export const LineItem = styled.li`
-   margin: .8rem;
+    margin: .8rem;
   display: grid;
   grid-template-areas: "avatarLeft text avatarRight";
   grid-template-columns: minmax(min-content, 1fr) minmax(min-content, max-content) minmax(min-content, 1fr);
@@ -40,26 +34,29 @@ export const LineItem = styled.li`
   justify-content: center;
   grid-column-gap: 1rem;
   padding-bottom: 1.3rem;
+  cursor: pointer;
 `;
 
 export const LIContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
-    padding: 3rem 5rem;
+    padding: 2rem 4rem;
 `;
 
 export const AuthorItem = styled.div`
     display: flex;
     flex-flow: column;
     align-items: center;
+    font-size: 1.2rem;
+    font-weight: 200;
     padding: 1rem;
     cursor: pointer;
-    img:hover {border: 3px solid ${colors.utilityYellow};}
+    img:hover {border: 5px solid ${colors.utilityYellow};}
     img {
         border: ${styledMap`
-            default: 3px solid transparent;
-            data-selected: 3px solid ${colors.utilityYellow};
+            default: 5px solid transparent;
+            data-selected: 5px solid ${colors.utilityYellow};
         `}  
     }
     
@@ -89,17 +86,21 @@ export const ErrorMsg = styled.span`
 `;
 
 export const AuthorIcon = styled.img`
-    height: 6.5rem;
-    width: 6.5rem;
+    height: 10rem;
+    width: 10rem;
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
 `;
 
-export const AvatarIcon = styled(FontAwesomeIcon).attrs({ icon: avatarIcon })`
-  height: 2.5rem;
-  font-size: 3rem;
-`;
+export const UserItem = styled.li`
+    padding: 1rem;
+    margin: 2rem;
+    border: 1.5px solid ${colors.utilityYellow};
+    &:hover {
+        background: ${colors.utilityYellow}
+    }
+`
 
 export const Btn = styled.button`
   cursor: pointer;
