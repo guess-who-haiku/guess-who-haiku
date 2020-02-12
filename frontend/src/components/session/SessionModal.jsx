@@ -3,20 +3,8 @@ import { sleep, ghostType } from 'util/demo_bot_util';
 import { Topbar, NavLink, CloseBtn, Wrapper, Title, Form, Input, InputGroup, ErrorMsg, Btn } from './SessionModal.styled';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import {
-  disableBodyScroll,
-  clearAllBodyScrollLocks
-} from "body-scroll-lock";
 
 const SessionModal = ({ login, signup, openAltModal, closeModal, action }) => {
-
-  useEffect(() => {
-    const targetElement = document.querySelector(".open-modal");
-    disableBodyScroll(targetElement);
-    return () => {
-      clearAllBodyScrollLocks();
-    }
-  }, []);
 
   const initialValues = { username: '', password: '' }
   const validationSchema = Yup.object().shape({
@@ -70,7 +58,7 @@ const SessionModal = ({ login, signup, openAltModal, closeModal, action }) => {
   // --------------------------
 
   return (
-    <Wrapper className="open-modal">
+    <Wrapper>
       <Topbar>
         <NavLink onClick={openAltModal}>
           {action === "Signup" ? "Login" : "Signup"}
