@@ -175,7 +175,7 @@ router.delete('/:id',
       Haiku.deleteOne({ _id: req.params.id }, function(err, obj) {
         if (err) throw err;
         console.log("deleted", obj);
-      }).then(obj => res.json(obj))
+      }).then(() => res.json({ _id: req.params.id }))
     }
 
 )

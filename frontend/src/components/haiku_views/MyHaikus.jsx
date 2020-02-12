@@ -1,18 +1,16 @@
-import React, { useEffect, memo, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Thunks as Haikus } from 'store/haikus/actions';
 import { selectCurrentUser, selectAllHaikus } from 'store/selectors';
-import { Creators as Modal } from 'store/modal/actions';
 import { Page, PageTitle } from 'styled/base/Page.styled';
 import { CardGrid } from 'styled/base/CardGrid.styled';
-import MyHaiku from './MyHaiku';
+import Haiku from './Haiku';
+import { compareHaikuDateCreated as compareDate } from './compare_time_util'
 
 const MyHaikus = () => {
-
   const dispatch = useDispatch();
-  const fetchUserHaikus = haikuIds => dispatch(Haikus.fetchHaikuChallenges(haikuIds))
-  const openHaikuShow = haikuId => dispatch(Modal.openModal('haikuShow', haikuId))
-  const { currentUser, users, userHaikus } = useSelector(state => ({
+  const fetchUserHaikus = user => dispatch(Haikus.fetchHaikuChallenges(user.haikusCreated))
+  let { currentUser, users, userHaikus } = useSelector(state => ({
     currentUser: selectCurrentUser(state),
     users: state.entities.users,
     userHaikus: selectAllHaikus(state)
@@ -20,21 +18,22 @@ const MyHaikus = () => {
 
   useEffect(() => {
     if (currentUser) {
-      fetchUserHaikus(currentUser.haikusCreated)
+      fetchUserHaikus(currentUser)
     }
   }, [users])
 
-  // const createdHaikus = currentUser.createdHaikus.map(haikuId => haikus[haikuId]);
+  const createdHaikus = user => userHaikus
+    .filter(({ _id }) => user.haikusCreated.includes(_id))
+    .sort(compareDate);
 
   return (
     <Page>
       <PageTitle>My Haikus</PageTitle>
       <CardGrid>
-        {userHaikus && userHaikus.map((haiku, idx) => (
-          <MyHaiku
+        {userHaikus && createdHaikus(currentUser).map((haiku, idx) => (
+          <Haiku
             key={haiku._id}
             haiku={haiku}
-            openHaikuShow={openHaikuShow}
             idx={idx}
             users={users}
           />

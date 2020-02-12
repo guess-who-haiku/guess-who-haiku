@@ -20,30 +20,16 @@ export const media = Object.keys(breakpoints).reduce((acc, bp) => {
 
 
 // ---------------------- Colors
-const toryBlue = '#155cac';
-const bostonBlue = '#418bc8';
-const havelockBlue = '#66a8dc';
-const cabaret = '#d8526a';
-// const lavendarPurple = '#9277B2';
-// const hotCinnamon = '#e05624';
-const candleLight = '#f9cc10';
-// const forestGreen = '#1d8941';
 
 export const colors = {
-  primaryDark: toryBlue,
-  primary: bostonBlue,
-  primaryLight: havelockBlue,
-  utilityYellow: candleLight,
-  utilityPink: cabaret,
-  utilityRed: '#EB5757',
+  primaryDark: "#6188C3",
+  primary: '#61C3B7',
+  primaryLight: "#61C3B7",
+  utilityYellow: "#DFBD64",
+  utilityPink: "#E58772",
+  utilityRed: '#C36161',
   utilityGreen: '#27AE60'
 }
-
-
-
-
-
-
 
 
 // ---------------------- Font

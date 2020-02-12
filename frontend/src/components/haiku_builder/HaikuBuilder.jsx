@@ -5,7 +5,11 @@ import { Multiselect } from 'multiselect-react-dropdown';
 
 import authorAvatars from 'assets/index';
 
+<<<<<<< HEAD
 import { HBContainer, HaikuBox, NonLIContainer, LIContainer, LineIndex, LineItem, UserItem, LineText, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
+=======
+import { HBContainer, HaikuBox, LIContainer, LineIndex, LineItem, UserItem, LineText, Message, MessageHighlight, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
+>>>>>>> edf21087d2f9c7db4ac87db06dea7d1822f69277
 import { formatHaiku, formatHaikuLines } from 'util/haiku_format_util';
 import useOnAuth from './useOnAuth'
 
@@ -143,25 +147,32 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 
 	//steps
 	const ChooseAuthors = () => (
-		<>
-			<Message>Choose up to three figures:</Message>
-			<LIContainer>
-				{authors && authors.map(author => {
-					if (Object.keys(authorAvatars).includes(author)) {
-						return (
-							<AuthorItem data-selected={haikuAuthors.includes(author)} key={author} data-name={author} onClick={handleAuthorSelection}>
-								<AuthorIcon src={authorAvatars[author].url} alt={author} />
-								{author}
-							</AuthorItem>
-						)
-					}
-				})}
-			</LIContainer>
-			{authorError ? authError : null}
-			<Btn onClick={generateHaiku}>Write my Haiku!</Btn>
-
-		</>
-	);
+    <>
+      <Message>
+        Choose up to <MessageHighlight>three</MessageHighlight> figures:
+      </Message>
+      <LIContainer>
+        {authors &&
+          authors.map(author => {
+            if (Object.keys(authorAvatars).includes(author)) {
+              return (
+                <AuthorItem
+                  data-selected={haikuAuthors.includes(author)}
+                  key={author}
+                  data-name={author}
+                  onClick={handleAuthorSelection}
+                >
+                  <AuthorIcon src={authorAvatars[author].url} alt={author} />
+                  {author}
+                </AuthorItem>
+              );
+            }
+          })}
+      </LIContainer>
+      {authorError ? authError : null}
+      <Btn onClick={generateHaiku}>Write my Haiku!</Btn>
+    </>
+  );
 
 	const GeneratingHaiku = () => (
 		<>
