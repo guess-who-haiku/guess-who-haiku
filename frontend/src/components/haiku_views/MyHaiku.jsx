@@ -23,7 +23,7 @@ const MyHaiku = memo(({ idx, haiku, openHaikuShow, users }) => {
   return (
     <FlipCard>
       <FlipCardInner flipped={isFlipped}>
-        <FlipCardFront gradientColors={authorColors}>
+        <FlipCardFront gradientColors={authorColors} url={lines[0].author.colorFamilyBackground} >
           <FlipCardContent>
             <LineList>
               {lines.map(({ author, text }, lineIdx) => (
