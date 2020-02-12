@@ -2,7 +2,6 @@ import styled from "styled-components";
 import styledMap from "styled-map";
 import { media, colors } from "styled/theme";
 import star from 'assets/star.png';
-import abstract from 'assets/abstract.jpg';
 
 export const SBcontainer = styled.div`
   display: flex;

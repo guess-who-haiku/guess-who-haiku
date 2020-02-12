@@ -6,18 +6,18 @@ import { LineList, LineItem, AuthorCoin, AuthorImg, LineText } from 'styled/base
 import { SolveBtn } from './Challenge.styled';
 import { formatHaikuLines } from 'util/haiku_format_util';
 
-const MyChallenge = ({ idx, haiku, users, currentUserId }) => {
+const Challenge = ({ idx, haiku, currentUserId }) => {
   const dispatch = useDispatch();
   const openSolveModal = () => dispatch(Modal.openModal('haikuShow', haiku._id))
-  const lines = formatHaikuLines(haiku.body)
-  const authorColors = lines.map(line => line.author.color);
+  const lines = formatHaikuLines(haiku.body, idx)
+  const bgUrl = lines[0].author.colorFamilyBackground;
   console.log(haiku._id, haiku.usersSharedWith)
   const challenge = haiku.usersSharedWith.find(({ userId }) => userId === currentUserId)
   const solved = challenge.complete;
 
 
   return (
-    <Card gradientColors={solved ? authorColors : undefined}>
+    <Card url={solved && bgUrl}>
       <CardContent>
         <LineList>
           {lines.map(({ author, text }, lineIdx) => (<LineItem key={lineIdx}>
@@ -33,4 +33,4 @@ const MyChallenge = ({ idx, haiku, users, currentUserId }) => {
   )
 };
 
-export default MyChallenge;
+export default Challenge;

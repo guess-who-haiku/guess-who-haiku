@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import styledMap from 'styled-map';
 import { boxShadows } from 'styled/theme';
-import { colorsToLinearGradient as toLG } from 'styled/helpers';
 
 // ----------------- CardGrid -----------------
 export const CardGrid = styled.div`
@@ -14,10 +13,10 @@ export const CardGrid = styled.div`
 // ----------------- Card -----------------
 export const Card = styled.div`
   line-height: 1.6;
-  background-color: transparent;
+  /* background-color: transparent; */
   width: 100%;
   height: 100%;
-  background: ${props => toLG(props.gradientColors)};
+  background-image: url(${props => props.url});
   border-radius: 2px;
   box-shadow: ${boxShadows.still};
   padding: 0 1.5rem;
@@ -31,14 +30,14 @@ export const Card = styled.div`
 `;
 
 export const CardContent = styled.div`
-  padding-top: 2rem;
+  padding-top: 4.2rem;
   background-color: white;
   height: 100%;
 `;
 
 // ----------------- Flip Card -----------------
 export const FlipCard = styled.div`
-  background-color: transparent;
+  /* background-color: transparent; */
   width: 100%;
   height: 100%;
   perspective: 1000px;
@@ -55,11 +54,7 @@ export const FlipCardBack = styled(FlipCardSide)`
   transform: rotateY(180deg);
 `;
 
-export const FlipCardContent = styled.div`
-  padding: 1.5rem 0;
-  background-color: white;
-  height: 100%;
-`;
+export const FlipCardContent = styled(CardContent)``;
 
 export const FlipCardInner = styled.div`
   position: relative;

@@ -5,6 +5,7 @@ import { selectCurrentUser, selectAllHaikus } from 'store/selectors';
 import { Page, PageTitle, PageMenu, PageMenuItem } from 'styled/base/Page.styled';
 import { CardGrid } from 'styled/base/CardGrid.styled';
 import Challenge from './Challenge';
+import { compareHaikuDateCreated as compareDate } from './compare_time_util'
 
 const MyChallenges = () => {
   const [filter, setFilter] = useState('unsolved');
@@ -41,7 +42,6 @@ const MyChallenges = () => {
         </PageMenuItem>
       </PageMenu>
       <CardGrid>
-
         {haikus && sharedHaikus(currentUser)
           .filter(({ usersSharedWith }) => {
             return usersSharedWith
@@ -49,12 +49,13 @@ const MyChallenges = () => {
               .complete === (filter === 'solved')
 
           })
+          .sort(compareDate)
           .map((haiku, idx) => (
             <Challenge
+              dateCreated={haiku.dateCreated}
               key={haiku._id}
               haiku={haiku}
               idx={idx}
-              users={users}
               currentUserId={currentUser._id}
             />
           ))}

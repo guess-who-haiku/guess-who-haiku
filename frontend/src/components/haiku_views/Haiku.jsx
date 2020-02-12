@@ -5,16 +5,11 @@ import { Thunks as Haikus } from 'store/haikus/actions';
 
 import { FlipCard, FlipCardInner, FlipCardFront, FlipCardBack, FlipCardContent } from 'styled/base/CardGrid.styled';
 import { LineList, LineItem, AuthorCoin, AuthorImg, LineText } from 'styled/base/Haiku.styled'
-import { Details, Share, SharedUsers, ShareIcon, Modify, SolversToggle, DeleteIcon, SolversTable } from './Haiku.styled';
-
+import { Details, Share, SharedUsers, ShareIcon, Modify, Toggle, DeleteIcon, MiniTable, TH } from './Haiku.styled';
+import { compareShareTimeCompleted as compareTimestamp } from './compare_time_util'
 import { formatHaikuLines } from 'util/haiku_format_util';
 import moment from 'moment';
-
-const compareShareDates = (shareA, shareB) => {
-  const dateA = new Date(shareA.completeTimestamp);
-  const dateB = new Date(shareB.completeTimestamp);
-  return dateA > dateB ? 1 : -1;
-}
+import MiniScoreboardItem from './MiniScoreboardItem';
 
 const Haiku = ({ idx, haiku, users }) => {
   const dispatch = useDispatch();
@@ -22,8 +17,8 @@ const Haiku = ({ idx, haiku, users }) => {
   const deleteHaiku = () => dispatch(Haikus.deleteHaiku(haiku._id));
   const [isFlipped, setFlipped] = useState(false);
   const flip = () => setFlipped(prev => !prev);
-  const lines = formatHaikuLines(haiku.body)
-  const authorColors = lines.map(line => line.author.color);
+  const lines = formatHaikuLines(haiku.body, idx);
+  const bgUrl = lines[0].author.colorFamilyBackground;
   const renderSharedUsers = () => {
     let userCount = haiku.usersSharedWith.length;
     if (userCount === 0) return (<>Share</>)
@@ -34,18 +29,16 @@ const Haiku = ({ idx, haiku, users }) => {
       </>
     )
   }
-  const fastestSolves = () => {
-    return haiku.usersSharedWith
+  const fastestSolves = haiku.usersSharedWith
       .filter(({ complete }) => complete)
-      .sort(compareShareDates)
+      .sort(compareTimestamp)
       .slice(0, 5)
-      .map(({ userId, completeTimestamp }) => [users[userId].username, moment(completeTimestamp).from(haiku.dateCreated, true)])
-  }
+      .map(({ userId, completeTimestamp }) => [users[userId].username, moment(completeTimestamp).from(haiku.dateCreated, true)]);
 
   return (
     <FlipCard>
       <FlipCardInner flipped={isFlipped}>
-        <FlipCardFront gradientColors={authorColors}>
+        <FlipCardFront url={bgUrl}>
           <FlipCardContent>
             <LineList>
               {lines.map(({ author, text }, lineIdx) => (<LineItem key={lineIdx}>
@@ -63,33 +56,31 @@ const Haiku = ({ idx, haiku, users }) => {
                 </SharedUsers>
               </Share>
               <Modify>
-                <SolversToggle
-                  onClick={flip}
-                >
-                  Fastest Solvers
-                </SolversToggle>
+                <Toggle onClick={flip}>Fastest Solvers</Toggle>
                 <DeleteIcon onClick={deleteHaiku} />
               </Modify>
             </Details>
           </FlipCardContent>
         </FlipCardFront>
-        <FlipCardBack gradientColors={authorColors}>
+        <FlipCardBack url={bgUrl}>
           <FlipCardContent>
-            <SolversTable>
-              <tr>
-                <th>Rank</th><th>User</th><th>Solved In</th>
-              </tr>
-              {fastestSolves().map(([username, time], idx) => (
+            {fastestSolves.length > 0 ? <MiniTable>
+              <tbody>
                 <tr>
-                  <td>{idx++}</td><td>{username}</td><td>{time}</td>
+                  <TH>{""}</TH>
+                  <TH>Rank</TH>
+                  <TH>Username</TH>
+                  <TH>Solved In</TH>
                 </tr>
-              ))}
-            </SolversTable>
-            <SolversToggle
-              onClick={flip}
-            >
-              Details
-                </SolversToggle>
+                {fastestSolves.map(([username, time], i) => <MiniScoreboardItem
+                  key={i}
+                  rank={i + 1}
+                  username={username}
+                  time={time}
+                />)}
+              </tbody>
+            </MiniTable> : <em>No one's completed this challenge</em>}
+            <Toggle onClick={flip} large>Back</Toggle>
           </FlipCardContent>
         </FlipCardBack>
       </FlipCardInner>
@@ -98,3 +89,9 @@ const Haiku = ({ idx, haiku, users }) => {
 };
 
 export default Haiku;
+
+// {fastestSolves().map(([username, time], idx) => (
+//   <tr>
+//     <td>{idx++}</td><td>{username}</td><td>{time}</td>
+//   </tr>
+// ))}

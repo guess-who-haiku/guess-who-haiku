@@ -1,6 +1,7 @@
 import authorData from 'assets/index';
-
-
+import { sample } from './scoreboard_util';
+import colorFamilies from 'assets/color-index';
+const colorFamilyValues = Object.values(colorFamilies);
 
 export const formatHaiku = (data, haikuAuthors) => {
     //this function will return an array of lines to facilitate haiku formatting on FE
@@ -36,41 +37,64 @@ export const getAuthorOfLine = (haikuBody, line) => {
         .find(author => haikuBody[author].includes(line));
 }
 
-export const getAuthorData = name => {
-    const { url, color } = authorData[name];
-    return ({ name, url, color });
-}
-export const formatHaikuLines = body => {
+export const getAuthorData = (name, color, colorFamilyBackground) => {
+    const { url } = authorData[name];
+
+    return { name, url, color, colorFamilyBackground };
+};
+
+
+export const formatHaikuLines = (body, idx = 0) => {
     let authors = Object.keys(body);
-    let lines = []
+    let colorFamily = colorFamilyValues[idx % colorFamilyValues.length];
+    // debugger;
+    let colorFamilyBackground = colorFamily.url;
+
+    let lines = [];
     switch (authors.length) {
         case 1:
             const author = authors[0];
-            for (const text of body[author]) {
-                lines.push({ author: getAuthorData(author), text })
+            for (let i = 0; i < body[author].length; i++) {
+                let text = body[author][i];
+                let color = colorFamily.colors[i];
+
+                lines.push({
+                    author: getAuthorData(author, color, colorFamilyBackground),
+                    text
+                });
             }
             break;
         case 2:
             const indices = [[0, 0], [0, 1], [1, 2]]
-            for (const [idx1, idx2] of indices) {
+            for (let i = 0; i < indices.length; i++) {
+
+                let [idx1, idx2] = indices[i];
+                let color = colorFamily.colors[i];
                 const author = authors[idx1];
                 const text = body[author][idx2];
-                lines.push({ author: getAuthorData(author), text })
+                lines.push({
+                    author: getAuthorData(author, color, colorFamilyBackground),
+                    text
+                });
             }
             break;
         case 3:
             authors.forEach((author, idx) => {
+
+                let color = colorFamily.colors[idx];
                 const text = body[author][idx]
-                lines.push({ author: getAuthorData(author), text })
+                lines.push({
+                    author: getAuthorData(author, color, colorFamilyBackground),
+                    text
+                });
             })
             break;
         default:
             break;
     }
-
     return lines;
 }
 
 export const getKeyByValue = (object, value) => {
-  return Object.keys(object).find(key => object[key].includes(value));
+    return Object.keys(object).find(key => object[key].includes(value));
 }

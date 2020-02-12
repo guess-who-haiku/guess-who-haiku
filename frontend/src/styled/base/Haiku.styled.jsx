@@ -60,9 +60,10 @@ export const AuthorImg = styled.img.attrs(P => ({
 `;
 
 export const LineText = styled.span`
+  font-size: 1.9rem;
   grid-area: text;
   justify-self: center;
-  padding: .8rem 1.2rem .5rem;
+  padding: .9rem 1.5rem .6rem;
   ${Card}:hover &, ${FlipCardContent}:hover & {
     transform: scale(1.01);
     background-color: ${props => α(props.highlightColor || '#fff', .3)};

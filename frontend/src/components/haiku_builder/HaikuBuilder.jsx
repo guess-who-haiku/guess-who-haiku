@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import authorAvatars from 'assets/index';
 
-import { HBContainer, LIContainer, LineIndex, LineItem, LineText, Message, ErrorMsg, AuthorIcon, AvatarIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
+import { HBContainer, HaikuBox, LIContainer, LineIndex, LineItem, UserItem, LineText, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
 import { formatHaiku, formatHaikuLines } from 'util/haiku_format_util';
 import useOnAuth from './useOnAuth'
 
@@ -53,6 +53,13 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 			return () => clearTimeout(loading);
 		}
 	}, [step])
+
+	//listen for resetting haiku builder
+	useEffect(() => {
+		if (newHaiku === 'reset') {
+			startOver();
+		}
+	}, [newHaiku])
 
 	//start over
 	const startOver = () => {
@@ -120,7 +127,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	//steps
 	const ChooseAuthors = () => (
 		<>
-			<Message>Choose up to three figures below:</Message>
+			<Message>Choose up to three figures:</Message>
 			<LIContainer>
 				{authors && authors.map(author => {
 					if (Object.keys(authorAvatars).includes(author)) {
@@ -155,21 +162,23 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 
 	const GeneratedHaiku = () => (
 		<>
-			<LineIndex>
-				{/* {newHaiku && !newHaiku.body && formatHaiku(newHaiku, haikuAuthors).map(line => (
+			<HaikuBox>
+				<LineIndex>
+					{/* {newHaiku && !newHaiku.body && formatHaiku(newHaiku, haikuAuthors).map(line => (
 					<LineItem key={line}>
 						{line}
 					</LineItem>
 				))} */}
-				{newHaiku && !newHaiku.body && formatHaikuLines(newHaiku).map(({ author, text }, lineIdx) => (
-					<LineItem key={lineIdx}>
-						<AuthorItem borderColor={author.color}>
-							<AuthorIcon src={author.url} alt={author.name} />
-						</AuthorItem>
-						<LineText highlightColor={author.color}>{text}</LineText>
-					</LineItem>
-				))}
-			</LineIndex>
+					{newHaiku && !newHaiku.body && formatHaikuLines(newHaiku).map(({ author, text }, lineIdx) => (
+						<LineItem key={lineIdx}>
+							<AuthorItem borderColor={author.color}>
+								<AuthorIcon src={author.url} alt={author.name} />
+							</AuthorItem>
+							<LineText highlightColor={author.color}>{text}</LineText>
+						</LineItem>
+					))}
+				</LineIndex>
+			</HaikuBox>
 			<Btn onClick={() => { generateHaiku(); toggleBack(); }}>Regenerate</Btn>
 			<Btn onClick={startOver}>Start over</Btn>
 			<Btn onClick={saveHaiku}>Save for later</Btn>
@@ -182,9 +191,9 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
             <Message>Challenge your friends to solve your haiku by choosing them below!</Message>
             <LIContainer>
 			 {users && users.filter(user => (user._id !== currentUser)).map(user => (
-                    <li data-selected={haikuShares.includes(user.username)} key={user.username} data-id={user._id} onClick={handleShareSelection}>
+                    <UserItem data-selected={haikuShares.includes(user.username)} key={user.username} data-id={user._id} onClick={handleShareSelection}>
                         <strong>{user.username}</strong>
-                    </li>
+                    </UserItem>
                 ))}
             </LIContainer>
             {sharesError ? shareError : null}
@@ -214,6 +223,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 		setReverse(false);
 	};
 
+	console.log(haikuShares);
 	return (
 		<HBContainer>
 			{React.createElement(Steps[step])}

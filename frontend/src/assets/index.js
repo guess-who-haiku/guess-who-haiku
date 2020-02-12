@@ -55,5 +55,5 @@ export default {
   "Milhouse Van Houten": { url: milhouse, color: '#E0C3DD' },
   "Nelson Muntz": { url: nelson, color: '#F5AF7E' },
   "Duffman": { url: duff, color: '#BE0301' },
-  "Unknown": { url: unknown, color: 'lightgray' }
+  "Unknown": { url: unknown, color: 'lightgray'}
 };
