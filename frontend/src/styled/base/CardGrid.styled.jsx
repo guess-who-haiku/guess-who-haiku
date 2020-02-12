@@ -63,8 +63,6 @@ const FlipCardSide = styled.div`
 `;
 
 
-
-
 export const FlipCardFront = styled(FlipCardSide)`
   color: black; 
 `;

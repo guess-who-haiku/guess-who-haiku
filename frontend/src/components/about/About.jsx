@@ -4,6 +4,8 @@ import {
     Name, Picture, ProfileLink, Header, Details
 } from './About.styled';
 
+import creators from 'assets/creator-index';
+
 const About = () => {
     return (
       <>
