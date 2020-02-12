@@ -10,6 +10,8 @@ import SolveHaiku from './solve_haiku/SolveHaikuContainer';
 import HaikusView from './haiku_views/HaikusContainer';
 import MyHaikus from './haiku_views/MyHaikus';
 import About from './about/About';
+import Footer from './footer/Footer';
+
 const App = () => (
   <>
     <ModalContainer />
@@ -26,6 +28,9 @@ const App = () => (
         <Route exact path="/haikus/:haikuId" component={SolveHaiku} />
       </Switch>
     </main>
+    <footer>
+      <Footer />
+    </footer>
   </>
 );
 

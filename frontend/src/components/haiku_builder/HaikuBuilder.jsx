@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
 import { useHistory } from 'react-router-dom';
+import { Multiselect } from 'multiselect-react-dropdown';
 
 import authorAvatars from 'assets/index';
 
-import { HBContainer, HaikuBox, LIContainer, LineIndex, LineItem, UserItem, LineText, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
+import { HBContainer, HaikuBox, NonLIContainer, LIContainer, LineIndex, LineItem, UserItem, LineText, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
 import { formatHaiku, formatHaikuLines } from 'util/haiku_format_util';
 import useOnAuth from './useOnAuth'
 
@@ -96,19 +97,35 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const [haikuShares, setHaikuShares] = useState([]);
 
 	//update selection of users shared with
-    const handleShareSelection = e => {
-        let newShare = e.currentTarget.dataset.id;
-        console.log(newShare);
-        if (!haikuShares.includes(newShare)) {
-			setHaikuShares([...haikuShares, newShare]);
+    // const handleShareSelection = e => {
+    //     let newShare = e.currentTarget.dataset.id;
+    //     if (!haikuShares.includes(newShare)) {
+	// 		setHaikuShares([...haikuShares, newShare]);
+	// 		setSharesError(false);
+    //     } else if (haikuShares.includes(newShare)) {
+    //         setHaikuShares(haikuShares.filter(user => (user !== newShare)))
+    //     }
+    //     if (haikuShares.length > 0) {
+    //         setSharesError(false)
+    //     }
+	// };
+	
+	const handleSelect = (selectedList, selectedItem) => {
+		console.log('HANDLE SELECT LIST', selectedList);
+		console.log('HANDLE SELECT ITEM', selectedItem);
+		if (!haikuShares.includes(selectedItem._id)) {
+			setHaikuShares([...haikuShares, selectedItem._id]);
 			setSharesError(false);
-        } else if (haikuShares.includes(newShare)) {
-            setHaikuShares(haikuShares.filter(user => (user !== newShare)))
-        }
-        if (haikuShares.length > 0) {
-            setSharesError(false)
-        }
-    };
+		}
+	}
+
+	const handleRemove = (selectedList, selectedItem) => {
+		console.log('HANDLE REMOVE LIST', selectedList);
+		console.log('HANDLE REMOVE ITEM', selectedItem);
+		if (haikuShares.includes(selectedItem._id)) {
+			setHaikuShares(haikuShares.filter(user => (user !== selectedItem._id)))
+		}
+	}
 
   	//share haiku with selected users
     const shareHaiku = () => {
@@ -149,14 +166,14 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const GeneratingHaiku = () => (
 		<>
 			<Message>Just one moment while we build your haiku...</Message>
-			<LIContainer>
+			<NonLIContainer>
 				<Loader
 					type="MutatingDots"
 					color="#f9cc10"
 					height={110}
 					width={110}
 				/>
-			</LIContainer>
+			</NonLIContainer>
 		</>
 	);
 
@@ -189,13 +206,23 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
  const ShareHaiku = () => (
         <>
             <Message>Challenge your friends to solve your haiku by choosing them below!</Message>
-            <LIContainer>
+            {/* <LIContainer>
 			 {users && users.filter(user => (user._id !== currentUser)).map(user => (
                     <UserItem data-selected={haikuShares.includes(user.username)} key={user.username} data-id={user._id} onClick={handleShareSelection}>
                         <strong>{user.username}</strong>
                     </UserItem>
                 ))}
-            </LIContainer>
+            </LIContainer> */}
+			<NonLIContainer>
+				<Multiselect
+					options={users.filter(user => (user._id !== currentUser))}
+					placeholder="Select"
+					onSelect={handleSelect}
+					onRemove={handleRemove}
+					displayValue="username"
+					closeIcon="cancel"
+				/>
+			</NonLIContainer>
             {sharesError ? shareError : null}
             <Btn onClick={shareHaiku}>Share</Btn>
         </>
@@ -223,7 +250,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 		setReverse(false);
 	};
 
-	console.log(haikuShares);
+	console.log('HAIKU SHARES LIST', haikuShares);
 	return (
 		<HBContainer>
 			{React.createElement(Steps[step])}

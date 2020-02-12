@@ -52,6 +52,13 @@ export const LIContainer = styled.div`
     padding: 2rem 4rem;
 `;
 
+export const NonLIContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    padding: 2rem 4rem;
+    margin: 2rem;
+`;
+
 export const AuthorItem = styled.div`
     display: flex;
     flex-flow: column;
