@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
 import { useHistory } from 'react-router-dom';
+import { Multiselect } from 'multiselect-react-dropdown';
 
 import authorAvatars from 'assets/index';
-
-import { HBContainer, HaikuBox, LIContainer, LineIndex, LineItem, UserItem, LineText, Message, MessageHighlight, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
-import { formatHaiku, formatHaikuLines } from 'util/haiku_format_util';
+import { Card } from '../../styled/base/CardGrid.styled';
+import { HBContainer, HaikuBox, NonLIContainer, LIContainer, LineIndex, LineItem, MessageHighlight, LineText, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
+import { formatHaikuLines } from 'util/haiku_format_util';
 import useOnAuth from './useOnAuth'
 
 const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku, authors, newHaiku, users, openModal, currentUser }) => {
@@ -94,27 +95,23 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 
 	//set selected users to share with in local state
 	const [haikuShares, setHaikuShares] = useState([]);
+	
+	const handleSelect = (selectedList, selectedItem) => {
+		setHaikuShares([...haikuShares, selectedItem]);
+		setSharesError(false);	
+	}
 
-	//update selection of users shared with
-    const handleShareSelection = e => {
-        let newShare = e.currentTarget.dataset.id;
-        console.log(newShare);
-        if (!haikuShares.includes(newShare)) {
-			setHaikuShares([...haikuShares, newShare]);
-			setSharesError(false);
-        } else if (haikuShares.includes(newShare)) {
-            setHaikuShares(haikuShares.filter(user => (user !== newShare)))
-        }
-        if (haikuShares.length > 0) {
-            setSharesError(false)
-        }
-    };
+	const handleRemove = (selectedList, selectedItem) => {
+		setHaikuShares(haikuShares.filter(user => (user !== selectedItem)))
+	}
 
   	//share haiku with selected users
     const shareHaiku = () => {
         if (haikuShares.length === 0) {
             setSharesError(true)
         } else {
+			let shareIds = haikuShares.map((obj) => obj._id)
+			// console.log(shareIds);
 			createHaikuShare(newHaiku._id, haikuShares)
 				.then(() => fetchUsers())
             toggleNext();
@@ -156,14 +153,14 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const GeneratingHaiku = () => (
 		<>
 			<Message>Just one moment while we build your haiku...</Message>
-			<LIContainer>
+			<NonLIContainer>
 				<Loader
 					type="MutatingDots"
-					color="#f9cc10"
+					color="#DFBD64"
 					height={110}
 					width={110}
 				/>
-			</LIContainer>
+			</NonLIContainer>
 		</>
 	);
 
@@ -171,11 +168,6 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 		<>
 			<HaikuBox>
 				<LineIndex>
-					{/* {newHaiku && !newHaiku.body && formatHaiku(newHaiku, haikuAuthors).map(line => (
-					<LineItem key={line}>
-						{line}
-					</LineItem>
-				))} */}
 					{newHaiku && !newHaiku.body && formatHaikuLines(newHaiku).map(({ author, text }, lineIdx) => (
 						<LineItem key={lineIdx}>
 							<AuthorItem borderColor={author.color}>
@@ -196,13 +188,16 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
  const ShareHaiku = () => (
         <>
             <Message>Challenge your friends to solve your haiku by choosing them below!</Message>
-            <LIContainer>
-			 {users && users.filter(user => (user._id !== currentUser)).map(user => (
-                    <UserItem data-selected={haikuShares.includes(user.username)} key={user.username} data-id={user._id} onClick={handleShareSelection}>
-                        <strong>{user.username}</strong>
-                    </UserItem>
-                ))}
-            </LIContainer>
+			<NonLIContainer>
+				<Multiselect
+					options={users.filter(user => (user._id !== currentUser))}
+				 	selectedValues={haikuShares}
+					onSelect={handleSelect}
+					onRemove={handleRemove}
+					displayValue="username"
+					closeIcon="cancel"
+				/>
+			</NonLIContainer>
             {sharesError ? shareError : null}
             <Btn onClick={shareHaiku}>Share</Btn>
         </>
@@ -230,7 +225,6 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 		setReverse(false);
 	};
 
-	console.log(haikuShares);
 	return (
 		<HBContainer>
 			{React.createElement(Steps[step])}

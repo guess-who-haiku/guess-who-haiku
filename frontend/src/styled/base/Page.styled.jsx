@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import styledMap from 'styled-map';
 import α from 'color-alpha';
+
 export const Page = styled.section`
   padding: 3rem;
 `;
