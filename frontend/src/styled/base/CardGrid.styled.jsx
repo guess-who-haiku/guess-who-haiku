@@ -36,6 +36,19 @@ export const FlipCardInner = styled.div`
   `};
 `;
 
+// const FlipCardSide = styled.div`
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   backface-visibility: hidden;
+//   box-shadow: ${boxShadows.still};
+//   &:hover {
+//     box-shadow:${boxShadows.hover};
+//   }
+//   padding: 0 1rem;
+//   background: ${props => toLG(props.gradientColors)};
+// `;
+
 const FlipCardSide = styled.div`
   position: absolute;
   width: 100%;
@@ -45,9 +58,12 @@ const FlipCardSide = styled.div`
   &:hover {
     box-shadow:${boxShadows.hover};
   }
-  padding: 0 1rem;
-  background: ${props => toLG(props.gradientColors)};
+  padding: 0 1.5rem;
+  background-image: url(${props => props.url});
 `;
+
+
+
 
 export const FlipCardFront = styled(FlipCardSide)`
   color: black; 

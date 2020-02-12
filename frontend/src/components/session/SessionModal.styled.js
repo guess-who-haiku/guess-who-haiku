@@ -26,15 +26,15 @@ export const Topbar = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  background-color: ${colors.primary};
-  width: 95vw;
-  min-width: 30rem;
-  max-width: 50rem;
-  min-height: 40vh;
-  padding: 3rem;
-  border-radius: 1rem;
-  position: relative;
-`;
+    background-color: #61c3b7;
+    width: 95vw;
+    min-width: 30rem;
+    max-width: 50rem;
+    min-height: 40vh;
+    padding: 3rem;
+    border-radius: 1rem;
+    position: relative;
+  `;
 
 export const Title = styled.h1`
   padding-top: 9rem; 
@@ -67,7 +67,7 @@ export const Input = styled.input`
   border-bottom-style: solid;
   border-bottom-color: ${P => {
     if (!P['data-touched']) {
-      return colors.primaryDark;
+      return "#61A6C3";
     } else if (P['data-error']) {
       return colors.utilityRed;
     } else {

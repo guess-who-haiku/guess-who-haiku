@@ -38,6 +38,14 @@ export const colors = {
   utilityRed: '#EB5757',
   utilityGreen: '#27AE60'
 }
+
+
+
+
+
+
+
+
 // ---------------------- Font
 const fontWeights = {
   regular: 400,
