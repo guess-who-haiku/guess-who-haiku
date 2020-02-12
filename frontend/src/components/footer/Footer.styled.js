@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import { media, colors, font } from 'styled/theme';
 
 export const Foot = styled.div`
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background-color: #fff;
     padding: .9rem 2rem;
     display: flex;
