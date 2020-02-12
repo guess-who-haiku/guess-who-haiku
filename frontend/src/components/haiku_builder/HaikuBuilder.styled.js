@@ -56,7 +56,9 @@ export const LIContainer = styled.div`
 
 export const NonLIContainer = styled.div`
     display: flex;
-    justify-content: center;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
     padding: 2rem 4rem;
     margin: 3rem;
     min-height: 40vh;
@@ -137,3 +139,15 @@ export const Btn = styled.button`
     color: white;
   }
 `
+
+export const multiSelectStyles = {
+  chips: { background: "#DFBD64", "font-size": "2rem" },
+  searchBox: { border: "none", "border-bottom": "2px solid #61A6C3", "border-radius": "0px" },
+  option: { 
+    color: "black", 
+    '&:hover': {
+      background: '#DFBD64',
+      color: "white"
+    }
+  }
+}

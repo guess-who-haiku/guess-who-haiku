@@ -4,8 +4,8 @@ import { Multiselect } from 'multiselect-react-dropdown';
 import SolvedHaiku from '../solve_haiku/SolvedHaiku';
 import SolveHaiku from '../solve_haiku/SolveHaikuContainer';
 import { formatHaiku } from 'util/haiku_format_util';
-import { LIContainer, Message, Btn, ErrorMsg } from '../haiku_builder/HaikuBuilder.styled';
-import { HContainer } from './Haiku.styled';
+import { Message, Btn, ErrorMsg } from '../haiku_builder/HaikuBuilder.styled';
+import { multiSelectStyles, HContainer } from './Haiku.styled';
 
 export default function Haiku({currentUser, solved, creator, users, fastestSolvers, haiku, fetchUsers, createHaikuShare}) {
    
@@ -65,11 +65,11 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
       //if creator of haiku      //not tested
       if (creator) return (
               <>
-                <Message>
+                {/* <Message>
                   {haikuText.map((line, idx) => (
                     <p key={idx}>{line}</p>
                   ))}
-                </Message>
+                </Message> */}
                 <Message>Challenge your friends to solve your haiku!</Message>
                   <Multiselect
                     options={usersArr.filter(user => ((user._id !== currentUser._id) && (!currentShares.includes(user._id))))}
@@ -77,7 +77,8 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
                     onSelect={handleSelect}
                     onRemove={handleRemove}
                     displayValue="username"
-                    closeIcon="cancel"
+                    closeIcon="circle"
+                    style={multiSelectStyles}
                   />
                 {sharesError ? shareError : null}
                 <Btn onClick={shareHaiku}>Share</Btn>
