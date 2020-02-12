@@ -88,7 +88,8 @@ export const MenuLink = styled.a`
   font-size: 1.4rem;
   padding: .9rem 1.2rem;
   &:hover {
-    color: purple;
+    color: #61A6C3;
+  
   }
 
   ${media.desktopS`

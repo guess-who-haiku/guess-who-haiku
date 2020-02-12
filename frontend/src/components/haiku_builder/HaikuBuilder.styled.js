@@ -13,12 +13,20 @@ export const HBContainer = styled.div`
     min-height: 40rem;
 `;
 
+export const HaikuBox = styled.div`
+  width: 50rem;
+  height: 50rem;
+  margin: 0 auto;
+  margin-bottom: 4rem;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+`
+
 export const LineIndex = styled.ul`
-  padding-top: 5rem;
-  padding-bottom: 3rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   height: 100%;
+  width: 100%;
   background-color: #fff;
-  width: 40rem;
   font-family: 'Satisfy', cursive;
   display: flex;
   flex-direction: column;
@@ -48,8 +56,8 @@ export const AuthorItem = styled.div`
     display: flex;
     flex-flow: column;
     align-items: center;
-    font-size: 1.2rem;
-    font-weight: 200;
+    font-size: 1.4rem;
+    font-weight: 500;
     padding: 1rem;
     cursor: pointer;
     img:hover {border: 5px solid ${colors.utilityYellow};}
