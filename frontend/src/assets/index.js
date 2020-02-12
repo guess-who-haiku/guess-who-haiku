@@ -28,7 +28,6 @@ import duff from './duff.png';
 import unknown from './question-option-2.jpg';
 
 export default {
-
   "Donald Trump": { url: donaldTrump, color: '#FFA726' },
   "Homer Simpson": { url: homerSimpson, color: '#FC66FC' },
   "Game of Thrones": { url: gameOfThrones, color: '#C5501D' },

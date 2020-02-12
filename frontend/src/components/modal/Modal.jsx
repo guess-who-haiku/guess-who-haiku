@@ -3,10 +3,15 @@ import { ModalBackground, ModalComponentWrapper } from './Modal.styled';
 import SignupModalContainer from 'components/session/SignupModalContainer';
 import LoginModalContainer from 'components/session/LoginModalContainer';
 import HaikuShow from 'components/haiku_show/HaikuContainer';
+
 const Modal = ({ modal, closeModal, currentUser, haikuId }) => {
+
   if (!modal) {
+    console.log('called')
+    document.body.style.overflow = 'unset';
     return null;
   }
+
   let Component;
   switch (modal.component) {
     case 'test':
@@ -24,6 +29,8 @@ const Modal = ({ modal, closeModal, currentUser, haikuId }) => {
     default:
       return null;
   }
+
+  document.body.style.overflow = 'hidden';
   return (
     <ModalBackground onClick={closeModal}>
       <ModalComponentWrapper onClick={e => e.stopPropagation()}>

@@ -1,79 +1,78 @@
 import styled from 'styled-components';
 import styledMap from 'styled-map';
 import { boxShadows } from 'styled/theme';
-import { colorsToLinearGradient as toLG } from 'styled/helpers';
+
 // ----------------- CardGrid -----------------
 export const CardGrid = styled.div`
-  margin: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(40rem, 1fr));
-  grid-auto-rows: 40rem;
-  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
+  grid-auto-rows: 35rem;
+  grid-gap: 3.5rem;
 `;
 
 // ----------------- Card -----------------
+export const Card = styled.div`
+  line-height: 1.6;
+  /* background-color: transparent; */
+  width: 100%;
+  height: 100%;
+  background-image: url(${props => props.url});
+  border-radius: 2px;
+  box-shadow: ${boxShadows.still};
+  padding: 0 1.5rem;
+  &:hover {
+    box-shadow:${boxShadows.hover};
+    padding: 0 1.65rem;
+  }
+  &, & * {
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  } 
+`;
+
+export const CardContent = styled.div`
+  padding-top: 4.2rem;
+  background-color: white;
+  height: 100%;
+`;
 
 // ----------------- Flip Card -----------------
 export const FlipCard = styled.div`
-  line-height: 1.6;
-  background-color: transparent;
+  /* background-color: transparent; */
   width: 100%;
   height: 100%;
-  border-radius: 2px;
   perspective: 1000px;
 `;
+
+
+const FlipCardSide = styled(Card)`
+  position: absolute;
+  backface-visibility: hidden;
+`;
+
+export const FlipCardFront = styled(FlipCardSide)``;
+
+export const FlipCardBack = styled(FlipCardSide)`
+  transform: rotateY(180deg);
+`;
+
+export const FlipCardContent = styled(CardContent)``;
 
 export const FlipCardInner = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.8s;
+  transition: transform 0.5s;
   transform-style: preserve-3d;
   transform: ${styledMap`
     default: rotateY(0);
     flipped: rotateY(180deg);
   `};
-`;
 
-// const FlipCardSide = styled.div`
-//   position: absolute;
-//   width: 100%;
-//   height: 100%;
-//   backface-visibility: hidden;
-//   box-shadow: ${boxShadows.still};
-//   &:hover {
-//     box-shadow:${boxShadows.hover};
-//   }
-//   padding: 0 1rem;
-//   background: ${props => toLG(props.gradientColors)};
-// `;
-
-const FlipCardSide = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  box-shadow: ${boxShadows.still};
-  &:hover {
-    box-shadow:${boxShadows.hover};
+  & > ${FlipCardFront} {
+    opacity:  ${styledMap`
+      default: 1;
+      flipped: 0;
+    `};
   }
-  padding: 0 1.5rem;
-  background-image: url(${props => props.url});
-`;
-
-
-export const FlipCardFront = styled(FlipCardSide)`
-  color: black; 
-`;
-
-export const FlipCardBack = styled(FlipCardSide)`
-  color: white;
-  transform: rotateY(180deg);
-`;
-
-export const FlipCardContent = styled.div`
-  padding: 1.5rem 0;
-  background-color: white;
-  height: 100%;
 `;

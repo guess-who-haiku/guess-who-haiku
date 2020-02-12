@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import styledMap from 'styled-map'
 import α from 'color-alpha';
-import { FlipCardContent } from 'styled/base/CardGrid.styled';
+import { Card, FlipCardContent } from 'styled/base/CardGrid.styled';
+import Unknown from 'assets/question-option-2.jpg';
+
+const unsolvedColor = '#D8D8D8';
 
 // ----------------- Lines -----------------
 export const LineList = styled.ol`
@@ -20,33 +23,18 @@ export const LineItem = styled.li`
   grid-template-rows: auto;
   justify-content: center;
   grid-column-gap: 1rem;
-  padding-bottom: 1.3rem;
+  padding-bottom: 1rem;
 `;
 
 export const AuthorCoin = styled.span`
   border-radius: 50%;
-  border: 2px solid transparent;
+  border: 2px solid	#F0F0F0;
   transition: all 0.32s cubic-bezier(.25,.8,.25,1);
-  border-color: ${styledMap`
-    default: transparent;
-    borderColor: ${props => α(props.borderColor, .3)};
-  `};
-  opacity: .8;
-  ${FlipCardContent}:hover & {
+  opacity: .9;
+  ${Card}:hover &, ${FlipCardContent}:hover & {
     opacity: 1;
     transform: scale(1.03);
-    border-color: ${styledMap`
-      default: transparent;
-      borderColor: ${props => α(props.borderColor, .6)};
-    `};
-    box-shadow: 4px 9px 5px -2px rgba(0,0,0,0.08);
-  }
-  ${LineItem}:hover & {
-    border-color: ${styledMap`
-      default: transparent;
-      borderColor: ${props => α(props.borderColor, .8)};
-    `};
-    transform: scale(1.065);
+    border-color: ${props => α(props.borderColor || unsolvedColor, .3)};
   }
   height: 4.5rem;
   width: 4.5rem;
@@ -61,7 +49,10 @@ export const AuthorCoin = styled.span`
   `};
 `;
 
-export const AuthorImg = styled.img`
+export const AuthorImg = styled.img.attrs(P => ({
+  src: P.src ? P.src : Unknown,
+  alt: P.alt ? P.alt : 'Unknown Author'
+}))`
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -69,27 +60,13 @@ export const AuthorImg = styled.img`
 `;
 
 export const LineText = styled.span`
+  font-size: 1.9rem;
   grid-area: text;
   justify-self: center;
-  padding: .8rem 1.2rem .5rem;
-  background-color: ${styledMap`
-      default: transparent;
-      highlightColor: ${props => α(props.highlightColor, .3)};
-    `};
-  ${FlipCardContent}:hover & {
+  padding: .9rem 1.5rem .6rem;
+  ${Card}:hover &, ${FlipCardContent}:hover & {
     transform: scale(1.01);
-    background-color: ${styledMap`
-      default: transparent;
-      highlightColor: ${props => α(props.highlightColor, .5)};
-    `};
-    box-shadow: 4px 9px 5px -2px rgba(0,0,0,0.08);
-  }
-  ${LineItem}:hover & {
-    transform: scale(1.02);
-    background-color: ${styledMap`
-      default: transparent;
-      highlightColor: ${props => α(props.highlightColor, .65)};
-    `};
+    background-color: ${props => α(props.highlightColor || '#fff', .3)};
   }
   word-break: break-all;
   border-radius: 1px;
