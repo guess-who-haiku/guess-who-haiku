@@ -23,12 +23,18 @@ const MyHaiku = memo(({ idx, haiku, openHaikuShow, users }) => {
   return (
     <FlipCard>
       <FlipCardInner flipped={isFlipped}>
-        <FlipCardFront gradientColors={authorColors} url={lines[0].author.colorFamilyBackground} >
+        <FlipCardFront
+          gradientColors={authorColors}
+          url={lines[0].author.colorFamilyBackground}
+        >
           <FlipCardContent>
             <LineList>
               {lines.map(({ author, text }, lineIdx) => (
                 <LineItem key={lineIdx}>
-                  <AuthorCoin borderColor={author.color} alignRight={(lineIdx + idx) % 2 === 0}>
+                  <AuthorCoin
+                    borderColor={author.color}
+                    alignRight={(lineIdx + idx) % 2 === 0}
+                  >
                     <AuthorImg src={author.url} alt={author.name} />
                   </AuthorCoin>
                   <LineText highlightColor={author.color}>{text}</LineText>
@@ -38,29 +44,24 @@ const MyHaiku = memo(({ idx, haiku, openHaikuShow, users }) => {
             <Details>
               <Share>
                 <ShareIcon />
-                <SharedUsers>
-                  {renderSharedUsers(haiku)}
-                </SharedUsers>
+                <SharedUsers>{renderSharedUsers(haiku)}</SharedUsers>
               </Share>
               <Modify>
-                <ScoreboardToggle
-                  onClick={flip}
-                >
-                  Scoreboard
-                </ScoreboardToggle>
+                <ScoreboardToggle onClick={flip}>Scoreboard</ScoreboardToggle>
                 <DeleteIcon />
               </Modify>
             </Details>
           </FlipCardContent>
         </FlipCardFront>
-        <FlipCardBack gradientColors={authorColors}>
-          <FlipCardContent>
-            This is the back
-        </FlipCardContent>
+        <FlipCardBack
+          gradientColors={authorColors}
+          url={lines[0].author.colorFamilyBackground}
+        >
+          <FlipCardContent>This is the back</FlipCardContent>
         </FlipCardBack>
       </FlipCardInner>
     </FlipCard>
-  )
+  );
 });
 
 export default MyHaiku;

@@ -21,6 +21,7 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
     "lodash.merge": "^4.6.2",
+    "moment": "^2.24.0",
     "normalize.css": "^8.0.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

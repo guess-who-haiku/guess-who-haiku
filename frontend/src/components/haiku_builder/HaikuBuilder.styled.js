@@ -82,7 +82,13 @@ export const LineText = styled.span`
 
 export const Message = styled.h3`
     color: black;
-    font-size: 2.5rem; 
+    font-size: 2.5rem;
+    font-weight: 300; 
+    
+`;
+
+export const MessageHighlight = styled.span`
+  color: ${colors.primary};
 `;
 
 export const ErrorMsg = styled.span`
