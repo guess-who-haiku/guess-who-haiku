@@ -6,9 +6,10 @@ export const Page = styled.section`
 `;
 
 export const PageTitle = styled.h1`
-<<<<<<< HEAD
+
   padding: 2rem 0;
   padding-top: 1rem;
+  padding-bottom: 3rem;
   font-size: 6rem;
   font-weight: 700;
 
@@ -17,11 +18,7 @@ export const PageTitle = styled.h1`
   -webkit-text-stroke-width: 0.15rem;
   -webkit-text-stroke-color: black;
 `;
-=======
-  padding-bottom: 3rem;
-  font-size: 6rem;
-  font-weight: 700;
-`;
+
 
 export const PageMenu = styled.ul`
   display: flex;
@@ -44,4 +41,3 @@ export const PageMenuItem = styled.li`
   margin: 0 2rem;
   transition: color 0.3s cubic-bezier(.25,.8,.25,1);
 `
->>>>>>> 2d195d8df398a6031dbfab316201128e4e80c2ab
