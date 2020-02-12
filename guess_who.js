@@ -12,9 +12,13 @@ const authors = require("./routes/api/authors");
 const path = require('path');
 
 const constructLibrary = require('./externalAPI');
+const seedDB = require('./seed');
 
 /* Uncomment to seed author library */
 // constructLibrary();
+
+/* Uncomment to seed DB for users and haikus */
+// seedDB();
 
 /* Ext */
 
