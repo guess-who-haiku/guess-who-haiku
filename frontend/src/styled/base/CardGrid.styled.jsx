@@ -43,6 +43,7 @@ export const FlipCard = styled.div`
   perspective: 1000px;
 `;
 
+
 const FlipCardSide = styled(Card)`
   position: absolute;
   backface-visibility: hidden;
