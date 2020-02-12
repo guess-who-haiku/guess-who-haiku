@@ -5,11 +5,7 @@ import { Multiselect } from 'multiselect-react-dropdown';
 
 import authorAvatars from 'assets/index';
 
-<<<<<<< HEAD
 import { HBContainer, HaikuBox, NonLIContainer, LIContainer, LineIndex, LineItem, UserItem, LineText, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
-=======
-import { HBContainer, HaikuBox, LIContainer, LineIndex, LineItem, UserItem, LineText, Message, MessageHighlight, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
->>>>>>> edf21087d2f9c7db4ac87db06dea7d1822f69277
 import { formatHaiku, formatHaikuLines } from 'util/haiku_format_util';
 import useOnAuth from './useOnAuth'
 
