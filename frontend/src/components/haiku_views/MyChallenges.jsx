@@ -4,7 +4,7 @@ import { Thunks as Haikus } from 'store/haikus/actions';
 import { selectCurrentUser, selectAllHaikus } from 'store/selectors';
 import { Page, PageTitle, PageMenu, PageMenuItem } from 'styled/base/Page.styled';
 import { CardGrid } from 'styled/base/CardGrid.styled';
-import MyChallenge from './MyChallenge';
+import Challenge from './Challenge';
 
 const MyChallenges = () => {
   const [filter, setFilter] = useState('unsolved');
@@ -41,23 +41,23 @@ const MyChallenges = () => {
         </PageMenuItem>
       </PageMenu>
       <CardGrid>
-      
+
         {haikus && sharedHaikus(currentUser)
-          .filter(({usersSharedWith}) => {
+          .filter(({ usersSharedWith }) => {
             return usersSharedWith
               .find(({ userId }) => userId === currentUser._id)
               .complete === (filter === 'solved')
-        
+
           })
           .map((haiku, idx) => (
-          <MyChallenge
-            key={haiku._id}
-            haiku={haiku}
-            idx={idx}
-            users={users}
-            currentUserId={currentUser._id}
-          />
-        ))}
+            <Challenge
+              key={haiku._id}
+              haiku={haiku}
+              idx={idx}
+              users={users}
+              currentUserId={currentUser._id}
+            />
+          ))}
       </CardGrid>
     </Page>
   )

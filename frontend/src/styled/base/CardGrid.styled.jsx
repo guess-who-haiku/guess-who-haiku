@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import styledMap from 'styled-map';
 import { boxShadows } from 'styled/theme';
 import { colorsToLinearGradient as toLG } from 'styled/helpers';
+
 // ----------------- CardGrid -----------------
 export const CardGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
   grid-auto-rows: 35rem;
-  grid-gap: 3rem;
+  grid-gap: 3.5rem;
 `;
 
 // ----------------- Card -----------------
@@ -16,17 +17,14 @@ export const Card = styled.div`
   background-color: transparent;
   width: 100%;
   height: 100%;
+  background: ${props => toLG(props.gradientColors)};
   border-radius: 2px;
   box-shadow: ${boxShadows.still};
+  padding: 0 1.5rem;
   &:hover {
     box-shadow:${boxShadows.hover};
+    padding: 0 1.65rem;
   }
-  padding: 0 1rem;
-  &:hover {
-    padding: 0 1.2rem;
-  }
-  background: ${props => toLG(props.gradientColors)};
-  transition: opacity 0.8s;
   &, & * {
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   } 
@@ -40,38 +38,18 @@ export const CardContent = styled.div`
 
 // ----------------- Flip Card -----------------
 export const FlipCard = styled.div`
-  line-height: 1.6;
   background-color: transparent;
   width: 100%;
   height: 100%;
   perspective: 1000px;
-  &, & * {
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  } 
 `;
 
-const FlipCardSide = styled.div`
-  border-radius: 2px;
+const FlipCardSide = styled(Card)`
   position: absolute;
-  width: 100%;
-  height: 100%;
   backface-visibility: hidden;
-  box-shadow: ${boxShadows.still};
-  &:hover {
-    box-shadow:${boxShadows.hover};
-  }
-  padding: 0 1rem;
-  background: ${props => toLG(props.gradientColors)};
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  &:hover {
-    padding: 0 1.2rem;
-  }
 `;
 
-
-
-export const FlipCardFront = styled(FlipCardSide)`
-`;
+export const FlipCardFront = styled(FlipCardSide)``;
 
 export const FlipCardBack = styled(FlipCardSide)`
   transform: rotateY(180deg);
@@ -101,11 +79,4 @@ export const FlipCardInner = styled.div`
       flipped: 0;
     `};
   }
-/* 
-  & > ${FlipCardBack} {
-    opacity:  ${styledMap`
-      default: 0;
-      flipped: 1;
-    `};
-  } */
 `;

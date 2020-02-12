@@ -71,7 +71,20 @@ export const DeleteIcon = styled(FontAwesomeIcon).attrs({ icon: iTrash })`
   }
 `;
 
-// ----------------- Solvers -----------------
+// ----------------- MiniScoreboard -----------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const SolversTable = styled.table`
   ${flexCenter};
   flex-direction: column;

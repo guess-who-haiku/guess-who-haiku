@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react'
+import React, {useState} from 'react'
 import SolvedHaiku from '../solve_haiku/SolvedHaiku';
 import SolveHaiku from '../solve_haiku/SolveHaikuContainer';
 import { formatHaiku } from 'util/haiku_format_util';
@@ -6,11 +6,7 @@ import { LIContainer, Message, Btn, ErrorMsg } from '../haiku_builder/HaikuBuild
 import { HContainer } from './Haiku.styled';
 
 export default function Haiku({currentUser, solved, creator, users, fastestSolvers, haiku, fetchUsers, createHaikuShare}) {
-    // console.log("currentUser", currentUser);
-    // console.log("solved", solved);
-    // console.log("creator", creator);
-    // console.log("fastest solvers", fastestSolvers);
-    console.log("THIS HAIKU", haiku);
+   
     let usersArr = Object.values(users);
 
     const formatSolvers = () => {
@@ -57,7 +53,8 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
       let newShare = e.currentTarget.dataset.id;
       // console.log(newShare);
       if (!haikuShares.includes(newShare)) {
-        setHaikuShares([...haikuShares, newShare])
+        setHaikuShares([...haikuShares, newShare]);
+        setSharesError(false);
       } else if (haikuShares.includes(newShare)) {
         setHaikuShares(haikuShares.filter(user => (user !== newShare)))
       }
@@ -65,6 +62,7 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
         setSharesError(false)
       }
     };
+    const sharedMsg = <p>You've already share this haiku with the following friends:</p>
 
     //share haiku with selected users
     const shareHaiku = () => {
@@ -75,9 +73,6 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
           .then(() => fetchUsers()) //fetch all users after sharing
       }
     };
-
-    console.log("USERS INSIDE HAIKU MODAL", haikuShares);
-
 
     const determineHaikuShow = () => {
         //if creator of haiku      //not tested
@@ -99,13 +94,24 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
                   {sharesError ? shareError : null}
                   <Btn onClick={shareHaiku}>Share</Btn>
                   {/* {formatSolvers()} */}
+                  {alreadySharedWith() ? sharedMsg : null}
                   {alreadySharedWith()}
                 </>
                     );
         //if not logged in or unsolved     //not tested
         if (!currentUser || !solved) return <SolveHaiku />;
         //if solved     //not tested
-        if (solved) return <SolvedHaiku />;
+        if (solved) {
+
+          return (
+
+          <SolvedHaiku haiku={haiku} 
+                       fastestSolvers={fastestSolvers} 
+                       creator={creator}
+          />
+
+          )
+        };
     }
 
     return (

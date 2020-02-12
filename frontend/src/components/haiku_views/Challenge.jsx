@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Creators as Modal } from 'store/modal/actions';
 import { Card, CardContent } from 'styled/base/CardGrid.styled';
 import { LineList, LineItem, AuthorCoin, AuthorImg, LineText } from 'styled/base/Haiku.styled'
-import { SolveBtn } from './MyChallenge.styled';
+import { SolveBtn } from './Challenge.styled';
 import { formatHaikuLines } from 'util/haiku_format_util';
 
 const MyChallenge = ({ idx, haiku, users, currentUserId }) => {

@@ -5,7 +5,7 @@ import { Thunks as Haikus } from 'store/haikus/actions';
 
 import { FlipCard, FlipCardInner, FlipCardFront, FlipCardBack, FlipCardContent } from 'styled/base/CardGrid.styled';
 import { LineList, LineItem, AuthorCoin, AuthorImg, LineText } from 'styled/base/Haiku.styled'
-import { Details, Share, SharedUsers, ShareIcon, Modify, SolversToggle, DeleteIcon, SolversTable } from './MyHaiku.styled';
+import { Details, Share, SharedUsers, ShareIcon, Modify, SolversToggle, DeleteIcon, SolversTable } from './Haiku.styled';
 
 import { formatHaikuLines } from 'util/haiku_format_util';
 import moment from 'moment';
@@ -16,7 +16,7 @@ const compareShareDates = (shareA, shareB) => {
   return dateA > dateB ? 1 : -1;
 }
 
-const MyHaiku = ({ idx, haiku, users }) => {
+const Haiku = ({ idx, haiku, users }) => {
   const dispatch = useDispatch();
   const openHaikuShow = () => dispatch(Modal.openModal('haikuShow', haiku._id));
   const deleteHaiku = () => dispatch(Haikus.deleteHaiku(haiku._id));
@@ -97,4 +97,4 @@ const MyHaiku = ({ idx, haiku, users }) => {
   )
 };
 
-export default MyHaiku;
+export default Haiku;

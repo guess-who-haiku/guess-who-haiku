@@ -2,11 +2,10 @@ import styled from 'styled-components';
 import styledMap from 'styled-map'
 import α from 'color-alpha';
 import { Card, FlipCardContent } from 'styled/base/CardGrid.styled';
-import authors from 'assets/index';
-
-const Anonymous = authors.unknown;
+import Unknown from 'assets/question-option-2.jpg';
 
 const unsolvedColor = '#D8D8D8';
+
 // ----------------- Lines -----------------
 export const LineList = styled.ol`
   background-color: #fff;
@@ -31,7 +30,7 @@ export const AuthorCoin = styled.span`
   border-radius: 50%;
   border: 2px solid	#F0F0F0;
   transition: all 0.32s cubic-bezier(.25,.8,.25,1);
-  opacity: .8;
+  opacity: .9;
   ${Card}:hover &, ${FlipCardContent}:hover & {
     opacity: 1;
     transform: scale(1.03);
@@ -51,8 +50,8 @@ export const AuthorCoin = styled.span`
 `;
 
 export const AuthorImg = styled.img.attrs(P => ({
-  src: P.src ? P.src : Anonymous.url,
-  alt: P.alt ? P.alt : 'Anonymous Author'
+  src: P.src ? P.src : Unknown,
+  alt: P.alt ? P.alt : 'Unknown Author'
 }))`
   width: 100%;
   height: 100%;

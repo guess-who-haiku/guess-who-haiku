@@ -6,14 +6,14 @@ export const Page = styled.section`
 `;
 
 export const PageTitle = styled.h1`
-  padding: 3rem 0;
+  padding-bottom: 3rem;
   font-size: 6rem;
   font-weight: 700;
 `;
 
 export const PageMenu = styled.ul`
   display: flex;
-  margin: 3rem;
+  margin: 0 2.5rem 2rem;
   font-weight: 600;
 `;
 
