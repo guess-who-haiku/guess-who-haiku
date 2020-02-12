@@ -58,7 +58,7 @@ const FlipCardSide = styled.div`
   &:hover {
     box-shadow:${boxShadows.hover};
   }
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   background-image: url(${props => props.url});
 `;
 
