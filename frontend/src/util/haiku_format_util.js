@@ -1,7 +1,7 @@
 import authorData from 'assets/index';
 import { sample } from './scoreboard_util';
 import colorFamilies from 'assets/color-index';
-
+const colorFamilyValues = Object.values(colorFamilies);
 
 export const formatHaiku = (data, haikuAuthors) => {
     //this function will return an array of lines to facilitate haiku formatting on FE
@@ -41,14 +41,13 @@ export const getAuthorData = (name, color, colorFamilyBackground) => {
     const { url } = authorData[name];
 
     return { name, url, color, colorFamilyBackground };
-  };
+};
 
 
-export const formatHaikuLines = body => {
-    //    [{ author: null, text: null }]
+export const formatHaikuLines = (body, idx = 0) => {
     let authors = Object.keys(body);
-
-    let colorFamily = colorFamilies[sample(Object.keys(colorFamilies))];
+    let colorFamily = colorFamilyValues[idx % colorFamilyValues.length];
+    // debugger;
     let colorFamilyBackground = colorFamily.url;
 
     let lines = [];
@@ -58,10 +57,10 @@ export const formatHaikuLines = body => {
             for (let i = 0; i < body[author].length; i++) {
                 let text = body[author][i];
                 let color = colorFamily.colors[i];
-             
+
                 lines.push({
-                  author: getAuthorData(author, color, colorFamilyBackground),
-                  text
+                    author: getAuthorData(author, color, colorFamilyBackground),
+                    text
                 });
             }
             break;
@@ -74,8 +73,8 @@ export const formatHaikuLines = body => {
                 const author = authors[idx1];
                 const text = body[author][idx2];
                 lines.push({
-                  author: getAuthorData(author, color, colorFamilyBackground),
-                  text
+                    author: getAuthorData(author, color, colorFamilyBackground),
+                    text
                 });
             }
             break;
@@ -85,8 +84,8 @@ export const formatHaikuLines = body => {
                 let color = colorFamily.colors[idx];
                 const text = body[author][idx]
                 lines.push({
-                  author: getAuthorData(author, color, colorFamilyBackground),
-                  text
+                    author: getAuthorData(author, color, colorFamilyBackground),
+                    text
                 });
             })
             break;
@@ -97,5 +96,5 @@ export const formatHaikuLines = body => {
 }
 
 export const getKeyByValue = (object, value) => {
-  return Object.keys(object).find(key => object[key].includes(value));
+    return Object.keys(object).find(key => object[key].includes(value));
 }

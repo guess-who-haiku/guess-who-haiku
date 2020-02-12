@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { ScoreboardItem } from './ScoreboardItem';
 import { SBcontainer, Table, TDetail, SBIndex, SBIndexLink } from "./Scoreboard.styled";
-import { PageTitle } from 'styled/base/Page.styled';
+import { Page, PageTitle } from 'styled/base/Page.styled';
 
 
 const Scoreboard = ({ fetchUsers, users, currentUser }) => {
@@ -79,7 +79,7 @@ const Scoreboard = ({ fetchUsers, users, currentUser }) => {
         return null;
     }
     return (
-      <>
+      <Page>
         <SBIndex>
           <div>
             <PageTitle>Top Scorers</PageTitle>
@@ -116,7 +116,7 @@ const Scoreboard = ({ fetchUsers, users, currentUser }) => {
             </SBcontainer>
           </div>
         </SBIndex>
-      </>
+      </Page>
     );
 }
 

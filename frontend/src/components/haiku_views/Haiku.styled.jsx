@@ -1,31 +1,37 @@
 import styled from 'styled-components';
+import styledMap from 'styled-map';
 import { flexCenter } from 'styled/helpers';
 import { FlipCardContent } from 'styled/base/CardGrid.styled';
 import α from 'color-alpha';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareAlt as iShared, faTrash as iTrash } from '@fortawesome/free-solid-svg-icons';
+import { Table, TDetail, TDetailImage, TRow, Badge } from 'components/scoreboard/Scoreboard.styled';
 
 // ----------------- Details  -----------------
 export const Details = styled.div`
   ${flexCenter};
+  flex-direction: column;
   line-height: 1.6;
-  justify-content: start;
   font-size: 1.2rem;
   opacity: 0;
   ${FlipCardContent}:hover & {
     opacity: 1;
   }
   position: relative;
-  margin: 2rem 1rem 0;
+  margin: 0 1rem;
   color: #495057;
 `;
 
 // ----------------- Share -----------------
 export const Share = styled.div`
+  font-size: 1.3rem;
+  /* align-self: flex-start; */
+  cursor: pointer;
   ${flexCenter};
   &:hover {
     color: ${α('#000', .85)};
   }
+  padding-top: 2rem 0 1rem;
 `;
 
 export const SharedUsers = styled.div`
@@ -39,16 +45,25 @@ export const ShareIcon = styled(FontAwesomeIcon).attrs({ icon: iShared })`
 
 // ----------------- Modify -----------------
 export const Modify = styled.div`
-  ${flexCenter}
-  margin-left: auto;
+  margin-top: 2rem;
+  align-self: flex-end;
+  ${flexCenter};
 `;
 
-export const ScoreboardToggle = styled.button`
+export const Toggle = styled.button`
   cursor: pointer;
+  background-color: white;
   border-radius: 3px;
   border: 1.5px solid #495057;
+  font-size: ${styledMap`
+    default: 1rem;
+    large: 1.6rem;
+  `};
   font-weight: 600;
-  padding: .6rem .7rem .2rem;
+  padding: ${styledMap`
+    default: .4rem .6rem .2rem;
+    large: .6rem .9rem .3rem;
+  `};
   margin: 0 1rem;
   &:active {
     transform: translateY(1px);
@@ -63,9 +78,36 @@ export const ScoreboardToggle = styled.button`
 export const DeleteIcon = styled(FontAwesomeIcon).attrs({ icon: iTrash })`
   margin: 0 1rem;
   cursor: pointer;
-  font-size: 2rem;
-  transition: all 0.2s ease 0s;
+  font-size: 1.5rem;
   &:hover {
     color: ${α('#c81912', .85)};
   }
+`;
+
+// ----------------- MiniScoreboard -----------------
+export const MiniTable = styled(Table)`
+  font-size: 1.5rem;
+  margin: .5rem;
+  padding: .5rem; 
+`;
+
+export const TD = styled(TDetail)`
+  padding: .5rem; 
+`;
+
+export const TH = styled(TD).attrs({ as: 'th' })`
+  font-weight: 700;
+`
+
+export const TDImg = styled(TDetailImage)`
+  height: 4rem;
+  width: 4rem;
+`;
+
+export const TR = styled(TRow)``;
+
+export const MiniBadge = styled(Badge)`
+  height: 2rem;
+  width: 2rem;
+  bottom: .8rem;
 `;
