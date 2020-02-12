@@ -1,11 +1,20 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import SolvedHaiku from '../solve_haiku/SolvedHaiku';
 import SolveHaiku from '../solve_haiku/SolveHaikuContainer';
 import { formatHaiku } from 'util/haiku_format_util';
 import { LIContainer, Message, Btn, ErrorMsg } from '../haiku_builder/HaikuBuilder.styled';
 import { HContainer } from './Haiku.styled';
+import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 
 export default function Haiku({currentUser, solved, creator, users, fastestSolvers, haiku, fetchUsers, createHaikuShare}) {
+
+    useEffect(() => {
+      const targetElement = document.querySelector(".open-modal");
+      disableBodyScroll(targetElement);
+      return () => {
+        clearAllBodyScrollLocks();
+      };
+    }, []);
    
     let usersArr = Object.values(users);
 
@@ -115,8 +124,8 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
     }
 
     return (
-        <HContainer>
-            {determineHaikuShow()}
-        </HContainer>
-    )
+      <HContainer className="open-modal">
+        {determineHaikuShow()}
+      </HContainer>
+    );
 }
