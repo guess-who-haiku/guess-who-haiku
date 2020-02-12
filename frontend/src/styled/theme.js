@@ -32,8 +32,6 @@ export const colors = {
 }
 
 
-
-
 // ---------------------- Font
 const fontWeights = {
   regular: 400,
