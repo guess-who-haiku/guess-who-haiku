@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Multiselect } from 'multiselect-react-dropdown';
 
 import authorAvatars from 'assets/index';
-
+import { Card } from '../../styled/base/CardGrid.styled';
 import { HBContainer, HaikuBox, NonLIContainer, LIContainer, LineIndex, LineItem, MessageHighlight, LineText, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
 import { formatHaikuLines } from 'util/haiku_format_util';
 import useOnAuth from './useOnAuth'

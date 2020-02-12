@@ -16,7 +16,7 @@ export const Foot = styled.div`
     box-shadow: 0 1px 4px rgba(0,0,0,.22);
 `;
 
-export const FooterTxt = styled.a`
+export const FooterTxt = styled.p`
     cursor: pointer;
     line-height: 2;
     font-size: 1.4rem;
