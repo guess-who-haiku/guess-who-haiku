@@ -45,7 +45,7 @@ router.get('/new',
     let lines = MarkovUtil.generateLines(selectionDicts);
 
     /* return haiku body */
-    console.log('about to return json new haiku', lines)
+    // console.log('about to return json new haiku', lines)
     res.json(lines);
     
   }
