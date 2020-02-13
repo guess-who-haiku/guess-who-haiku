@@ -13,13 +13,15 @@ export const CardGrid = styled.div`
 // ----------------- Card -----------------
 export const Card = styled.div`
   line-height: 1.6;
-  /* background-color: transparent; */
   width: 100%;
   height: 100%;
   background-image: url(${props => props.url});
   border-radius: 2px;
   box-shadow: ${boxShadows.still};
   padding: 0 1.5rem;
+  @media (pointer: none) {
+    padding: 0 1.65rem;
+  }
   &:hover {
     box-shadow:${boxShadows.hover};
     padding: 0 1.65rem;
@@ -37,7 +39,6 @@ export const CardContent = styled.div`
 
 // ----------------- Flip Card -----------------
 export const FlipCard = styled.div`
-  /* background-color: transparent; */
   width: 100%;
   height: 100%;
   perspective: 1000px;

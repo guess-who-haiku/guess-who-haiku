@@ -12,7 +12,6 @@ async function buildBarsLibrary() {
   while (i < 20) {
     
     const payload = await fetchBars();
-    // console.log(payload);
     
     if ( payload === undefined ) continue;
     let { lyric, author } = payload.data.data
@@ -27,7 +26,6 @@ async function buildBarsLibrary() {
     i++;
   }
 
-  // console.log(library);
 }
 
 

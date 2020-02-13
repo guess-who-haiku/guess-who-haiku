@@ -91,7 +91,6 @@ const SolveHaiku = ({getHaiku, updateHaiku, haikuId, haiku, authors, users, curr
   
   useEffect(() => {
     if(challengeAcceptedTS) {
-      // console.log("AJAX to openTS")
       updateHaiku(haikuId, 
                     currUserId, 
                     challengeCompleted,

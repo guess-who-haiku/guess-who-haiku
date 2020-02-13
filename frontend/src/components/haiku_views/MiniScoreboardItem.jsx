@@ -1,5 +1,5 @@
 import React from 'react'
-import { TR, TD, TDImg, MiniBadge } from './Haiku.styled';
+import { TR, TD, TDImg, MiniBadge } from './MyHaiku.styled';
 import userAvatars from 'assets/userAvatars';
 import { sample } from 'util/scoreboard_util';
 

@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 import styledMap from 'styled-map';
 import α from 'color-alpha';
+
 export const Page = styled.section`
   padding: 3rem;
 `;
 
 export const PageTitle = styled.h1`
-
+  cursor: default;
   padding: 2rem 0;
-  padding-top: 1rem;
+  padding-top: 2rem;
   padding-bottom: 3rem;
   font-size: 6rem;
   font-weight: 700;

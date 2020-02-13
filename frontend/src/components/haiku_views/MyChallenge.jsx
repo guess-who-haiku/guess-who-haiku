@@ -3,15 +3,14 @@ import { useDispatch } from 'react-redux';
 import { Creators as Modal } from 'store/modal/actions';
 import { Card, CardContent } from 'styled/base/CardGrid.styled';
 import { LineList, LineItem, AuthorCoin, AuthorImg, LineText } from 'styled/base/Haiku.styled'
-import { SolveBtn } from './Challenge.styled';
+import { SolveBtn } from './MyChallenge.styled';
 import { formatHaikuLines } from 'util/haiku_format_util';
 
-const Challenge = ({ idx, haiku, currentUserId }) => {
+const MyChallenge = ({ idx, haiku, currentUserId }) => {
   const dispatch = useDispatch();
   const openSolveModal = () => dispatch(Modal.openModal('haikuShow', haiku._id))
   const lines = formatHaikuLines(haiku.body, idx)
   const bgUrl = lines[0].author.colorFamilyBackground;
-  console.log(haiku._id, haiku.usersSharedWith)
   const challenge = haiku.usersSharedWith.find(({ userId }) => userId === currentUserId)
   const solved = challenge.complete;
 
@@ -33,4 +32,4 @@ const Challenge = ({ idx, haiku, currentUserId }) => {
   )
 };
 
-export default Challenge;
+export default MyChallenge;

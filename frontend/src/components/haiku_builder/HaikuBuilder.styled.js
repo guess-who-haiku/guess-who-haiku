@@ -15,13 +15,16 @@ export const HBContainer = styled.div`
 
 export const HaikuBox = styled.div`
   width: 50rem;
-  height: 50rem;
+  height: 40rem;
+  background-image: url(${props => props.url});
   margin: 0 auto;
   margin-bottom: 4rem;
+  padding: 0 1.65rem;
+  border-radius: 2px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 `
 
-export const LineIndex = styled.ul`
+export const LineIndex = styled.ol`
   padding-top: 4rem;
   padding-bottom: 4rem;
   height: 100%;
@@ -34,15 +37,14 @@ export const LineIndex = styled.ul`
 `;
 
 export const LineItem = styled.li`
-    margin: .8rem;
+   margin: .8rem;
   display: grid;
   grid-template-areas: "avatarLeft text avatarRight";
   grid-template-columns: minmax(min-content, 1fr) minmax(min-content, max-content) minmax(min-content, 1fr);
   grid-template-rows: auto;
   justify-content: center;
   grid-column-gap: 1rem;
-  padding-bottom: 1.3rem;
-  cursor: pointer;
+  padding-bottom: 1rem;
 `;
 
 export const LIContainer = styled.div`
@@ -50,6 +52,18 @@ export const LIContainer = styled.div`
     justify-content: center;
     flex-flow: row wrap;
     padding: 2rem 4rem;
+    margin: 1rem;
+    min-height: 40vh;
+`;
+
+export const NonLIContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem 4rem;
+    margin: 3rem;
+    min-height: 40vh;
 `;
 
 export const AuthorItem = styled.div`
@@ -71,13 +85,14 @@ export const AuthorItem = styled.div`
 `;
 
 export const LineText = styled.span`
+  font-size: 2.3rem;
   grid-area: text;
   justify-self: center;
-  padding: .8rem 1.2rem .5rem;
-  background-color: ${styledMap`
-      default: transparent;
-      highlightColor: ${props => α(props.highlightColor, .3)};
-    `};
+  padding: .5rem 1rem .3rem;
+  ${HaikuBox}:hover & {
+    transform: scale(1.01);
+    background-color: ${props => α(props.highlightColor || '#fff', .3)};
+  }
 `;
 
 export const Message = styled.h3`
@@ -107,15 +122,6 @@ export const AuthorIcon = styled.img`
     object-position: center;
 `;
 
-export const UserItem = styled.li`
-    padding: 1rem;
-    margin: 2rem;
-    border: 1.5px solid ${colors.utilityYellow};
-    &:hover {
-        background: ${colors.utilityYellow}
-    }
-`
-
 export const Btn = styled.button`
   cursor: pointer;
   transition: all 0.25s ease 0s;
@@ -136,3 +142,15 @@ export const Btn = styled.button`
     color: white;
   }
 `
+
+export const multiSelectStyles = {
+  chips: { background: "#DFBD64", "font-size": "2rem" },
+  searchBox: { border: "none", "border-bottom": "2px solid #61A6C3", "border-radius": "0px" },
+  option: { 
+    color: "black", 
+    '&:hover': {
+      background: '#DFBD64',
+      color: "white"
+    }
+  }
+}

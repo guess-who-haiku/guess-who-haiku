@@ -34,7 +34,6 @@ function generateDictionaries(sampleTextsObj) {
     people.forEach(person => {
         dictionaries[person] = markovChainGenerator(sampleTextsObj[person])
     });
-    //console.log('inside generateDictionaries function', dictionaries);
     return dictionaries;
 };
 
@@ -99,9 +98,6 @@ function generateLines(dictionaries) {
         if (!finalObj[person]) {
           finalObj[person] = [];
         }
-        // console.log(genLine(dictionaries[person], [], 10, null))
-        // console.log(genLine(dictionaries[person], [], 5, null))
-        // console.log(genLine(dictionaries[person], [], 10, null))
         finalObj[person].push(genLine(dictionaries[person], [], 5, null))
         finalObj[person].push(genLine(dictionaries[person], [], 7, null))
         finalObj[person].push(genLine(dictionaries[person], [], 5, null))
@@ -149,9 +145,7 @@ function countSyllables(word) {
 //     rj: rjtext
 // };
 // let dicts = generateDictionaries(sarah);
-// // console.log(dicts)
 
-// console.log(generateLines(dicts));
 
 
 
@@ -161,11 +155,3 @@ module.exports = {
   generateLines: generateLines
 
 }
-
-
-// let chiefText = 'dont see colors crackpot colors crackpot see colors crackpot colors crackpot crackpot toys when i look at when i look at people people at people people dont see colors crackpot colors crackpot see colors crackpot colors crackpot just see colors crackpot colors crackpot see colors crackpot colors crackpot look at people people at people people dont see colors crackpot colors crackpot see colors crackpot colors crackpot just see colors crackpot colors crackpot see colors crackpot colors crackpot i look at people people at people people dont see colors crackpot colors crackpot see colors crackpot colors crackpot just see colors crackpot colors crackpot see colors crackpot colors crackpot look at people people at people people dont see colors crackpot colors crackpot see colors crackpot colors crackpot just see colors crackpot colors crackpot see colors crackpot colors crackpot at people i look at at dont see see just see see look at at dont see see just see see i look at at dont see see just see see look at at dont see see just see see people i look at at dont see see just see see look at at dont see see just see see i look at at dont see see just see see look at at dont see see just see see the chief here bake him away away toys when people i look at'
-// let chiefObj = {
-//     "chief wiggum": chiefText
-// }
-// let dicts = generateDictionaries(chiefObj);
-// console.log(generateLines(dicts));
