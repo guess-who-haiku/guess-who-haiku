@@ -34,8 +34,6 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
     }
 
   const handleSelect = (selectedList, selectedItem) => {
-    console.log('SELECTED ITEM', selectedItem);
-    console.log('SELECTED LIST', selectedList);
     setHaikuShares([...selectedList]);
     setSharesError(false);
   }
@@ -95,7 +93,6 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
       };
   }
 
-  console.log('HAIKU SHARES', haikuShares);
   return (
       <HContainer>
           {determineHaikuShow()}

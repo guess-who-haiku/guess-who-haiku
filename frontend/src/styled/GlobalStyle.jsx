@@ -40,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    padding-bottom: 6rem;
+    padding-bottom: 8rem;
     background: #f2f1f0;
   }
 

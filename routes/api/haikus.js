@@ -15,8 +15,6 @@ async function getAuthorSelection(authors) {
 
   const payload = await Library.find();
   const library = payload[0].library;
-  // console.log('library', library);
-  /* goes through each others and returns a selection with just the authors */
   
   let selection = {};
 
@@ -45,7 +43,6 @@ router.get('/new',
     let lines = MarkovUtil.generateLines(selectionDicts);
 
     /* return haiku body */
-    console.log('about to return json new haiku', lines)
     res.json(lines);
     
   }
@@ -159,7 +156,6 @@ router.delete('/:id',
         { $pull: { haikusCreated: ObjectId(req.params.id) } },
         function(err, obj) {
           if (err) throw err;
-          console.log("updated haikus created", obj);
         }
       );
 
@@ -168,13 +164,11 @@ router.delete('/:id',
         { $pull: { haikusSharedWith: req.params.id } },
         function(err, obj) {
           if (err) throw err;
-          console.log("updated shared with", obj);
         }
       );
 
       Haiku.deleteOne({ _id: req.params.id }, function(err, obj) {
         if (err) throw err;
-        console.log("deleted", obj);
       }).then(() => res.json({ _id: req.params.id }))
     }
 

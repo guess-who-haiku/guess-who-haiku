@@ -7,7 +7,6 @@ import HaikuShow from 'components/haiku_show/HaikuContainer';
 const Modal = ({ modal, closeModal, currentUser, haikuId }) => {
 
   if (!modal) {
-    console.log('called')
     document.body.style.overflow = 'unset';
     return null;
   }
