@@ -9,7 +9,7 @@ export const Page = styled.section`
 export const PageTitle = styled.h1`
 
   padding: 2rem 0;
-  padding-top: 1rem;
+  padding-top: 2rem;
   padding-bottom: 3rem;
   font-size: 6rem;
   font-weight: 700;

@@ -5,7 +5,7 @@ import { Multiselect } from 'multiselect-react-dropdown';
 
 import authorAvatars from 'assets/index';
 import { Card } from '../../styled/base/CardGrid.styled';
-import { HBContainer, HaikuBox, NonLIContainer, LIContainer, LineIndex, LineItem, MessageHighlight, LineText, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn } from './HaikuBuilder.styled';
+import { HBContainer, HaikuBox, NonLIContainer, LIContainer, LineIndex, LineItem, MessageHighlight, LineText, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn, multiSelectStyles } from './HaikuBuilder.styled';
 import { formatHaikuLines } from 'util/haiku_format_util';
 import useOnAuth from './useOnAuth'
 
@@ -66,7 +66,10 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const startOver = () => {
 		setStep(0);
 		setHaikuAuthors([]);
-		setHaiku([])
+		setHaiku([]);
+		if (haikuShares) {
+			setHaikuShares([]);
+		}
 	}
 
 	//handle save
@@ -97,7 +100,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const [haikuShares, setHaikuShares] = useState([]);
 	
 	const handleSelect = (selectedList, selectedItem) => {
-		setHaikuShares([...haikuShares, selectedItem]);
+		setHaikuShares([...selectedList]);
 		setSharesError(false);	
 	}
 
@@ -112,9 +115,10 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
         } else {
 			let shareIds = haikuShares.map((obj) => obj._id)
 			// console.log(shareIds);
-			createHaikuShare(newHaiku._id, haikuShares)
+			createHaikuShare(newHaiku._id, shareIds)
 				.then(() => fetchUsers())
-            toggleNext();
+			toggleNext();
+			setHaikuShares([]);
         }    
     };
 
@@ -195,11 +199,12 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 					onSelect={handleSelect}
 					onRemove={handleRemove}
 					displayValue="username"
-					closeIcon="cancel"
-				/>
-			</NonLIContainer>
-            {sharesError ? shareError : null}
-            <Btn onClick={shareHaiku}>Share</Btn>
+				 	closeIcon="circle"
+				 	style={multiSelectStyles}
+ 				/>
+			{sharesError ? shareError : null}
+			<Btn onClick={shareHaiku}>Share</Btn>
+			</NonLIContainer>  
         </>
    );
 

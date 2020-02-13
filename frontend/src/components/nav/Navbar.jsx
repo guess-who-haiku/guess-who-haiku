@@ -49,10 +49,10 @@ const NavBar = ({ history, currentUser, logout, openModal, resetBuilder }) => {
         <MenuNavLink to="/scoreboard">
           <MenuItem>Scoreboard</MenuItem>
         </MenuNavLink>
-        {renderLinks()}
         <MenuNavLink to="/about">
           <MenuItem>About</MenuItem>
         </MenuNavLink>
+        {renderLinks()} 
       </Menu>
     </>
   );
