@@ -8,38 +8,37 @@ const Haiku = require('../../models/Haiku');
 
 //create new Haiku share //tested
 router.post('/',
-    passport.authenticate('jwt', { session: false }),
-        (req, res) => {
+  // passport.authenticate('jwt', { session: false }),
+  async function(req, res) {
 
-          
-          req.body.recipientIds.forEach(userId => {
-                    User.updateOne(
-                      { "_id": userId },
-                      {"$addToSet": { "haikusSharedWith": req.body.haikuId }},
-                      function(err, obj) {
-
-                        if (err) throw err;
-                        console.log('updated haiku share', obj)
-                      }
-                    ).catch(errs => console.log('errors with user update one', errs))
-                    .then(() => {
-                        Haiku.findById(req.body.haikuId)
-                            .then(haiku => {
-                                Haiku.updateOne(
-                                    { "_id": haiku._id },
-                                    { "$addToSet": { "usersSharedWith": { userId: userId } }})
-                                    .then(() => {
-                                        Haiku.findById(req.body.haikuId).then((updatedHaiku) => res.json(updatedHaiku))
-                                    })
-                            })
-                            .catch(err => {
-                                res
-                                    .status(500)
-                                    .json({ createfailed: "Haiku share failed" });
-                            });
-                    })
-            })
-});
+    await req.body.recipientIds.forEach(userId => {
+      User.updateOne(
+        { "_id": userId },
+        {"$addToSet": { "haikusSharedWith": req.body.haikuId }},
+        function(err) {
+          if (err) throw err;
+        }
+      )
+      .catch(errs => console.log('errors with user update one', errs))
+      .then(() => {
+        Haiku.findById(req.body.haikuId)
+          .then(haiku => {
+            Haiku.updateOne(
+              { "_id": haiku._id },
+              { "$addToSet": { "usersSharedWith": { userId: userId } }})
+          })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ createfailed: "Haiku share failed" });
+          });
+      })
+    })
+    Haiku.findById(req.body.haikuId).then(updatedHaiku =>
+      res.json(updatedHaiku)
+    );
+  }
+);
   
 //update Haiku share
 router.patch('/:haikuId',
