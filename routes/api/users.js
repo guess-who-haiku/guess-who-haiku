@@ -34,7 +34,8 @@ router.post('/signup', (req, res) => {
           return newUser.save()
         })
         .then(user => {
-          jwt.sign({ userId: user.id }, keys.secretOrKey, { expiresIn: "10 days" }, (undefined, token) => {
+          const { id: _id, username, score, haikusCreated, haikusSharedWith } = user
+          jwt.sign({ _id, username, score, haikusCreated, haikusSharedWith }, keys.secretOrKey, { expiresIn: '5 days' }, (undefined, token) => {
             res.json({
               success: true,
               token: `Bearer ${token}`
@@ -67,7 +68,7 @@ router.post('/login', (req, res) => {
       bcrypt.compare(password, user.passwordDigest)
         .then(isMatch => {
           if (isMatch) {
-            jwt.sign({ userId: user.id }, keys.secretOrKey, { expiresIn: 3600 }, (undefined, token) => {
+            jwt.sign({ _id: user.id }, keys.secretOrKey, { expiresIn: 3600 }, (undefined, token) => {
               res.json({
                 success: true,
                 token: `Bearer ${token}`

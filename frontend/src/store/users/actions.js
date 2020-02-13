@@ -3,6 +3,7 @@ import * as APIUtil from './api_util';
 
 export const { Types, Creators } = createActions({
   receiveUsers: ['users'],
+  receiveUser: ['user']
 }, { prefix: '[USERS] ' })
 
 

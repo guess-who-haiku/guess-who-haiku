@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import α from 'color-alpha';
-import { colors, font } from 'styled/theme';
+import { colors, font, media } from 'styled/theme';
 import styledMap from 'styled-map';
 
 
@@ -8,13 +8,16 @@ export const HBContainer = styled.div`
     border-radius: 2px;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     font-weight: 200;
-    line-height: 1.5;  
-    margin: 4rem 3rem;
+    line-height: 1.5;
+    margin: 2rem 1.5rem;
+    ${media.tablet`
+      margin: 4rem 3rem;
+    `}
     min-height: 40rem;
 `;
 
 export const HaikuBox = styled.div`
-  width: 50rem;
+  max-width: 50rem;
   height: 40rem;
   background-image: url(${props => props.url});
   margin: 0 auto;
@@ -146,8 +149,8 @@ export const Btn = styled.button`
 export const multiSelectStyles = {
   chips: { background: "#DFBD64", "font-size": "2rem" },
   searchBox: { border: "none", "border-bottom": "2px solid #61A6C3", "border-radius": "0px" },
-  option: { 
-    color: "black", 
+  option: {
+    color: "black",
     '&:hover': {
       background: '#DFBD64',
       color: "white"

@@ -21,8 +21,8 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
     "lodash.merge": "^4.6.2",
-    "multiselect-react-dropdown": "^1.4.5",
     "moment": "^2.24.0",
+    "multiselect-react-dropdown": "^1.4.5",
     "normalize.css": "^8.0.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -34,7 +34,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "reduxsauce": "^1.1.2",
-    "styled-components": "^5.0.0",
+    "styled-components": "^4.4.1",
     "styled-map": "^3.3.0",
     "yup": "^0.28.0"
   },
