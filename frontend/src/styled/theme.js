@@ -20,24 +20,18 @@ export const media = Object.keys(breakpoints).reduce((acc, bp) => {
 
 
 // ---------------------- Colors
-const toryBlue = '#155cac';
-const bostonBlue = '#418bc8';
-const havelockBlue = '#66a8dc';
-const cabaret = '#d8526a';
-const lavendarPurple = '#9277B2';
-const hotCinnamon = '#e05624';
-const candleLight = '#f9cc10';
-const forestGreen = '#1d8941';
 
 export const colors = {
-  primaryDark: toryBlue,
-  primary: bostonBlue,
-  primaryLight: havelockBlue,
-  utilityYellow: candleLight,
-  utilityPink: cabaret,
-  utilityRed: '#EB5757',
+  primaryDark: "#6188C3",
+  primary: '#61C3B7',
+  primaryLight: "#61C3B7",
+  utilityYellow: "#DFBD64",
+  utilityPink: "#E58772",
+  utilityRed: '#C36161',
   utilityGreen: '#27AE60'
 }
+
+
 // ---------------------- Font
 const fontWeights = {
   regular: 400,
@@ -48,11 +42,17 @@ const fontWeights = {
 export const font = {
   sizes: [],
   weights: fontWeights,
-  family: "'Merriweather Sans', sans-serif",
-  url: 'https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700,800&display=swap',
+  family: "'Martel Sans', sans-serif",
+  url: 'https://fonts.googleapis.com/css?family=Martel+Sans:300,400,600,700,800,900|Molle:400i&display=swap',
+}
+
+// ---------------------- Box Shadows
+export const boxShadows = {
+  still: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)', hover: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)'
 }
 
 const theme = {
+  boxShadows,
   colors,
   font
 }

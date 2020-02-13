@@ -24,6 +24,7 @@ export const deleteHaiku = haikuId => {
 };
 
 export const createHaikuShares = (haikuId, recipientIds) => {
+
     return axios.post(`/api/shares`, { haikuId, recipientIds });
 };
 

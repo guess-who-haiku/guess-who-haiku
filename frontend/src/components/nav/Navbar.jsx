@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
-import { Nav, MenuIcon, LogoBox, Logo, Menu, MenuLink, MenuNavLink, MenuItem } from './Navbar.styled';
-const NavBar = ({ history, loggedIn, logout, openModal }) => {
+import { Nav, MenuIcon, AvatarIcon, LogoBox, Logo, Menu, MenuLink, MenuNavLink, MenuItem } from './Navbar.styled';
+const NavBar = ({ history, currentUser, logout, openModal, resetBuilder }) => {
 
   const [isToggled, setIsToggled] = useState(false);
   const toggle = () => setIsToggled(prevState => !prevState);
 
 
   const renderLinks = () => {
-    if (loggedIn) {
-      console.log('I AM LOGGED IN')
+    if (currentUser) {
       return (
         <>
           <MenuNavLink to="/haikus">
@@ -18,6 +17,9 @@ const NavBar = ({ history, loggedIn, logout, openModal }) => {
           <MenuNavLink to="/challenges">
             <MenuItem>My Challenges</MenuItem>
           </MenuNavLink>
+          <MenuLink alignLeft bold>
+            <MenuItem><AvatarIcon />{currentUser.username}</MenuItem>
+          </MenuLink>
           <MenuLink onClick={logout}>
             <MenuItem>Logout</MenuItem>
           </MenuLink>
@@ -26,7 +28,7 @@ const NavBar = ({ history, loggedIn, logout, openModal }) => {
     } else {
       return (
         <>
-          <MenuLink onClick={() => openModal('signup')}>
+          <MenuLink onClick={() => openModal('signup')} alignLeft>
             <MenuItem>Signup</MenuItem>
           </MenuLink>
           <MenuLink onClick={() => openModal('login')}>
@@ -41,13 +43,16 @@ const NavBar = ({ history, loggedIn, logout, openModal }) => {
     <>
       <Nav>
         <MenuIcon onClick={toggle} />
-        <LogoBox><Logo /></LogoBox>
+        <LogoBox onClick={() => resetBuilder()}><Logo /></LogoBox>
       </Nav>
       <Menu isExpanded={isToggled}>
         <MenuNavLink to="/scoreboard">
           <MenuItem>Scoreboard</MenuItem>
         </MenuNavLink>
-        {renderLinks()}
+        <MenuNavLink to="/about">
+          <MenuItem>About</MenuItem>
+        </MenuNavLink>
+        {renderLinks()} 
       </Menu>
     </>
   );
@@ -55,10 +60,3 @@ const NavBar = ({ history, loggedIn, logout, openModal }) => {
 }
 
 export default NavBar;
-
-//const logoutUser = e => {
-  //   e.preventDefault();
-  //   logout();
-  //   debugger;
-  //   history.push('/login');
-  // }

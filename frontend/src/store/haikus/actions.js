@@ -27,15 +27,15 @@ Thunks.fetchHaikusUser = (userId) => dispatch =>
     .then(({ data: haikus }) => dispatch(Creators.receiveHaikus(haikus)))
     .catch(err => console.log(err));
 
-Thunks.fetchHaikuChallenges = (haikus) => dispatch =>
-  APIUtil.getHaikuChallenges(haikus)
+Thunks.fetchHaikuChallenges = haikuIds => dispatch =>
+  APIUtil.getHaikuChallenges(haikuIds)
     .then(({ data: haikus }) => dispatch(Creators.receiveHaikus(haikus)))
     .catch(err => console.log(err));
 
 Thunks.createHaiku = (haiku) => dispatch =>
   APIUtil.createHaiku(haiku)
     .then(({ data: haiku }) => dispatch(Creators.receiveHaiku(haiku)))
-    .then(haiku => dispatch(NewHaikuCreators.receiveNewHaiku(haiku)))
+    .then(({ haiku }) => dispatch(NewHaikuCreators.receiveNewHaiku(haiku)))
     .catch(err => console.log(err));
 
 Thunks.deleteHaiku = (haikuId) => dispatch =>
@@ -43,10 +43,16 @@ Thunks.deleteHaiku = (haikuId) => dispatch =>
     .then(({ data: { _id } }) => dispatch(Creators.removeHaiku(_id)))
     .catch(err => console.log(err));
 
-Thunks.createHaikuShares = (haikuId, recipientIds) => dispatch =>
+Thunks.createHaikuShares = (haikuId, recipientIds) => dispatch => {
+  return (
   APIUtil.createHaikuShares(haikuId, recipientIds)
-    .then(({ data: haiku }) => dispatch(Creators.receiveHaiku(haiku)))
-    .catch(err => console.log(err));
+    .then(({ data: haiku }) => {
+      dispatch(Creators.receiveHaiku(haiku))
+      
+    })
+    .catch(err => console.log(err))
+  )
+}
 
 Thunks.updateHaikuShare = (haikuId, userId, complete, openTS, completeTS) => dispatch =>
   APIUtil.updateHaikuShare(haikuId, userId, complete, openTS, completeTS)

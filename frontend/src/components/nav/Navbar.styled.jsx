@@ -2,19 +2,20 @@ import styled from 'styled-components';
 import styledMap from 'styled-map';
 import { media, colors, font } from 'styled/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars as menuIcon } from '@fortawesome/free-solid-svg-icons';
+import { faBars as menuIcon, faUserCircle as avatarIcon } from '@fortawesome/free-solid-svg-icons';
 import { Link, NavLink } from 'react-router-dom'
 
 export const Nav = styled.nav`
-  background-color: ${colors.primary};
+  background-color: #fff;
   padding: .9rem 1.2rem;
+  position: relative;
   display: grid;
   /* grid-gap: 20px; */
   grid-template-columns: 1fr 3fr 1fr;
   align-items: center;
 
   & > * {
-    color: ${colors.utilityYellow};
+    /* color: ${colors.utilityYellow}; */
   }
 `;
 
@@ -26,17 +27,26 @@ export const LogoBox = styled(Link).attrs({ to: '/' })`
 `;
 
 export const Logo = styled.img.attrs({ alt: 'Guess Who, Haiku - Logo', src: '/logo512.png' })`
-  width: 5rem;
+  width: 3.5rem;
   ${media.tablet`
-    width: 10rem;
+    width: 5rem;
+  `}
+`;
+export const AvatarIcon = styled(FontAwesomeIcon).attrs({ icon: avatarIcon })`
+  height: 2rem;
+  font-size: 3rem;
+  ${media.tablet`
+    margin-left: 2.5rem;
+    font-size: 3.5rem;
   `}
 `;
 
 export const MenuIcon = styled(FontAwesomeIcon).attrs({ icon: menuIcon })`
+  cursor: pointer;
   font-size: 3rem;
   ${media.tablet`
     margin-left: 2rem;
-    font-size: 4.5rem;
+    font-size: 3.5rem;
   `}
   ${media.desktopS`
     display: none;
@@ -45,7 +55,7 @@ export const MenuIcon = styled(FontAwesomeIcon).attrs({ icon: menuIcon })`
 
 // ---------------- Menu
 export const Menu = styled.ul`
-  background-color: ${colors.primary};
+  background-color: #fff;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -54,7 +64,9 @@ export const Menu = styled.ul`
   overflow: hidden;
   transition-duration: .3s;
   transition-timing-function: ease-in;
-  color: white;
+  padding: 0 2rem;
+  /* color: white; */
+  box-shadow: 0 1px 4px rgba(0,0,0,.22);
   
 
   max-height: ${styledMap`
@@ -73,23 +85,40 @@ export const Menu = styled.ul`
 `;
 
 export const MenuLink = styled.a`
-  font-size: 2.5rem;
+  cursor: pointer;
+  line-height: 2;
+  font-size: 1.4rem;
   padding: .9rem 1.2rem;
-  &::hover {
-    ${font.weights.extraBold};
+  transition: color 0.3s cubic-bezier(.25,.8,.25,1);
+  &:hover {
+    color: #61A6C3; 
   }
+
+  ${media.desktopS`
+    margin-left: ${styledMap`
+      default: 0;
+      alignLeft: auto;
+    `};
+
+    font-weight: ${styledMap`
+      default: 500;
+      bold: 800;
+    `};
+  `} 
 `;
 
 export const MenuNavLink = styled(MenuLink).attrs({ as: NavLink, activeClassName: 'selected' })`
   
   &.selected {
-    color: ${colors.utilityYellow};
     font-weight: ${font.weights.bold};
   }
 `;
 
 export const MenuItem = styled.li`
   list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 

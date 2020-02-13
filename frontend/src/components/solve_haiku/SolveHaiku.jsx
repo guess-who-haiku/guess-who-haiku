@@ -1,5 +1,4 @@
-import React, { Fragment as F, useState, useEffect, memo, useRef } from 'react';
-import { } from './SolveHaiku.styled';
+import React, { useState, useEffect, memo} from 'react';
 import { formatHaiku } from 'util/haiku_format_util';
 import { HSContainer, 
          Message, 
@@ -8,33 +7,19 @@ import { HSContainer,
          Button,
          Countdown,
          HaikuContainer,
+         Haiku,
          LIContainer,
-         AuthorItem,
-         AuthorIcon
+         LIElement,
+         HaikuLine,
+         AuthorIcon,
+         AuthorIconSm,
+         HaikuLineIndex,
         } from "./SolveHaiku.styled";
 
+import authorAvatars from 'assets/index';
 
+const SolveHaiku = ({getHaiku, updateHaiku, haikuId, haiku, authors, users, currUserId, openTS }) => {
 
-import barackObama from "../../assets/barack_obama.jpg";
-import donaldTrump from "../../assets/donald_trump.jpg";
-import gameOfThrones from "../../assets/game_of_thrones.jpg";
-import homerSimpson from "../../assets/homer_simpson.jpg";
-import janeAusten from "../../assets/jane_austen.jpg";
-import kanyeWest from "../../assets/kanye_west.jpg";
-import rickAndMorty from "../../assets/rick_and_morty.jpg";
-
-const imgHash = {
-  "Barack Obama": barackObama,
-  "Donald Trump": donaldTrump,
-  "Game of Thrones": gameOfThrones,
-  "Homer Simpson": homerSimpson,
-  "Jane Austen": janeAusten,
-  "Kanye West": kanyeWest,
-  "Rick and Morty": rickAndMorty
-};
-
-const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, currUserId }) => {
-  
   const AUTHOR_OPTIONS_NUM = 6;
   
   // ----------------------------FETCH HAIKU
@@ -92,31 +77,42 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   
   useEffect(() => {
     if(challengeCompleted) {
-
-      console.log('UPDATING:', haikuId, currUserId, challengeAcceptedTS, challengeCompletedTS)
-
-      completeHaiku(haikuId, 
+  
+      updateHaiku(haikuId, 
                     currUserId, 
                     challengeCompleted,
                     challengeAcceptedTS, 
                     challengeCompletedTS
-                    );
+                    );    
     }
   }, [challengeCompleted])
 
-
+  // -------------------------OPENED CHALLENGE
+  
+  useEffect(() => {
+    if(challengeAcceptedTS) {
+      updateHaiku(haikuId, 
+                    currUserId, 
+                    challengeCompleted,
+                    challengeAcceptedTS, 
+                    challengeCompletedTS
+                    );    
+    }
+  }, [challengeAcceptedTS])
 
 
   async function acceptChallengeAndToggleNext() {
 
-    setChallengeAcceptedTS(Date.now());
+    if (!openTS) {
+      setChallengeAcceptedTS(Date.now());
+    }
     toggleNext();
     startCountDown();
 
   }
 
+  // if the user has made a guess
   function randomShuffle(array) {
-     // if the user has made a guess
       
       let shuffled = array.slice(0);
 
@@ -128,7 +124,6 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
       }
 
       return shuffled
-    
   }
  
   function setInitialAuthorOptions() {
@@ -141,13 +136,14 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
     }
   }
 
-  function generateAllAuthorOptions() {  //adds other options to the authorOptions array
+   //adds other options to the authorOptions array
+  function generateAllAuthorOptions() { 
 
     if(authorOptions.length !== 0 && !authorOptionsSelected) {
       
+
       let toShuffle = authorOptions.slice(0);
  
-
       while(toShuffle.length < AUTHOR_OPTIONS_NUM) {
   
           let randomAuthorId = Math.floor(Math.random() * Object.keys(authors).length)
@@ -157,9 +153,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
             toShuffle = toShuffle.concat(randomAuthor);
             toShuffle = randomShuffle(toShuffle);
-
           }
-          
       }
 
       setAuthorOptions(toShuffle);
@@ -172,26 +166,34 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
   function handleAuthorSelect(e) {
     
     const selection = e.currentTarget.innerText;
+    e.target.dataset.selected = true;
+
   
-    if (authorSelection.includes(selection)) {  //previously selection, user wants to unselect
+    //previously selection, user wants to unselect
+    if (authorSelection.includes(selection)) {  
       
       let newAuthorSelection = authorSelection.slice(0).filter((value, index, arr) => {
         return value !== selection
+      
       }); 
       setAuthorSelection(newAuthorSelection);
 
-    } else if(authorSelection.length < Object.keys(haiku.body).length) { //not previously selected, and there's still open slots
+    //not previously selected, and there's still open slots
+    } else if(authorSelection.length < Object.keys(haiku.body).length) { 
       setAuthorSelection([...authorSelection, selection])
     }
   }
 
-  function selectionMatches() {  //compares the users guess against the correct answer 
+  //compares the users guess against the correct answer 
+  function selectionMatches() { 
 
     if (authorSelection.length === 0) return false;
     let correctAuthors = Object.keys(haiku.body);
+    
     for(let select of authorSelection) {
       if (!correctAuthors.includes(select)) return false; 
     }
+
     return true; 
   }
 
@@ -203,10 +205,9 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
 
       setChallengeCompletedTS(Date.now());
       setChallengeCompleted(true);
-      setStep(4); //send to Correct SelectionLoggedIn 
 
     } else if (selectionMatches() && !currUserId) {
-      setStep(5); //send to CorrectSelectionNotLoggedIn 
+      setStep(5); //send to CorrectSelectionNotLoggedIn
       
     } else {
       setStep(3); //send to IncorrectSelection step
@@ -237,11 +238,11 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
       );
     }
 
-});
+  });
   
   const GetReadyPage = memo(() => (
     <>
-      <Message>The faster you answer correctly, the more your points</Message>
+      <Message>Answer faster for a higher score:</Message>
       <MsgSub>Ready, in:</MsgSub>
       <MsgHighlight>
         <Countdown>{timeLeft}</Countdown>
@@ -264,23 +265,36 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
       return (
         <>
           <HaikuContainer>
-            {haikuText.map((line, idx) => (
-              <p key={idx}>{line}</p>
-            ))}
+
+            <Haiku>
+            {haikuText.map((line, idx) => {
+
+              return (
+                <HaikuLineIndex key={idx}>
+                  { (idx === 0 || idx === 2) ? <AuthorIconSm src={authorAvatars["Unknown"].url}></AuthorIconSm> : null }
+                  <HaikuLine>{line}</HaikuLine>
+                  {(idx === 1) ? <AuthorIconSm src={authorAvatars["Unknown"].url}></AuthorIconSm> : null}
+                </HaikuLineIndex>
+              )
+
+
+            })}
+            </Haiku>
+            
           </HaikuContainer>
-          <Message>Pick {haikuAuthors.length} authors</Message>
+          <Message>Pick {haikuAuthors.length} author(s):</Message>
           <LIContainer>
             {authorOptions.map((option, idx) => (
-              <AuthorItem onClick={handleAuthorSelect} key={idx}>
-                <AuthorIcon src={imgHash[option]} alt={option} />
+              < LIElement onClick={handleAuthorSelect} key={idx}>
+                <AuthorIcon data-selected={authorSelection.includes(option)} src={authorAvatars[option].url} alt={option} />
+
                 {option}
-              </AuthorItem>
+              </LIElement>
             ))}
           </LIContainer>
           <Button onClick={() => makeSelectionAndToggleNext()}>
             Make Guess
           </Button>
-          {/* <div>[Timer Placeholder Here]</div> */}
           <p></p>
         </>
       );
@@ -288,23 +302,14 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
       return null;
     }
    
-    
-  // -------------------------------------STEPS
   });
 
   const IncorrectSelection = memo(() => (
     <>
       <p>That was incorrect, keep trying!</p>
-      <button onClick={() => backToMakeSelection()}>Try Again</button>
+      <Button onClick={() => backToMakeSelection()}>Try Again</Button>
     </>
   ));
-
-   const CorrectSelectionLoggedIn = memo(() => (
-     <>
-       <p>CORRECT! Recording your score!</p>
-     </>
-   ));
-
 
   const CorrectSelectionNotLoggedIn = memo(() => (
     <>
@@ -319,7 +324,6 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
                   GetReadyPage, 
                   MakeSelection, 
                   IncorrectSelection, 
-                  CorrectSelectionLoggedIn,
                   CorrectSelectionNotLoggedIn
                 ];
 
@@ -337,9 +341,7 @@ const SolveHaiku = ({getHaiku, completeHaiku, haikuId, haiku, authors, users, cu
     setReverse(false);
   };
 
-  
-  console.log("author options after adding haiku authors", authorOptions);
-  console.log('selection', authorSelection);
+
   return (
     <HSContainer>
       { (haiku && users) ? React.createElement(Steps[step]): null }

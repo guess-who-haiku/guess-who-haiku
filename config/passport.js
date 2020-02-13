@@ -8,8 +8,9 @@ options.secretOrKey = keys.secretOrKey;
 
 module.exports = passport => {
   passport.use(
-    new JwtStrategy(options, (jwt_payload, done) => {
-      User.findById(jwt_payload.id)
+    new JwtStrategy( options, (jwt_payload, done) => {
+
+      User.findById(jwt_payload.userId)
         .then(user => {
           if (user) {
             // return the user to the frontend
@@ -18,7 +19,9 @@ module.exports = passport => {
           // return false since there is no user
           return done(null, false);
         })
-        .catch(err => console.log(err));
+        .catch(err => { 
+          console.log(err);
+        });
     })
   );
 };

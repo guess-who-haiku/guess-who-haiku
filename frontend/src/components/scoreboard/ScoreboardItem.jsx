@@ -1,15 +1,27 @@
 import React from 'react'
-import { TDetail} from './Scoreboard.styled';
+import { TRow, TDetail, TDetailImage, Badge } from './Scoreboard.styled';
+import userAvatars from 'assets/userAvatars';
+import { sample } from '../../util/scoreboard_util';
 
-export default function ScoreboardItem({user}) {
+export function ScoreboardItem({ isScore, rank, user, currentUser }) {
+    
+    let userAvatar = sample(Object.keys(userAvatars));
+
     return (
-        <tr>
-            <TDetail>
-            {user.username}
-            </TDetail>
-            <TDetail>
-            {user.score.toFixed(0)}
-            </TDetail>
-        </tr>
-    )
+      <TRow data-current-user={user === currentUser}>
+        <TDetail>
+          { ( rank === 1) ? <Badge /> : null}
+          <TDetailImage src={userAvatars[userAvatar]}></TDetailImage>
+        </TDetail>
+        <TDetail>{rank}</TDetail>
+        <TDetail>{user.username}</TDetail>
+        {(isScore) ? <TDetail>{user.score.toFixed(0)}</TDetail> : <TDetail>{user.haikusCreated.length}</TDetail>}
+      </TRow>
+    );
+
 }
+
+
+
+
+

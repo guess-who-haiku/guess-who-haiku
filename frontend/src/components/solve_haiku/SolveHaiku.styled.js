@@ -1,26 +1,31 @@
 import styled from "styled-components";
 import theme from "styled/theme";
+import styledMap from 'styled-map';
+import α from 'color-alpha';
+import { colorsToLinearGradient as toLG } from 'styled/helpers';
+
 
 export const HSContainer = styled.div`
   font-family: ${theme.font.family};
-  background-color: ${theme.colors.primary};
+  background-color: white;
   font-weight: 200;
   line-height: 1.5;  
   margin: 4rem 5rem;
   min-height: 70%;
-  border-radius: .5rem;
-  padding: 5rem;
+  padding: 1.5rem;
   box-sizing: border-box;
 `;
 
 export const Message = styled.h3`
   color: ${theme.colors.utilityYellow};
   font-size: 2.5rem;
+  padding-top: 1rem;
 `;
 
 export const MsgHighlight = styled.div`
   color: ${theme.colors.utilityPink};
   font-size: 3.5rem;
+  padding-top: .5rem;
   font-weight: ${theme.font.weights.bold};
 `;
 
@@ -29,12 +34,20 @@ export const MsgSub = styled.div`
 `;
 
 export const Button = styled.button`
-  border: none;
+  cursor: pointer;
+  border: 2px solid black;
   outline: none;
-  background-color: ${theme.colors.utilityYellow};
+  background-color: white;
   padding: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  border-radius: .3rem;
+
+  transition: all .3s ease;
 
   &:hover {
+    background-color: black;
+    color: white;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
   }
 `;
@@ -44,28 +57,112 @@ export const Countdown = styled.div`
 `;
 
 export const HaikuContainer = styled.div`
-  background-color: ${theme.colors.primaryLight};
+
+  background: lightgray;
+  font-family: 'Satisfy';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const HaikuContainerSolved = styled(HaikuContainer)`
+
+  background-image: url(${ props => props.url });
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
+
+`;
+
+export const Haiku = styled.div`
+
+  background-color: white;
   padding: 5rem;
+  width: 90%;
+  font-size: 2.5rem;
 `;
 
 export const AuthorIcon = styled.img`
-  height: 9rem;
-  width: 9rem;
+  height: 8rem;
+  width: 8rem;
+
   border-radius: 50%;
-  border: 5px solid lightgrey;
+  margin: .5rem;
+
+  &:hover {
+    border: 5px solid ${theme.colors.utilityYellow};
+  };
+  border: ${styledMap`
+          data-selected: 5px solid ${theme.colors.utilityYellow};
+          default: 5px solid lightgrey;
+      `};
 `;
 
-export const AuthorItem = styled.div`
+export const AuthorIconSm = styled.img`
+  height: 6.5rem;
+  width: 6.5rem;
+  margin: 1rem;
+  border-radius: 50%;
+  border: ${styledMap`
+          color: 2px solid ${props => props.color};
+          default: 2px solid lightgrey;
+      `};
+`;
+
+export const HaikuLineIndex = styled.div`
+
   display: flex;
-  flex-flow: column;
+  justify-content: center;
   align-items: center;
-  padding: 1rem;
-  cursor: pointer;
+  font-family: 'Satisfy';
+
+`;
+
+export const HaikuLine = styled.div`
+display: flex;
+flex-flow: column;
+align-items: center;
+
+`;
+
+export const HaikuLineText = styled.p`
+  background-color: ${styledMap`
+    color: ${props => α(props.color, .3)};
+    default: transparent;
+  `};
+  width: 28rem;
+  font-size: 2.5rem;
 `;
 
 export const LIContainer = styled.div`
-  display: flex;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-row-gap: 1em;
+  grid-template-rows: auto;
   justify-content: center;
-  flex-flow: row wrap;
-  padding: 4rem 5rem;
+  overflow-y: auto;
+  
 `;
+
+export const LIElement = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+`;
+
+
+
+export const SuccessMsg = styled.p`
+    font-size: 5rem;
+    padding: 2rem;
+    font-weight: bold;
+    background: white;
+    color: ${theme.colors.utilityYellow};
+
+`;  
+

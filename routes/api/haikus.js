@@ -15,8 +15,6 @@ async function getAuthorSelection(authors) {
 
   const payload = await Library.find();
   const library = payload[0].library;
-  console.log('library', library);
-  /* goes through each others and returns a selection with just the authors */
   
   let selection = {};
 
@@ -37,17 +35,14 @@ router.get('/new',
   async function(req, res) {
 
     const authors = Object.values(req.query); /* get authors from request  */
-    // console.log('AUTHORS', authors)
     // for each author, assemble a selection of authors from the library and construct the dictionary
     const selection = await getAuthorSelection(authors);
-    console.log('SELECTION', selection)
+    // console.log('SELECTION', selection)
     selectionDicts = MarkovUtil.generateDictionaries(selection);
-    
     // use the selection dictionaries to generate haiku lines
     let lines = MarkovUtil.generateLines(selectionDicts);
 
     /* return haiku body */
-    console.log('about to return json new haiku', lines)
     res.json(lines);
     
   }
@@ -161,7 +156,6 @@ router.delete('/:id',
         { $pull: { haikusCreated: ObjectId(req.params.id) } },
         function(err, obj) {
           if (err) throw err;
-          console.log("updated haikus created", obj);
         }
       );
 
@@ -170,14 +164,12 @@ router.delete('/:id',
         { $pull: { haikusSharedWith: req.params.id } },
         function(err, obj) {
           if (err) throw err;
-          console.log("updated shared with", obj);
         }
       );
 
       Haiku.deleteOne({ _id: req.params.id }, function(err, obj) {
         if (err) throw err;
-        console.log("deleted", obj);
-      }).then(obj => res.json(obj))
+      }).then(() => res.json({ _id: req.params.id }))
     }
 
 )

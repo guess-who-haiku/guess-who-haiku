@@ -4,29 +4,33 @@ const passport = require('passport');
 
 const User = require('../../models/User');
 const Haiku = require('../../models/Haiku');
+// const ObjectId = require("mongodb").ObjectID;
 
 //create new Haiku share //tested
 router.post('/',
     passport.authenticate('jwt', { session: false }),
         (req, res) => {
-            req.body.recipientIds.forEach(userId => {
-                User.findById(userId)
-                    .then(user => {
-                        User.updateOne(
-                            { "_id": user._id },
-                            {"$push": { "haikusSharedWith": req.body.haikuId }})
-                            //.catch((errs) => console.log('Error updating User', errs))
-                    })
+
+          
+          req.body.recipientIds.forEach(userId => {
+                    User.updateOne(
+                      { "_id": userId },
+                      {"$addToSet": { "haikusSharedWith": req.body.haikuId }},
+                      function(err, obj) {
+
+                        if (err) throw err;
+                        console.log('updated haiku share', obj)
+                      }
+                    ).catch(errs => console.log('errors with user update one', errs))
                     .then(() => {
                         Haiku.findById(req.body.haikuId)
                             .then(haiku => {
                                 Haiku.updateOne(
                                     { "_id": haiku._id },
-                                    { "$push": { "usersSharedWith": { userId: userId } }})
+                                    { "$addToSet": { "usersSharedWith": { userId: userId } }})
                                     .then(() => {
                                         Haiku.findById(req.body.haikuId).then((updatedHaiku) => res.json(updatedHaiku))
                                     })
-                                    //.catch((errs) => console.log('Error updating haiku', errs));
                             })
                             .catch(err => {
                                 res
@@ -39,27 +43,23 @@ router.post('/',
   
 //update Haiku share
 router.patch('/:haikuId',
-    // passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
         (req, res) => {
-
-            console.log('PASSED THE PASSWORD AUTHENTICATION');
-            console.log('REQUEST BODY', req);
-
             let score = 0;
             Haiku.findById( req.params.haikuId )
                 .then(haiku => {
                     haiku.usersSharedWith.forEach(user => {
                         if (user.userId === req.body.userId) {
-                            if (req.body.complete != undefined) {
+                            if (req.body.complete) {
                                 user.complete = req.body.complete;
                             }
-                            if (req.body.completeTimestamp != undefined) {
+                            if (req.body.completeTimestamp) {
                                 user.completeTimestamp = req.body.completeTimestamp;
                                 let timeDiff =
                                   (req.body.completeTimestamp - user.openTimestamp)/1000;
                                 score = 2000 - (2000*timeDiff/(2000 + timeDiff)) + 100;
                             }
-                            if (req.body.openTimestamp != undefined) {
+                            if (req.body.openTimestamp) {
                                 user.openTimestamp = req.body.openTimestamp;
                             }
                         }

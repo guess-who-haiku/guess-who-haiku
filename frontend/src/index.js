@@ -15,6 +15,7 @@ window.axios = axios;
 let store;
 
 if (localStorage.jwtToken) {
+
   setAuthToken(localStorage.jwtToken);
   const decodedUser = jwt_decode(localStorage.jwtToken);
 
@@ -24,7 +25,7 @@ if (localStorage.jwtToken) {
   const currentTime = Date.now() / 1000;
   if (decodedUser.exp < currentTime) {
     store.dispatch(Session.logout());
-    window.location.href = '/login';
+    window.location.href = '/';
   }
 } else {
   store = configureStore({});
