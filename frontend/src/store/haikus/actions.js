@@ -44,11 +44,9 @@ Thunks.deleteHaiku = (haikuId) => dispatch =>
     .catch(err => console.log(err));
 
 Thunks.createHaikuShares = (haikuId, recipientIds) => dispatch => {
-  console.log('haikuId', haikuId, 'recipient ids', recipientIds);
   return (
   APIUtil.createHaikuShares(haikuId, recipientIds)
     .then(({ data: haiku }) => {
-      console.log('INSIDE HAIKU SHARE RESPONSE', haiku)
       dispatch(Creators.receiveHaiku(haiku))
       
     })

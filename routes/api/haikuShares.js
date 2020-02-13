@@ -13,10 +13,6 @@ router.post('/',
 
           
           req.body.recipientIds.forEach(userId => {
-                
-            console.log('REQ BODY',req.body);
-                // User.findById(userId)
-                //     .then(user => {
                     User.updateOne(
                       { "_id": userId },
                       {"$addToSet": { "haikusSharedWith": req.body.haikuId }},
@@ -26,8 +22,6 @@ router.post('/',
                         console.log('updated haiku share', obj)
                       }
                     ).catch(errs => console.log('errors with user update one', errs))
-                            //.catch((errs) => console.log('Error updating User', errs))
-                    // })
                     .then(() => {
                         Haiku.findById(req.body.haikuId)
                             .then(haiku => {
@@ -37,11 +31,8 @@ router.post('/',
                                     .then(() => {
                                         Haiku.findById(req.body.haikuId).then((updatedHaiku) => res.json(updatedHaiku))
                                     })
-                                    //.catch((errs) => console.log('Error updating haiku', errs));
                             })
                             .catch(err => {
-
-                               
                                 res
                                     .status(500)
                                     .json({ createfailed: "Haiku share failed" });
@@ -54,10 +45,6 @@ router.post('/',
 router.patch('/:haikuId',
     passport.authenticate('jwt', { session: false }),
         (req, res) => {
-
-            // console.log('PASSED THE PASSWORD AUTHENTICATION');
-            // console.log('REQUEST BODY', req);
-
             let score = 0;
             Haiku.findById( req.params.haikuId )
                 .then(haiku => {
@@ -67,8 +54,6 @@ router.patch('/:haikuId',
                                 user.complete = req.body.complete;
                             }
                             if (req.body.completeTimestamp) {
-                                // console.log("openTS", user.openTimestamp)
-                                // console.log("completeTS", req.body.completeTimestamp)
                                 user.completeTimestamp = req.body.completeTimestamp;
                                 let timeDiff =
                                   (req.body.completeTimestamp - user.openTimestamp)/1000;
@@ -97,7 +82,6 @@ router.patch('/:haikuId',
                 })
                 .catch(err => {
                     res.status(500).json({ updatefailed: "Haiku update failed" });
-                    // console.log("error updating score");
                 });
         }
 );

@@ -5,8 +5,6 @@ const colorFamilyValues = Object.values(colorFamilies);
 
 export const formatHaiku = (data, haikuAuthors) => {
     //this function will return an array of lines to facilitate haiku formatting on FE
-
-    // console.log('data', data, 'haiku authors', haikuAuthors);
     let newHaiku1 = data[haikuAuthors[0]]
 
     switch (haikuAuthors.length) {

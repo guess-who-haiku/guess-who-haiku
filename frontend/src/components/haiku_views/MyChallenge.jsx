@@ -11,7 +11,6 @@ const MyChallenge = ({ idx, haiku, currentUserId }) => {
   const openSolveModal = () => dispatch(Modal.openModal('haikuShow', haiku._id))
   const lines = formatHaikuLines(haiku.body, idx)
   const bgUrl = lines[0].author.colorFamilyBackground;
-  console.log(haiku._id, haiku.usersSharedWith)
   const challenge = haiku.usersSharedWith.find(({ userId }) => userId === currentUserId)
   const solved = challenge.complete;
 

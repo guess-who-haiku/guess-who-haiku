@@ -4,8 +4,11 @@ import { useHistory } from 'react-router-dom';
 import { Multiselect } from 'multiselect-react-dropdown';
 
 import authorAvatars from 'assets/index';
-import { Card } from '../../styled/base/CardGrid.styled';
-import { HBContainer, HaikuBox, NonLIContainer, LIContainer, LineIndex, LineItem, MessageHighlight, LineText, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn, multiSelectStyles } from './HaikuBuilder.styled';
+
+import { CardContent } from 'styled/base/CardGrid.styled';
+import { AuthorCoin, AuthorImg } from 'styled/base/Haiku.styled'
+
+import { HBContainer, HaikuBox, NonLIContainer, LIContainer, LineIndex, LineText, LineItem, MessageHighlight, Message, ErrorMsg, AuthorIcon, AuthorItem, Btn, multiSelectStyles } from './HaikuBuilder.styled';
 import { formatHaikuLines } from 'util/haiku_format_util';
 import useOnAuth from './useOnAuth'
 
@@ -59,7 +62,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	useEffect(() => {
 		if (newHaiku === 'reset') {
 			startOver();
-		}
+		} 
 	}, [newHaiku])
 
 	//start over
@@ -77,7 +80,6 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 		let h = { body: newHaiku };
 		if (!currentUser) { openModal('login') }
 		onAuth((currentUser) => {
-			console.log(currentUser);
 			h.creator = currentUser;
 			createHaiku(h)
 				.then(() => fetchUsers())
@@ -114,7 +116,6 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
             setSharesError(true)
         } else {
 			let shareIds = haikuShares.map((obj) => obj._id)
-			// console.log(shareIds);
 			createHaikuShare(newHaiku._id, shareIds)
 				.then(() => fetchUsers())
 			toggleNext();
@@ -170,17 +171,24 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 
 	const GeneratedHaiku = () => (
 		<>
-			<HaikuBox>
-				<LineIndex>
-					{newHaiku && !newHaiku.body && formatHaikuLines(newHaiku).map(({ author, text }, lineIdx) => (
-						<LineItem key={lineIdx}>
-							<AuthorItem borderColor={author.color}>
-								<AuthorIcon src={author.url} alt={author.name} />
-							</AuthorItem>
-							<LineText highlightColor={author.color}>{text}</LineText>
-						</LineItem>
-					))}
-				</LineIndex>
+			<HaikuBox
+				url={newHaiku && !newHaiku.body && formatHaikuLines(newHaiku)[0].author.colorFamilyBackground}
+			>
+					<CardContent>
+						<LineIndex>
+							{newHaiku && !newHaiku.body && formatHaikuLines(newHaiku).map(({ author, text }, lineIdx) => (
+								<LineItem key={lineIdx}>
+									<AuthorCoin
+										borderColor={author.color}
+										alignRight={(lineIdx) % 2 === 0}
+									>
+										<AuthorImg src={author.url} alt={author.name} />
+									</AuthorCoin>
+									<LineText highlightColor={author.color}>{text}</LineText>
+								</LineItem>
+							))}
+						</LineIndex>
+					</CardContent>	
 			</HaikuBox>
 			<Btn onClick={() => { generateHaiku(); toggleBack(); }}>Regenerate</Btn>
 			<Btn onClick={startOver}>Start over</Btn>
