@@ -51,10 +51,15 @@ async function seedDB() {
         let haiku20 = await axios.get(`http://${environment}/api/haikus/new?author1=Kanye+West`);
 
         //save these haikus
+
         //share these haikus
+
         //solve some for demolicious
 
+        // { body, creator, usersSharedWith } = req.body;
+
         //manually edit score for some users through mongoose instead of axios
+        
     } catch (error) {
         console.log("seed error", error)
     }
