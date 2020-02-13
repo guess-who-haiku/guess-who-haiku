@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/segersalex/guess-who-haiku.git"
   },
-  "author": "T.Faramarz, S.Jiang, A.Segers, E.Xiao",
+  "author": "T.Faramarzi, S.Jiang, A.Segers, E.Xiao",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/segersalex/guess-who-haiku/issues"
