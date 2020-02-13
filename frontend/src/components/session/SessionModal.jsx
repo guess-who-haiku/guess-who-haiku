@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { sleep, ghostType } from 'util/demo_bot_util';
 import { Topbar, NavLink, CloseBtn, Wrapper, Title, Form, Input, InputGroup, ErrorMsg, Btn } from './SessionModal.styled';
 import { useFormik } from 'formik';
@@ -45,7 +45,7 @@ const SessionModal = ({ login, signup, openAltModal, closeModal, action }) => {
     if (isBotRuning) { return };
     setBotRunning(true);
     resetForm()
-    ghostType('demolicious', letter => {
+    ghostType('Demolicious', letter => {
       setFieldValue('username', $usernameField.current.value + letter)
     }, 1500)
       .then(() => sleep(800))
@@ -60,7 +60,9 @@ const SessionModal = ({ login, signup, openAltModal, closeModal, action }) => {
   return (
     <Wrapper>
       <Topbar>
-        <NavLink onClick={openAltModal}>{(action === 'Signup') ? 'Login' : 'Signup'}</NavLink>
+        <NavLink onClick={openAltModal}>
+          {action === "Signup" ? "Login" : "Signup"}
+        </NavLink>
         <CloseBtn onClick={closeModal} />
       </Topbar>
 
@@ -69,8 +71,8 @@ const SessionModal = ({ login, signup, openAltModal, closeModal, action }) => {
         <InputGroup>
           <Input
             ref={$usernameField}
-            {...getFieldProps('username')}
-            placeholder='Username'
+            {...getFieldProps("username")}
+            placeholder="Username"
             data-touched={touched.username}
             data-error={Boolean(errors.username)}
           />
@@ -79,19 +81,24 @@ const SessionModal = ({ login, signup, openAltModal, closeModal, action }) => {
         <InputGroup>
           <Input
             ref={$passwordField}
-            {...getFieldProps('password')}
-            placeholder='Password'
+            {...getFieldProps("password")}
+            placeholder="Password"
             data-touched={touched.password}
             data-error={Boolean(errors.password)}
-            type='password'
+            type="password"
           />
           <ErrorMsg>{errors.password}</ErrorMsg>
         </InputGroup>
-        <Btn type='submit' ref={$submitBtn}>{action}</Btn>
+        <Btn type="submit" ref={$submitBtn}>
+          {action}
+        </Btn>
       </Form>
-      {action === 'Login' && <Btn secondary onClick={runDemoLogin}>Demo</Btn>}
+      {action === "Login" && (
+        <Btn secondary onClick={runDemoLogin}>
+          Demo
+        </Btn>
+      )}
     </Wrapper>
-
   );
 }
 
