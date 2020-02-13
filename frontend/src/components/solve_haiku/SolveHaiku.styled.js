@@ -40,6 +40,7 @@ export const Button = styled.button`
   background-color: white;
   padding: 1rem;
   margin-top: 3rem;
+  margin-bottom: 1rem;
   border-radius: .3rem;
 
   transition: all .3s ease;
@@ -57,23 +58,32 @@ export const Countdown = styled.div`
 
 export const HaikuContainer = styled.div`
 
-  background: ${styledMap`
-          default: lightgray;
-          gradientColors: ${props => toLG(props.gradientColors)}};
-      `};
+  background: lightgray;
   font-family: 'Satisfy';
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
+export const HaikuContainerSolved = styled(HaikuContainer)`
+
+  background-image: url(${ props => props.url });
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
+
+`;
+
 export const Haiku = styled.div`
+
   background-color: white;
   padding: 5rem;
-  width: 95%;
-  height: 95%;
+  width: 90%;
   font-size: 2.5rem;
-`
+`;
 
 export const AuthorIcon = styled.img`
   height: 8rem;
@@ -152,6 +162,7 @@ export const SuccessMsg = styled.p`
     padding: 2rem;
     font-weight: bold;
     background: white;
+    color: ${theme.colors.utilityYellow};
 
 `;  
 

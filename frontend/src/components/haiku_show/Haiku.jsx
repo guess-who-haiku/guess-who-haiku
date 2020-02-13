@@ -5,7 +5,7 @@ import { formatHaiku } from 'util/haiku_format_util';
 import { LIContainer, Message, Btn, ErrorMsg } from '../haiku_builder/HaikuBuilder.styled';
 import { HContainer } from './Haiku.styled';
 
-export default function Haiku({currentUser, solved, creator, users, fastestSolvers, haiku, fetchUsers, createHaikuShare}) {
+export default function Haiku({currentUser, solved, creator, users, fastestSolvers, haiku, fetchUsers, createHaikuShare, closeModal}) {
    
     let usersArr = Object.values(users);
 
@@ -108,6 +108,7 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
           <SolvedHaiku haiku={haiku} 
                        fastestSolvers={fastestSolvers} 
                        creator={creator}
+                       closeModal={closeModal}
           />
 
           )
