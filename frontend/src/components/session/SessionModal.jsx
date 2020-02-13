@@ -45,7 +45,7 @@ const SessionModal = ({ login, signup, openAltModal, closeModal, action }) => {
     if (isBotRuning) { return };
     setBotRunning(true);
     resetForm()
-    ghostType('demolicious', letter => {
+    ghostType('Demolicious', letter => {
       setFieldValue('username', $usernameField.current.value + letter)
     }, 1500)
       .then(() => sleep(800))
