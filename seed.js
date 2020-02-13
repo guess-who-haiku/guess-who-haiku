@@ -1,12 +1,29 @@
 const axios = require("axios");
 const Haiku = require("./models/Haiku");
 const User = require("./models/User");
+const constructLibrary = require("./externalAPI");
 
-const environment = "localhost:5000";
-// const environment = "guesswhohaiku.herokuapp.com";
+let environment;
+if (process.env.NODE_ENV === "production") {
+  environment = "guesswhohaiku.herokuapp.com";
+} else {
+  environment = "localhost:5000";
+}
 
 async function seedDB() {
-  console.log("SEEDING!!!")
+  let demoUser = await User.findOne({username: 'Demolicious'});
+
+  let lastSeedDate = Math.floor(Date.parse(demoUser.dateCreated) / 86400000);
+  let currentDate = Math.floor(Date.now() / 86400000);
+  let dateDiff = currentDate - lastSeedDate;
+
+  if (dateDiff < 30) {
+    return;
+  }
+
+  //seed author library
+  constructLibrary();
+
   try {
     //clear DB except library
     await User.deleteMany({});
@@ -293,14 +310,9 @@ async function seedDB() {
       haikuId: savedHaiku11.data._id,
       recipientIds: [demo._id]
     });
-
-    //solve some for demolicious
-
-    console.log("DONE SEEDING!!!!!!!!!");
     } catch (error) {
     console.log("seed error", error)
   }
 }
 
 module.exports = seedDB;
-                  
