@@ -7,7 +7,6 @@ import HaikuShow from 'components/haiku_show/HaikuContainer';
 const Modal = ({ modal, closeModal, currentUser, haikuId }) => {
 
   if (!modal) {
-    console.log('called')
     document.body.style.overflow = 'unset';
     return null;
   }
@@ -24,7 +23,7 @@ const Modal = ({ modal, closeModal, currentUser, haikuId }) => {
       Component = <LoginModalContainer />;
       break;
     case 'haikuShow':
-      Component = <HaikuShow closeModal={closeModal}/>;
+      Component = <HaikuShow closeModal={closeModal} />;
       break;
     default:
       return null;

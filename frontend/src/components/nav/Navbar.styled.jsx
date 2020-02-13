@@ -8,6 +8,7 @@ import { Link, NavLink } from 'react-router-dom'
 export const Nav = styled.nav`
   background-color: #fff;
   padding: .9rem 1.2rem;
+  position: relative;
   display: grid;
   /* grid-gap: 20px; */
   grid-template-columns: 1fr 3fr 1fr;
@@ -32,15 +33,16 @@ export const Logo = styled.img.attrs({ alt: 'Guess Who, Haiku - Logo', src: '/lo
   `}
 `;
 export const AvatarIcon = styled(FontAwesomeIcon).attrs({ icon: avatarIcon })`
-  height: 2.5rem;
+  height: 2rem;
   font-size: 3rem;
   ${media.tablet`
-    margin-left: 2rem;
+    margin-left: 2.5rem;
     font-size: 3.5rem;
   `}
 `;
 
 export const MenuIcon = styled(FontAwesomeIcon).attrs({ icon: menuIcon })`
+  cursor: pointer;
   font-size: 3rem;
   ${media.tablet`
     margin-left: 2rem;

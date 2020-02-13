@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <Foot>
             <FooterTxt>
-                <a href="https://github.com/segersalex/guess-who-haiku" target="_blank">
+                <a href="https://github.com/segersalex/guess-who-haiku" target="_blank" rel="noopener noreferrer">
                     Guess Who Haiku, 2020
                 </a>
             </FooterTxt>

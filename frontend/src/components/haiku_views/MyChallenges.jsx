@@ -4,7 +4,7 @@ import { Thunks as Haikus } from 'store/haikus/actions';
 import { selectCurrentUser, selectAllHaikus } from 'store/selectors';
 import { Page, PageTitle, PageMenu, PageMenuItem } from 'styled/base/Page.styled';
 import { CardGrid } from 'styled/base/CardGrid.styled';
-import Challenge from './Challenge';
+import MyChallenge from './MyChallenge';
 import { compareHaikuDateCreated as compareDate } from './compare_time_util'
 
 const MyChallenges = () => {
@@ -51,7 +51,7 @@ const MyChallenges = () => {
           })
           .sort(compareDate)
           .map((haiku, idx) => (
-            <Challenge
+            <MyChallenge
               dateCreated={haiku.dateCreated}
               key={haiku._id}
               haiku={haiku}
