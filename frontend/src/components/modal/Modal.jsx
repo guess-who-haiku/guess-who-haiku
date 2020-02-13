@@ -23,7 +23,7 @@ const Modal = ({ modal, closeModal, currentUser, haikuId }) => {
       Component = <LoginModalContainer />;
       break;
     case 'haikuShow':
-      Component = <HaikuShow closeModal={closeModal}/>;
+      Component = <HaikuShow closeModal={closeModal} />;
       break;
     default:
       return null;

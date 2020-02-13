@@ -3,7 +3,6 @@ import {
     Github, LinkedIn, ProfileContainer, ProfileBox, LinkBox,
     Name, Picture, ProfileLink, Details, DetailsText, Logo
 } from './About.styled';
-import { Page } from 'styled/base/Page.styled';
 
 
 import {
@@ -11,7 +10,7 @@ import {
 } from "../haiku_builder/HaikuBuilder.styled";
 
 
-import { PageTitle } from "styled/base/Page.styled";
+import { Page, PageTitle } from "styled/base/Page.styled";
 import colorFamilies from 'assets/color-index';
 
 import creators from 'assets/creator-index';
