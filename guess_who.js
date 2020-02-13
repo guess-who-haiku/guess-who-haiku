@@ -6,21 +6,17 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const users = require("./routes/api/users");
 const haikus = require('./routes/api/haikus');
-
 const haikuShares = require("./routes/api/haikuShares");
 const authors = require("./routes/api/authors");
 const path = require('path');
 
-const constructLibrary = require('./externalAPI');
-
-/* Uncomment to seed author library */
-// constructLibrary();
-
-/* Ext */
+const seedDB = require('./seed');
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB successfully"))
+  //seed entire DB
+  .then(seedDB)
   .catch(err => console.error(err));
 
 //Configure for Heroku
@@ -32,7 +28,6 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   app.get("/", (req, res) => res.send("Guess Who?"));
 }
-
 
 // Configure passport middleware
 app.use(passport.initialize());
