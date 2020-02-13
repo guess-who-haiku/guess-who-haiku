@@ -1,6 +1,7 @@
 const axios = require("axios");
 const Haiku = require("./models/Haiku");
 const User = require("./models/User");
+const Library = require("./models/Library");
 const constructLibrary = require("./externalAPI");
 
 let environment;
@@ -22,7 +23,8 @@ async function seedDB() {
   }
 
   //seed author library
-  constructLibrary();
+  // await Library.deleteMany({});
+  // await constructLibrary();
 
   try {
     //clear DB except library
@@ -39,15 +41,19 @@ async function seedDB() {
       password: "password"
     });
     await axios.post(`http://${environment}/api/users/signup`, {
-      username: "MasaokaShiki",
+      username: "SarahJ",
       password: "password"
     });
     await axios.post(`http://${environment}/api/users/signup`, {
-      username: "HendrikDoeff",
+      username: "TatianaF",
       password: "password"
     });
     await axios.post(`http://${environment}/api/users/signup`, {
-      username: "R.H.Blyth",
+      username: "AlexS",
+      password: "password"
+    });
+    await axios.post(`http://${environment}/api/users/signup`, {
+      username: "EddieX",
       password: "password"
     });
     await axios.post(`http://${environment}/api/users/signup`, {
@@ -66,10 +72,6 @@ async function seedDB() {
       username: "SoliloGuy",
       password: "password"
     });
-    await axios.post(`http://${environment}/api/users/signup`, {
-      username: "test8",
-      password: "password"
-    });
 
     //get created users and update score
     let demo = await User.findOne({ username: "Demolicious" });
@@ -78,15 +80,18 @@ async function seedDB() {
     let ff = await User.findOne({ username: "FunkyFresh" });
     ff.score = 32758;
     ff.save();
-    let ms = await User.findOne({ username: "MasaokaShiki" });
-    ms.score = 23120;
-    ms.save();
-    let hd = await User.findOne({ username: "HendrikDoeff" });
-    hd.score = 19327;
-    hd.save();
-    let rh = await User.findOne({ username: "R.H.Blyth" });
-    rh.score = 17086;
-    rh.save();
+    let sj = await User.findOne({ username: "SarahJ" });
+    sj.score = 23120;
+    sj.save();
+    let tf = await User.findOne({ username: "TatianaF" });
+    tf.score = 19327;
+    tf.save();
+    let as = await User.findOne({ username: "AlexS" });
+    as.score = 17086;
+    as.save();
+    let ex = await User.findOne({ username: "EddieX" });
+    ex.score = 17086;
+    ex.save();
     let ep = await User.findOne({ username: "EzraPound" });
     ep.score = 15593;
     ep.save();
@@ -230,21 +235,21 @@ async function seedDB() {
       `http://${environment}/api/haikus/create`,
       {
         body: haiku10.data,
-        creator: ms._id
+        creator: sj._id
       }
     );
     let savedHaiku11 = await axios.post(
       `http://${environment}/api/haikus/create`,
       {
         body: haiku11.data,
-        creator: hd._id
+        creator: tf._id
       }
     );
     let savedHaiku12 = await axios.post(
       `http://${environment}/api/haikus/create`,
       {
         body: haiku12.data,
-        creator: demo._id
+        creator: ex._id
       }
     );
     let savedHaiku13 = await axios.post(
@@ -262,7 +267,7 @@ async function seedDB() {
     });
     await axios.post(`http://${environment}/api/shares/`, {
       haikuId: savedHaiku2.data._id,
-      recipientIds: [hd._id, ws._id, sg._id]
+      recipientIds: [tf._id, ws._id, sg._id]
     });
     await axios.post(`http://${environment}/api/shares/`, {
       haikuId: savedHaiku3.data._id,
@@ -310,6 +315,11 @@ async function seedDB() {
       haikuId: savedHaiku11.data._id,
       recipientIds: [demo._id]
     });
+    await axios.post(`http://${environment}/api/shares/`, {
+      haikuId: savedHaiku12.data._id,
+      recipientIds: [demo._id]
+    });
+
     } catch (error) {
     console.log("seed error", error)
   }
