@@ -11,6 +11,7 @@ import SolveHaiku from './solve_haiku/SolveHaikuContainer';
 import MyHaikus from './haiku_views/MyHaikus';
 import MyChallenges from './haiku_views/MyChallenges';
 import About from './about/About';
+import Footer from './footer/Footer';
 
 const App = () => (
   <>
@@ -28,6 +29,9 @@ const App = () => (
         <Route exact path="/haikus/:haikuId" component={SolveHaiku} />
       </Switch>
     </main>
+    <footer>
+      <Footer />
+    </footer>
   </>
 );
 

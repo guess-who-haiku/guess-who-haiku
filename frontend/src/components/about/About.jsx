@@ -3,6 +3,8 @@ import {
     Github, LinkedIn, ProfileContainer, ProfileBox, LinkBox,
     Name, Picture, ProfileLink, Details, DetailsText, Logo
 } from './About.styled';
+import { Page } from 'styled/base/Page.styled';
+
 
 import {
   MessageHighlight,
@@ -16,7 +18,7 @@ import creators from 'assets/creator-index';
 
 const About = () => {
     return (
-      <>
+      <Page>
         <PageTitle>About</PageTitle>
         <Details>
           <DetailsText>
@@ -106,7 +108,7 @@ const About = () => {
             </LinkBox>
           </ProfileBox>
         </ProfileContainer>
-      </>
+      </Page>
     );
 }
 
