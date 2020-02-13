@@ -37,30 +37,45 @@ export const PageTitle = styled.h1`
 
 const Geo = styled.img`
   position: absolute;
+  clip: auto;
+
 `;
 
+//teal
 export const Geo1 = styled(Geo)`
   z-index: -1;
   width: 20vw;
   height: auto;
-  bottom: -10rem;
-  right: -10rem;
+  bottom: -12rem;
+  right: -20rem;
 
 `;
 
+// yellow
 export const Geo2 = styled(Geo)`
-  width: 10vw;
+  width: 25vw;
   height: auto;
-  left: 0;
+  left: -18vw;
+  top: 10vh;
   z-index: 1;
 `;
 
+//purple
 export const Geo3 = styled(Geo)`
 
-  z-index: 0;
-  left: -10vw;
-  width: 17vw;
+  z-index: -10;
+  left: -25vw;
+  width: 40vw;
+  top: -15vh;
   height: auto;
 
+`;
 
+//blue
+export const Geo4 = styled(Geo)`
+  z-index: -1;
+  right: -8vw;
+  bottom: 12vh;
+  width: 15vw;
+  height: auto;
 `;

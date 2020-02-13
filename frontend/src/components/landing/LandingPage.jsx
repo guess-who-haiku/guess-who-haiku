@@ -5,7 +5,8 @@ import {
   DescriptionBoxText,
   Geo1,
   Geo2,
-  Geo3
+  Geo3,
+  Geo4
 } from "./LandingPage.styled";
 import { PageTitle } from "styled/base/Page.styled";
 
@@ -22,6 +23,7 @@ const LandingPage = ({ openModal, createHaikuShare, createHaiku, fetchAuthors, f
       <Geo1 src={geo.teal}></Geo1>
       <Geo2 src={geo.yellow}></Geo2>
       <Geo3 src={geo.purple}></Geo3>
+      <Geo4 src={geo.blue}></Geo4>
 
       <PageTitle>Guess Who Haiku</PageTitle>
       <DescriptionBox>

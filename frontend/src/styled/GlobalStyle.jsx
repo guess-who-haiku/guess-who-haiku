@@ -19,6 +19,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
+    min-height: 100%;
+    box-sizing: border-box;
     font-size: 50%; /* sets the unit 'rem' to (62.5%,10px) (50%, 8px)  */
     ${media.tablet`
       font-size: 57%;
@@ -26,14 +28,19 @@ const GlobalStyle = createGlobalStyle`
     ${media.desktopS`
       font-size: 62.5%;
     `}
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   body {
+    position: relative;
     color: black;
     font-family: ${font.family};
     font-size: 2rem;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    padding-bottom: 6rem;
     background: #f2f1f0;
   }
 

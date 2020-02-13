@@ -33,7 +33,7 @@ export const Share = styled.div`
   ${flexCenter};
   will-change: color;
   &:hover * {
-    color: ${α('#61A6C3', .85)};
+    color: black;
   }
   padding-top: 2rem 0 1rem;
 `;

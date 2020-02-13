@@ -4,6 +4,7 @@ import {
     Name, Picture, ProfileLink, Details, DetailsText, Logo
 } from './About.styled';
 
+
 import {
   MessageHighlight,
 } from "../haiku_builder/HaikuBuilder.styled";

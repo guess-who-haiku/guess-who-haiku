@@ -50,6 +50,18 @@ export const LIContainer = styled.div`
     justify-content: center;
     flex-flow: row wrap;
     padding: 2rem 4rem;
+    margin: 1rem;
+    min-height: 40vh;
+`;
+
+export const NonLIContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem 4rem;
+    margin: 3rem;
+    min-height: 40vh;
 `;
 
 export const AuthorItem = styled.div`
@@ -107,15 +119,6 @@ export const AuthorIcon = styled.img`
     object-position: center;
 `;
 
-export const UserItem = styled.li`
-    padding: 1rem;
-    margin: 2rem;
-    border: 1.5px solid ${colors.utilityYellow};
-    &:hover {
-        background: ${colors.utilityYellow}
-    }
-`
-
 export const Btn = styled.button`
   cursor: pointer;
   transition: all 0.25s ease 0s;
@@ -136,3 +139,15 @@ export const Btn = styled.button`
     color: white;
   }
 `
+
+export const multiSelectStyles = {
+  chips: { background: "#DFBD64", "font-size": "2rem" },
+  searchBox: { border: "none", "border-bottom": "2px solid #61A6C3", "border-radius": "0px" },
+  option: { 
+    color: "black", 
+    '&:hover': {
+      background: '#DFBD64',
+      color: "white"
+    }
+  }
+}

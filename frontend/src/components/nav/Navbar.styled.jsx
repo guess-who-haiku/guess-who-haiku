@@ -104,9 +104,7 @@ export const MenuLink = styled.a`
       default: 500;
       bold: 800;
     `};
-  `}
-
-  
+  `} 
 `;
 
 export const MenuNavLink = styled(MenuLink).attrs({ as: NavLink, activeClassName: 'selected' })`

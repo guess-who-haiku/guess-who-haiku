@@ -49,7 +49,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
   fetchHaikus: haikuIds => dispatch(HaikuThunks.fetchHaikuChallenges(haikuIds)),
   fetchUsers: () => dispatch(UserThunks.fetchUsers()),
-  // closeModal: () => dispatch(Modal.closeModal()),
+  closeModal: () => dispatch(Modal.closeModal()),
   // getHaiku: (haikuId) => dispatch(HaikuThunks.fetchHaiku(haikuId)), 
   createHaikuShare: (haikuId, recipientIds) => dispatch(HaikuThunks.createHaikuShares(haikuId, recipientIds)),
 });
