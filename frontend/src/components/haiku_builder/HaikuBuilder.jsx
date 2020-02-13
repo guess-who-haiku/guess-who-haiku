@@ -100,7 +100,7 @@ const HaikuBuilder = ({ createHaiku, createHaikuShare, fetchUsers, fetchNewHaiku
 	const [haikuShares, setHaikuShares] = useState([]);
 	
 	const handleSelect = (selectedList, selectedItem) => {
-		setHaikuShares([...haikuShares, selectedItem]);
+		setHaikuShares([...selectedList]);
 		setSharesError(false);	
 	}
 

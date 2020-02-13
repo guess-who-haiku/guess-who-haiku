@@ -3,16 +3,12 @@ import { Multiselect } from 'multiselect-react-dropdown';
 
 import SolvedHaiku from '../solve_haiku/SolvedHaiku';
 import SolveHaiku from '../solve_haiku/SolveHaikuContainer';
-import { formatHaiku } from 'util/haiku_format_util';
 import { Message, Btn, ErrorMsg } from '../haiku_builder/HaikuBuilder.styled';
-import { multiSelectStyles, HContainer } from './Haiku.styled';
+import { multiSelectStyles, HContainer, ShareLI } from './Haiku.styled';
 
 export default function Haiku({currentUser, solved, creator, users, fastestSolvers, haiku, fetchUsers, createHaikuShare}) {
    
     let usersArr = Object.values(users);
-
-    let haikuAuthors = Object.keys(haiku.body);
-    let haikuText = formatHaiku(haiku.body, haikuAuthors);
 
     //set selected users to share with in local state
     const [haikuShares, setHaikuShares] = useState([]);
@@ -27,7 +23,7 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
         return currentShares.map((user) => {
           let curr = users[user];
           return (
-            <li>{curr.username}</li>
+            <ShareLI>{curr.username}</ShareLI>
           )
         })
       } else {
@@ -38,7 +34,9 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
     }
 
   const handleSelect = (selectedList, selectedItem) => {
-    setHaikuShares([...haikuShares, selectedItem]);
+    console.log('SELECTED ITEM', selectedItem);
+    console.log('SELECTED LIST', selectedList);
+    setHaikuShares([...selectedList]);
     setSharesError(false);
   }
 
@@ -52,24 +50,18 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
       setSharesError(true)
     } else {
       let shareIds = haikuShares.map((obj) => obj._id)
-      // console.log(shareIds);
-      createHaikuShare(haiku._id, haikuShares)
+      createHaikuShare(haiku._id, shareIds)
         .then(() => fetchUsers())
       setHaikuShares([]);
     }
   };
 
-  const sharedMsg = <p>You've already share this haiku with the following friends:</p>
+  const sharedMsg = <p>You've already share this haiku with:</p>
 
   const determineHaikuShow = () => {
       //if creator of haiku      //not tested
       if (creator) return (
               <>
-                {/* <Message>
-                  {haikuText.map((line, idx) => (
-                    <p key={idx}>{line}</p>
-                  ))}
-                </Message> */}
                 <Message>Challenge your friends to solve your haiku!</Message>
                   <Multiselect
                     options={usersArr.filter(user => ((user._id !== currentUser._id) && (!currentShares.includes(user._id))))}
@@ -82,8 +74,10 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
                   />
                 {sharesError ? shareError : null}
                 <Btn onClick={shareHaiku}>Share</Btn>
-                {alreadySharedWith() ? sharedMsg : null}
-                {alreadySharedWith()}
+                <div>
+                  {alreadySharedWith() ? sharedMsg : null}
+                  {alreadySharedWith()}
+                </div> 
               </>
                   );
       //if not logged in or unsolved     //not tested
@@ -102,6 +96,7 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
       };
   }
 
+  console.log('HAIKU SHARES', haikuShares);
   return (
       <HContainer>
           {determineHaikuShow()}
