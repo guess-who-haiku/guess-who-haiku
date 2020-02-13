@@ -4,7 +4,7 @@ import { Thunks as Haikus } from 'store/haikus/actions';
 import { selectCurrentUser, selectAllHaikus } from 'store/selectors';
 import { Page, PageTitle } from 'styled/base/Page.styled';
 import { CardGrid } from 'styled/base/CardGrid.styled';
-import Haiku from './Haiku';
+import MyHaiku from './MyHaiku';
 import { compareHaikuDateCreated as compareDate } from './compare_time_util'
 
 const MyHaikus = () => {
@@ -31,7 +31,7 @@ const MyHaikus = () => {
       <PageTitle>My Haikus</PageTitle>
       <CardGrid>
         {userHaikus && createdHaikus(currentUser).map((haiku, idx) => (
-          <Haiku
+          <MyHaiku
             key={haiku._id}
             haiku={haiku}
             idx={idx}

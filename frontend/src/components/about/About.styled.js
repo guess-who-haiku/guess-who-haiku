@@ -15,7 +15,7 @@ export const DetailsText = styled.div`
   margin: 2rem 5rem;
   width: 60vw;
   font-size: 2rem;
-  line-height: 2.5rem;
+  line-height: 2;
 `;
 
 export const ProfileContainer = styled.div`
@@ -67,6 +67,7 @@ export const ProfileLink = styled.a.attrs({
 })`
   cursor: pointer;
   margin: 2rem;
+  transition: color .2s ease;
   &:hover {
     color: purple;
   }

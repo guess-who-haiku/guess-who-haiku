@@ -9,14 +9,14 @@ import {
 } from "../haiku_builder/HaikuBuilder.styled";
 
 
-import { PageTitle } from "styled/base/Page.styled";
+import { Page, PageTitle } from "styled/base/Page.styled";
 import colorFamilies from 'assets/color-index';
 
 import creators from 'assets/creator-index';
 
 const About = () => {
     return (
-      <>
+      <Page>
         <PageTitle>About</PageTitle>
         <Details>
           <DetailsText>
@@ -106,7 +106,7 @@ const About = () => {
             </LinkBox>
           </ProfileBox>
         </ProfileContainer>
-      </>
+      </Page>
     );
 }
 

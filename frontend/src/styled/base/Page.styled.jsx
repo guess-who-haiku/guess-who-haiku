@@ -6,7 +6,7 @@ export const Page = styled.section`
 `;
 
 export const PageTitle = styled.h1`
-
+  cursor: default;
   padding: 2rem 0;
   padding-top: 1rem;
   padding-bottom: 3rem;

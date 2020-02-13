@@ -17,6 +17,9 @@ export const Details = styled.div`
   ${FlipCardContent}:hover & {
     opacity: 1;
   }
+  @media (pointer: none) {
+    opacity: 1;
+  }
   position: relative;
   margin: 0 1rem;
   color: #495057;
@@ -28,8 +31,9 @@ export const Share = styled.div`
   /* align-self: flex-start; */
   cursor: pointer;
   ${flexCenter};
-  &:hover {
-    color: ${α('#000', .85)};
+  will-change: color;
+  &:hover * {
+    color: ${α('#61A6C3', .85)};
   }
   padding-top: 2rem 0 1rem;
 `;
@@ -87,8 +91,9 @@ export const DeleteIcon = styled(FontAwesomeIcon).attrs({ icon: iTrash })`
 // ----------------- MiniScoreboard -----------------
 export const MiniTable = styled(Table)`
   font-size: 1.5rem;
-  margin: .5rem;
-  padding: .5rem; 
+  margin: .5rem auto;
+  padding: .5rem;
+  padding-left: 0;
 `;
 
 export const TD = styled(TDetail)`

@@ -44,6 +44,7 @@ export const SBIndexLink = styled.a.attrs({
 
 
 export const Table = styled.table`
+    cursor: default;
     margin: 1rem;
     color: black;
     padding: 1rem;
