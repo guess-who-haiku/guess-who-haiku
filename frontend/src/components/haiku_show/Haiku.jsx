@@ -6,7 +6,7 @@ import SolveHaiku from '../solve_haiku/SolveHaikuContainer';
 import { Message, Btn, ErrorMsg } from '../haiku_builder/HaikuBuilder.styled';
 import { multiSelectStyles, HContainer, ShareLI } from './Haiku.styled';
 
-export default function Haiku({currentUser, solved, creator, users, fastestSolvers, haiku, fetchUsers, createHaikuShare}) {
+export default function Haiku({currentUser, solved, creator, users, fastestSolvers, haiku, fetchUsers, createHaikuShare, closeModal}) {
    
     let usersArr = Object.values(users);
 
@@ -86,12 +86,11 @@ export default function Haiku({currentUser, solved, creator, users, fastestSolve
       if (solved) {
 
         return (
-
-        <SolvedHaiku haiku={haiku} 
-                      fastestSolvers={fastestSolvers} 
-                      creator={creator}
-        />
-
+          <SolvedHaiku haiku={haiku} 
+                       fastestSolvers={fastestSolvers} 
+                       creator={creator}
+                       closeModal={closeModal}
+          />
         )
       };
   }

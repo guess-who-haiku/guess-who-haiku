@@ -28,6 +28,8 @@ const GlobalStyle = createGlobalStyle`
     ${media.desktopS`
       font-size: 62.5%;
     `}
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   body {
