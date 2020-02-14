@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const keys = require('../../config/keys');
 const jwt = require('jsonwebtoken');
 const validateUser = require('../../validation/user');
+const userAvatars = ['panda', 'lion', 'bear', 'parrot', 'rabbit', 'sloth', 'llama', 'croc', 'walrus', 'bear2', 'lemur', 'owl', 'penguin', 'camel', 'hippo', 'zebra', 'goat', 'fox', 'raccoon']
 
 // ------------------------------- POST /signup
 router.post('/signup', (req, res) => {
@@ -24,18 +25,20 @@ router.post('/signup', (req, res) => {
       }
       const newUser = new User({
         username,
-        passwordDigest: password
+        passwordDigest: password,
+        avatar: userAvatars[Math.floor(Math.random() * userAvatars.length)]
       })
 
       const saltRounds = 10;
+      console.log('New user avatar:', newUser.avatar)
       bcrypt.hash(newUser.passwordDigest, saltRounds)
         .then(hashedPassword => {
           newUser.passwordDigest = hashedPassword;
           return newUser.save()
         })
         .then(user => {
-          const { id: _id, username, score, haikusCreated, haikusSharedWith } = user
-          jwt.sign({ _id, username, score, haikusCreated, haikusSharedWith }, keys.secretOrKey, { expiresIn: '5 days' }, (undefined, token) => {
+          const { id: _id, username, score, haikusCreated, haikusSharedWith, avatar } = user
+          jwt.sign({ _id, username, score, haikusCreated, haikusSharedWith, avatar }, keys.secretOrKey, { expiresIn: '5 days' }, (undefined, token) => {
             res.json({
               success: true,
               token: `Bearer ${token}`
@@ -86,7 +89,7 @@ router.post('/login', (req, res) => {
 // ------------------------------- GET /
 router.get("/",
   (req, res) => {
-    User.find(undefined, '_id username score haikusCreated haikusSharedWith')
+    User.find(undefined, '_id username score haikusCreated haikusSharedWith avatar')
       // .then(users => res.json(users))
       .then(payload => {
         const users = {};

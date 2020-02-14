@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const userAvatars = ['panda', 'lion', 'bear', 'parrot', 'rabbit', 'sloth', 'llama', 'croc', 'walrus', 'bear2', 'lemur', 'owl', 'penguin', 'camel', 'hippo', 'zebra', 'goat', 'fox', 'raccoon']
 const UserSchema = new Schema({
   username: {
     type: String,
@@ -25,6 +25,11 @@ const UserSchema = new Schema({
   haikusSharedWith: {
     type: Array,
     default: []
+  },
+  avatar: {
+    type: String,
+    enum: userAvatars,
+    default: 'bear'
   },
 })
 

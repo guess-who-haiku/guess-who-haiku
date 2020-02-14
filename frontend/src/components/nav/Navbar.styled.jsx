@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import styledMap from 'styled-map';
 import { media, colors, font } from 'styled/theme';
+import { flexCenter } from 'styled/helpers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars as menuIcon, faUserCircle as avatarIcon } from '@fortawesome/free-solid-svg-icons';
+import { faBars as menuIcon } from '@fortawesome/free-solid-svg-icons';
 import { Link, NavLink } from 'react-router-dom'
+import userAvatars from 'assets/userAvatars';
 
 export const Nav = styled.nav`
   background-color: #fff;
@@ -30,14 +32,6 @@ export const Logo = styled.img.attrs({ alt: 'Guess Who, Haiku - Logo', src: '/lo
   width: 3.5rem;
   ${media.tablet`
     width: 5rem;
-  `}
-`;
-export const AvatarIcon = styled(FontAwesomeIcon).attrs({ icon: avatarIcon })`
-  height: 2rem;
-  font-size: 3rem;
-  ${media.tablet`
-    margin-left: 2.5rem;
-    font-size: 3.5rem;
   `}
 `;
 
@@ -71,7 +65,7 @@ export const Menu = styled.ul`
 
   max-height: ${styledMap`
     default: 0;
-    isExpanded: 30vh;
+    isExpanded: 100vh;
   `};
 
   ${media.desktopS`
@@ -115,10 +109,28 @@ export const MenuNavLink = styled(MenuLink).attrs({ as: NavLink, activeClassName
 `;
 
 export const MenuItem = styled.li`
+  ${flexCenter};
   list-style: none;
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const Navatar = styled.img.attrs(props => ({ src: userAvatars[props.avatar] }))`
+  border: 1px solid transparent;
+  border-radius: 50%;
+  margin-right: .5rem;
+  height: 1.8rem;
+  width: 1.8rem;
+  ${media.tablet`
+    margin-right: 1rem;
+    height: 2rem;
+    width: 2rem;
+  `}
+
+  ${MenuLink}:hover &  {
+    border-color: inherit;
+  }
 `;
 
 

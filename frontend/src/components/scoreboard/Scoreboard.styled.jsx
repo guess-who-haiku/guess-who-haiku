@@ -2,7 +2,7 @@ import styled from "styled-components";
 import styledMap from "styled-map";
 import { media, colors } from "styled/theme";
 import star from 'assets/star.png';
-
+import userAvatars from 'assets/userAvatars';
 export const SBcontainer = styled.div`
   display: flex;
   justify-content: center;
@@ -47,18 +47,25 @@ export const Table = styled.table`
     cursor: default;
     margin: 1rem;
     color: black;
-    padding: 1rem;
+    padding: 0.8rem;
     font-weight: 600;
     line-height: 1.8;
-    font-size: 2.5rem;
+    padding: 0.5rem;
+    font-size: 2.2rem;
+    ${media.desktopS`
+      font-size: 2.5rem;
+    `}
 `;
 
 export const TDetail = styled.td`
-  padding: 1rem;
+   padding: 0.5rem;
+  ${media.desktopS`
+    padding: 1rem;
+  `}
   position: relative;
 `;
 
-export const TDetailImage = styled.img`
+export const TDetailImage = styled.img.attrs(props => ({ src: userAvatars[props.avatar] }))`
   height: 8rem;
   width: 8rem;
 `;
