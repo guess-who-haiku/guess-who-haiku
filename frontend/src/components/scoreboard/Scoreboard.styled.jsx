@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import styledMap from "styled-map";
 import { media, colors } from "styled/theme";
 import star from 'assets/star.png';
@@ -65,17 +65,21 @@ export const TDetail = styled.td`
   position: relative;
 `;
 
+export const THeader = styled(TDetail).attrs({ as: 'th' })`
+   font-weight: 700;
+`;
+
 export const TDetailImage = styled.img.attrs(props => ({ src: userAvatars[props.avatar] }))`
   height: 8rem;
   width: 8rem;
 `;
 
 export const TRow = styled.tr`
-
- color: ${styledMap`
-    default: black;
-    data-current-user:  ${colors.utilityRed};
- `};
+  ${props => props.currentUser && css`
+    color: #FFDC63;
+    -webkit-text-stroke-width: .5px;
+    -webkit-text-stroke-color: #FFC850;
+  `}
 `;
 
 export const Badge = styled.img.attrs({

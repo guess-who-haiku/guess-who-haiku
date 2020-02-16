@@ -38,7 +38,7 @@ router.post('/signup', (req, res) => {
         })
         .then(user => {
           const { id: _id, username, score, haikusCreated, haikusSharedWith, avatar } = user
-          jwt.sign({ _id, username, score, haikusCreated, haikusSharedWith, avatar }, keys.secretOrKey, { expiresIn: '5 days' }, (undefined, token) => {
+          jwt.sign({ username, score, haikusCreated, haikusSharedWith, avatar, _id }, keys.secretOrKey, { expiresIn: '5 days' }, (undefined, token) => {
             res.json({
               success: true,
               token: `Bearer ${token}`

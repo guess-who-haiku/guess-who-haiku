@@ -1,36 +1,33 @@
 import styled from 'styled-components';
 import styledMap from 'styled-map';
-import { media, colors, font } from 'styled/theme';
+import { media, font } from 'styled/theme';
 import { flexCenter } from 'styled/helpers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars as menuIcon } from '@fortawesome/free-solid-svg-icons';
 import { Link, NavLink } from 'react-router-dom'
 import userAvatars from 'assets/userAvatars';
 
-export const Nav = styled.nav`
+export const Header = styled.header`
   background-color: #fff;
   padding: .9rem 1.2rem;
   position: relative;
   display: grid;
-  /* grid-gap: 20px; */
   grid-template-columns: 1fr 3fr 1fr;
   align-items: center;
-
-  & > * {
-    /* color: ${colors.utilityYellow}; */
-  }
 `;
 
-export const LogoBox = styled(Link).attrs({ to: '/' })`
+export const Logo = styled(Link).attrs({ to: '/' })`
+  background-image: url('logo512.png');
+  background-size: 100%;
+  justify-self: center;
   ${media.desktopS`
     justify-self: start;
-    padding-left: 1rem;
+    margin-left: 2rem;
   `}
-`;
-
-export const Logo = styled.img.attrs({ alt: 'Guess Who, Haiku - Logo', src: '/logo512.png' })`
+  height: 3.5rem;
   width: 3.5rem;
   ${media.tablet`
+    height: 5rem;
     width: 5rem;
   `}
 `;
@@ -47,8 +44,8 @@ export const MenuIcon = styled(FontAwesomeIcon).attrs({ icon: menuIcon })`
   `}
 `;
 
-// ---------------- Menu
-export const Menu = styled.ul`
+// ---------------- NavLinks
+export const NavLinks = styled.div`
   background-color: #fff;
   width: 100%;
   display: flex;
@@ -59,9 +56,7 @@ export const Menu = styled.ul`
   transition-duration: .3s;
   transition-timing-function: ease-in;
   padding: 0 2rem;
-  /* color: white; */
   box-shadow: 0 1px 4px rgba(0,0,0,.22);
-  
 
   max-height: ${styledMap`
     default: 0;
@@ -73,12 +68,11 @@ export const Menu = styled.ul`
     max-height: 5rem;
     justify-content: start;
     justify-self: end;
-  `}
-
-  
+  `};
 `;
 
-export const MenuLink = styled.a`
+export const DLink = styled.a`
+  ${flexCenter};
   cursor: pointer;
   line-height: 2;
   font-size: 1.4rem;
@@ -93,7 +87,6 @@ export const MenuLink = styled.a`
       default: 0;
       alignLeft: auto;
     `};
-
     font-weight: ${styledMap`
       default: 500;
       bold: 800;
@@ -101,22 +94,13 @@ export const MenuLink = styled.a`
   `} 
 `;
 
-export const MenuNavLink = styled(MenuLink).attrs({ as: NavLink, activeClassName: 'selected' })`
-  
+export const DNavLink = styled(DLink).attrs({ as: NavLink, activeClassName: 'selected' })`
   &.selected {
     font-weight: ${font.weights.bold};
   }
 `;
 
-export const MenuItem = styled.li`
-  ${flexCenter};
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const Navatar = styled.img.attrs(props => ({ src: userAvatars[props.avatar] }))`
+export const UserAvatar = styled.img.attrs(props => ({ src: userAvatars[props.avatarUrl] }))`
   border: 1px solid transparent;
   border-radius: 50%;
   margin-right: .5rem;
@@ -128,7 +112,7 @@ export const Navatar = styled.img.attrs(props => ({ src: userAvatars[props.avata
     width: 2rem;
   `}
 
-  ${MenuLink}:hover &  {
+  ${DLink}:hover &  {
     border-color: inherit;
   }
 `;

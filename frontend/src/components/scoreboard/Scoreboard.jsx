@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { ScoreboardItem } from './ScoreboardItem';
-import { SBcontainer, Table, TDetail, SBIndex, SBIndexLink } from "./Scoreboard.styled";
+import { SBcontainer, Table, THeader, SBIndex, SBIndexLink } from "./Scoreboard.styled";
 import { Page, PageTitle } from 'styled/base/Page.styled';
 
 
@@ -88,10 +88,10 @@ const Scoreboard = ({ fetchUsers, users, currentUser }) => {
               <Table>
                 <tbody>
                   <tr>
-                    <TDetail>{""}</TDetail>
-                    <TDetail>Rank</TDetail>
-                    <TDetail>Username</TDetail>
-                    <TDetail>Score</TDetail>
+                    <THeader>{""}</THeader>
+                    <THeader>Rank</THeader>
+                    <THeader>Username</THeader>
+                    <THeader>Score</THeader>
                   </tr>
                   {topTenScores()}
                 </tbody>
@@ -105,10 +105,10 @@ const Scoreboard = ({ fetchUsers, users, currentUser }) => {
               <Table>
                 <tbody>
                   <tr>
-                    <TDetail>{""}</TDetail>
-                    <TDetail>Rank</TDetail>
-                    <TDetail>Username</TDetail>
-                    <TDetail>Haikus</TDetail>
+                    <THeader>{""}</THeader>
+                    <THeader>Rank</THeader>
+                    <THeader>Username</THeader>
+                    <THeader>Haikus</THeader>
                   </tr>
                   {topTenHaikuGen()}
                 </tbody>

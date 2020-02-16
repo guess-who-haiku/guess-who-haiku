@@ -19,24 +19,24 @@ import fox from './050-fox.png';
 import raccoon from './028-raccoon.png';
 
 export default {
-  "panda": panda,
-  "lion": lion,
-  "bear": bear,
-  "parrot": parrot,
-  "rabbit": rabbit,
-  "sloth": sloth,
-  "llama": llama,
-  "croc": croc,
-  "walrus": walrus,
-  "bear2": bear2,
-  "lemur": lemur,
-  "owl": owl,
-  "penguin": penguin,
-  "camel": camel,
-  "hippo": hippo,
-  "zebra": zebra,
-  "goat": goat,
-  "fox": fox,
-  "raccoon": raccoon
+  panda,
+  lion,
+  bear,
+  parrot,
+  rabbit,
+  sloth,
+  llama,
+  croc,
+  walrus,
+  bear2,
+  lemur,
+  owl,
+  penguin,
+  camel,
+  hippo,
+  zebra,
+  goat,
+  fox,
+  raccoon
 };
 

@@ -18,7 +18,6 @@ Thunks.signup = user => dispatch => APIUtil.signup(user).then(res => {
   const { _id: userId } = decoded;
   delete decoded.iat;
   delete decoded.exp;
-  delete decoded._id;
   dispatch(Users.receiveUser(decoded))
   return dispatch(Creators.receiveCurrentUser(userId))
 });

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Thunks as Haikus } from 'store/haikus/actions';
 import { selectCurrentUser, selectAllHaikus } from 'store/selectors';
-import { Page, PageTitle, PageMenu, PageMenuItem } from 'styled/base/Page.styled';
+import { Page, PageTitle, PageMenu, PageMenuItem, PageText } from 'styled/base/Page.styled';
 import { CardGrid } from 'styled/base/CardGrid.styled';
 import MyChallenge from './MyChallenge';
 import { compareHaikuDateCreated as compareDate } from './compare_time_util'
 
 const MyChallenges = () => {
   const [filter, setFilter] = useState('unsolved');
+
   const dispatch = useDispatch();
   const fetchChallenges = user => dispatch(Haikus.fetchHaikuChallenges(user.haikusSharedWith))
   let { currentUser, users, haikus } = useSelector(state => ({
@@ -23,7 +24,14 @@ const MyChallenges = () => {
     }
   }, [users])
 
-  const sharedHaikus = user => haikus.filter(({ _id }) => user.haikusSharedWith.includes(_id));
+  const sharedHaikus = haikus
+    .filter(({ _id }) => currentUser.haikusSharedWith.includes(_id))
+    .filter(({ usersSharedWith }) => {
+      return usersSharedWith
+        .find(({ userId }) => userId === currentUser._id)
+        .complete === (filter === 'solved')
+    }).sort(compareDate);
+
   return (
     <Page>
       <PageTitle>My Challenges</PageTitle>
@@ -41,25 +49,21 @@ const MyChallenges = () => {
           Solved
         </PageMenuItem>
       </PageMenu>
-      <CardGrid>
-        {haikus && sharedHaikus(currentUser)
-          .filter(({ usersSharedWith }) => {
-            return usersSharedWith
-              .find(({ userId }) => userId === currentUser._id)
-              .complete === (filter === 'solved')
-
-          })
-          .sort(compareDate)
-          .map((haiku, idx) => (
-            <MyChallenge
-              dateCreated={haiku.dateCreated}
-              key={haiku._id}
-              haiku={haiku}
-              idx={idx}
-              currentUserId={currentUser._id}
-            />
-          ))}
-      </CardGrid>
+      {sharedHaikus.length ? (
+        <CardGrid>
+          {sharedHaikus
+            .map((haiku, idx) => (
+              <MyChallenge
+                dateCreated={haiku.dateCreated}
+                key={haiku._id}
+                haiku={haiku}
+                idx={idx}
+                currentUserId={currentUser._id}
+              />
+            ))}
+        </CardGrid>
+      ) : <PageText>You have no {filter} challenges</PageText>
+      }
     </Page>
   )
 
