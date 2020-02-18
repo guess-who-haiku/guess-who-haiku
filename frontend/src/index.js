@@ -19,7 +19,7 @@ if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decodedUser = jwt_decode(localStorage.jwtToken);
 
-  const preloadedState = { session: { userId: decodedUser.userId } };
+  const preloadedState = { session: { userId: decodedUser._id } };
   store = configureStore(preloadedState);
 
   const currentTime = Date.now() / 1000;
