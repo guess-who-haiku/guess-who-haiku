@@ -1,6 +1,7 @@
 import { createActions } from 'reduxsauce'
 import * as APIUtil from './api_util';
 import jwt_decode from 'jwt-decode';
+import { Creators as Users } from 'store/users/actions';
 
 export const { Types, Creators } = createActions({
   receiveCurrentUser: ['userId'],
@@ -14,7 +15,10 @@ Thunks.signup = user => dispatch => APIUtil.signup(user).then(res => {
   localStorage.setItem('jwtToken', token);
   APIUtil.setAuthToken(token);
   const decoded = jwt_decode(token);
-  return dispatch(Creators.receiveCurrentUser(decoded.userId))
+  delete decoded.iat;
+  delete decoded.exp;
+  dispatch(Users.receiveUser(decoded))
+  return dispatch(Creators.receiveCurrentUser(decoded._id))
 });
 
 Thunks.login = user => dispatch => APIUtil.login(user).then(res => {
@@ -22,7 +26,7 @@ Thunks.login = user => dispatch => APIUtil.login(user).then(res => {
   localStorage.setItem('jwtToken', token);
   APIUtil.setAuthToken(token);
   const decoded = jwt_decode(token);
-  return dispatch(Creators.receiveCurrentUser(decoded.userId))
+  return dispatch(Creators.receiveCurrentUser(decoded._id))
 });
 
 Thunks.logout = () => dispatch => {
