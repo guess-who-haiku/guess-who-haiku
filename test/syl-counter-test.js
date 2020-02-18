@@ -73,7 +73,7 @@ describe(`countSyllables(word)`, () => {
        expect(countSyllables("made")).to.equal(1);
        expect(countSyllables("fudge")).to.equal(1);
        expect(countSyllables("dodge")).to.equal(1);
-
+       expect(countSyllables('maybe')).to.equal(2);
     });
 
     it("should handle words containing t, or c in combination with ia, ial", () => {
@@ -83,6 +83,19 @@ describe(`countSyllables(word)`, () => {
       expect(countSyllables('radially')).to.equal(4);
     });
 
+    it("should handle words combining e and o", () => {
+      expect(countSyllables("people")).to.equal(2);
+      expect(countSyllables("jeopardy")).to.equal(3);
+      expect(countSyllables("theology")).to.equal(4);
+      expect(countSyllables("dungeon")).to.equal(2);
+      expect(countSyllables("dungeons")).to.equal(2);
+      expect(countSyllables("someone")).to.equal(2);
+      expect(countSyllables("geology")).to.equal(4); 
+      expect(countSyllables("preorder")).to.equal(3);
+      expect(countSyllables("rodeo")).to.equal(3);
+      expect(countSyllables("theory")).to.equal(3);
+
+    });
 
     it("it should handle plural endings and conjugations", () => {
 
