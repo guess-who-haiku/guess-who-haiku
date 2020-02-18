@@ -110,10 +110,10 @@ async function seedDB() {
       `http://${environment}/api/haikus/new?author1=Kanye+West&author2=Donald+Trump`
     );
     let haiku2 = await axios.get(
-      `http://${environment}/api/haikus/new?author1=Rick+and+Morty&author2=Donald+Trump`
+      `http://${environment}/api/haikus/new?author1=Abe+Simpson&author2=Donald+Trump`
     );
     let haiku3 = await axios.get(
-      `http://${environment}/api/haikus/new?author1=Game+of+Thrones&author2=Donald+Trump`
+      `http://${environment}/api/haikus/new?author1=Jane+Austen&author2=Donald+Trump`
     );
     let haiku4 = await axios.get(
       `http://${environment}/api/haikus/new?author1=Barack+Obama&author2=Donald+Trump`
