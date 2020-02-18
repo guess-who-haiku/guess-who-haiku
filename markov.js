@@ -106,7 +106,10 @@ function generateLines(dictionaries) {
     return finalObj;
 }
 
-function countSyllables(word) {
+function countSyllables (word) {
+
+    if (word.length === 0 ) return 0;
+    
     let syl_count = 0;
     let vowels = "aeiouyAEIOUY";
     let secondVow = "aouAOU"
@@ -152,6 +155,7 @@ function countSyllables(word) {
 module.exports = {
 
   generateDictionaries: generateDictionaries,
-  generateLines: generateLines
+  generateLines: generateLines,
+  countSyllables: countSyllables
 
 }
