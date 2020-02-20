@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Thunks as Haikus } from 'store/haikus/actions';
 import { selectCurrentUser, selectAllHaikus } from 'store/selectors';
@@ -7,8 +7,11 @@ import { CardGrid } from 'styled/base/CardGrid.styled';
 import { CreateHaikuCard, Feather } from './MyHaikus.styled';
 import MyHaiku from './MyHaiku';
 import { compareHaikuDateCreated as compareDateCreated } from './compare_time_util'
+import LoadingSpinner from './LoadingSpinner';
 
 const MyHaikus = () => {
+  const [loading, setLoading] = useState(true);
+
   const dispatch = useDispatch();
   const fetchUserHaikus = user => dispatch(Haikus.fetchHaikuChallenges(user.haikusCreated))
   let { currentUser, users, haikus } = useSelector(state => ({
@@ -18,9 +21,8 @@ const MyHaikus = () => {
   }))
 
   useEffect(() => {
-    if (currentUser) {
-      fetchUserHaikus(currentUser)
-    }
+    if (currentUser) fetchUserHaikus(currentUser)
+      .then(() => setLoading(false));
   }, [users])
 
   const createdHaikus = haikus
@@ -31,7 +33,7 @@ const MyHaikus = () => {
   return (
     <Page>
       <PageTitle>My Haikus</PageTitle>
-      {createdHaikus.length ? (
+      {loading ? <LoadingSpinner /> : (createdHaikus.length ? (
         <CardGrid>
           <CreateHaikuCard>
             <Feather />
@@ -45,7 +47,7 @@ const MyHaikus = () => {
             />
           ))}
         </CardGrid>
-      ) : <PageText>Looks like you haven't created any Haikus yet.</PageText>}
+      ) : <PageText>It looks like you haven't created any Haikus yet</PageText>)}
     </Page>
   )
 

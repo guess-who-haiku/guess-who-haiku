@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import α from 'color-alpha';
 import { colors, font, media } from 'styled/theme';
 import styledMap from 'styled-map';
-
-
+import { fadeIn } from 'styled/animations';
+import { boxShadows } from 'styled/theme';
 export const HBContainer = styled.div`
     border-radius: 2px;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -17,6 +17,7 @@ export const HBContainer = styled.div`
 `;
 
 export const HaikuBox = styled.div`
+  animation: .3s ease-out 0s 1 ${fadeIn};
   max-width: 50rem;
   height: 40rem;
   background-image: url(${props => props.url});
@@ -24,7 +25,7 @@ export const HaikuBox = styled.div`
   margin-bottom: 4rem;
   padding: 0 1.65rem;
   border-radius: 2px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: ${boxShadows.still};
 `
 
 export const LineIndex = styled.ol`
@@ -92,6 +93,7 @@ export const LineText = styled.span`
   grid-area: text;
   justify-self: center;
   padding: .5rem 1rem .3rem;
+  transition: all 0.2s cubic-bezier(.25,.8,.25,1);
   ${HaikuBox}:hover & {
     transform: scale(1.01);
     background-color: ${props => α(props.highlightColor || '#fff', .3)};

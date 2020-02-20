@@ -5,9 +5,12 @@ import { selectCurrentUser, selectAllHaikus } from 'store/selectors';
 import { Page, PageTitle, PageMenu, PageMenuItem, PageText } from 'styled/base/Page.styled';
 import { CardGrid } from 'styled/base/CardGrid.styled';
 import MyChallenge from './MyChallenge';
-import { compareHaikuDateCreated as compareDate } from './compare_time_util'
+import { compareHaikuDateCreated as compareDate } from './compare_time_util';
+import LoadingSpinner from './LoadingSpinner';
 
 const MyChallenges = () => {
+  const [loading, setLoading] = useState(true);
+
   const [filter, setFilter] = useState('unsolved');
 
   const dispatch = useDispatch();
@@ -19,9 +22,9 @@ const MyChallenges = () => {
   }))
 
   useEffect(() => {
-    if (currentUser) {
-      fetchChallenges(currentUser)
-    }
+    if (currentUser) fetchChallenges(currentUser)
+      .then(() => setLoading(false));
+    
   }, [users])
 
   const sharedHaikus = haikus
@@ -49,7 +52,7 @@ const MyChallenges = () => {
           Solved
         </PageMenuItem>
       </PageMenu>
-      {sharedHaikus.length ? (
+      {loading ? <LoadingSpinner /> : (sharedHaikus.length ? (
         <CardGrid>
           {sharedHaikus
             .map((haiku, idx) => (
@@ -62,7 +65,7 @@ const MyChallenges = () => {
               />
             ))}
         </CardGrid>
-      ) : <PageText>You have no {filter} challenges</PageText>
+      ) : <PageText>You have no {filter} challenges</PageText>)
       }
     </Page>
   )

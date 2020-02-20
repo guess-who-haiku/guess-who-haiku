@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import styledMap from 'styled-map';
 import { boxShadows } from 'styled/theme';
+import {fadeIn} from 'styled/animations';
 
 // ----------------- CardGrid -----------------
 export const CardGrid = styled.div`
@@ -12,6 +13,7 @@ export const CardGrid = styled.div`
 
 // ----------------- Card -----------------
 export const Card = styled.div`
+  animation: .3s ease-out 0s 1 ${fadeIn};
   line-height: 1.6;
   width: 100%;
   height: 100%;
