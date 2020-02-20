@@ -9,8 +9,8 @@ export const Spinner = styled.div`
   ${flexCenter};
   border: 8px solid ${α('#fff', .2)};
   border-radius: 50%;
-  border-top: 8px solid #61A6C3;
-  border-bottom: 8px solid #60C3B7;
+  border-top-color: #61A6C3;
+  border-bottom-color: #60C3B7;
   width: 22rem;
   height: 22rem;
   margin: 0 auto;

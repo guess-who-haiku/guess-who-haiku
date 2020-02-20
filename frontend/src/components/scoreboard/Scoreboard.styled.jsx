@@ -76,6 +76,11 @@ export const TDetailImage = styled.img.attrs(props => ({ src: userAvatars[props.
 
 export const TRow = styled.tr`
   ${props => props.currentUser && css`
+    color: #61C3B7;
+    -webkit-text-stroke-width: .5px;
+    -webkit-text-stroke-color: #61A6C3;
+  `}
+  ${props => props.topRank && css`
     color: #FFDC63;
     -webkit-text-stroke-width: .5px;
     -webkit-text-stroke-color: #FFC850;
