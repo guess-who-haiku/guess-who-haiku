@@ -18,6 +18,9 @@ This app consists of:
 
 Guess Who, Haiku leverages the MERN app development stack which consists of: MongoDB, Express, React, and Node.js.
 
+## Stills
+<img width="852" alt="Screen Shot 2020-02-21 at 4 01 28 PM" src="https://user-images.githubusercontent.com/55667998/75081307-8716dd80-54c3-11ea-9b15-47862126b843.png">
+
 ## Functionality and MVP
 
 * User account creation and authentication
