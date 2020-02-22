@@ -20,7 +20,7 @@ const MyHaiku = ({ idx, haiku, users }) => {
   const lines = formatHaikuLines(haiku.body, idx);
   const bgUrl = lines[0].author.colorFamilyBackground;
   const renderSharedUsers = () => {
-    let userCount = haiku.usersSharedWith.length-1;
+    let userCount = haiku.usersSharedWith.length - 1;
     if (userCount === -1) return (<>Share</>)
     let firstUser = users[haiku.usersSharedWith[0].userId].username;
     return (
@@ -33,7 +33,11 @@ const MyHaiku = ({ idx, haiku, users }) => {
     .filter(({ complete }) => complete)
     .sort(compareTimestamp)
     .slice(0, 5)
-    .map(({ userId, completeTimestamp }) => [users[userId].username, moment(completeTimestamp).from(haiku.dateCreated, true)]);
+    .map(({ userId, completeTimestamp }) => {
+      const { username, avatar } = users[userId];
+      const time = moment(completeTimestamp).from(haiku.dateCreated, true)
+      return ({ username, avatar, time })
+    });
 
   return (
     <FlipCard>
@@ -72,10 +76,11 @@ const MyHaiku = ({ idx, haiku, users }) => {
                   <TH>Username</TH>
                   <TH>Solved In</TH>
                 </tr>
-                {fastestSolves.map(([username, time], i) => <MiniScoreboardItem
+                {fastestSolves.map(({ username, avatar, time }, i) => <MiniScoreboardItem
                   key={i}
                   rank={i + 1}
                   username={username}
+                  avatar={avatar}
                   time={time}
                 />)}
               </tbody>

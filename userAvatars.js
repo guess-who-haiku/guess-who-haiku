@@ -1,0 +1,1 @@
+module.exports = ['panda', 'lion', 'bear', 'parrot', 'rabbit', 'sloth', 'llama', 'croc', 'walrus', 'bear2', 'lemur', 'owl', 'penguin', 'camel', 'hippo', 'zebra', 'goat', 'fox', 'raccoon']

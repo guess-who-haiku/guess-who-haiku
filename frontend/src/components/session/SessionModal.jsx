@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { sleep, ghostType } from 'util/demo_bot_util';
 import { Topbar, NavLink, CloseBtn, Wrapper, Title, Form, Input, InputGroup, ErrorMsg, Btn } from './SessionModal.styled';
 import { useFormik } from 'formik';

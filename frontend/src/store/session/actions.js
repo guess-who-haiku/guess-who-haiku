@@ -15,10 +15,11 @@ Thunks.signup = user => dispatch => APIUtil.signup(user).then(res => {
   localStorage.setItem('jwtToken', token);
   APIUtil.setAuthToken(token);
   const decoded = jwt_decode(token);
+  const { _id: userId } = decoded;
   delete decoded.iat;
   delete decoded.exp;
   dispatch(Users.receiveUser(decoded))
-  return dispatch(Creators.receiveCurrentUser(decoded._id))
+  return dispatch(Creators.receiveCurrentUser(userId))
 });
 
 Thunks.login = user => dispatch => APIUtil.login(user).then(res => {
