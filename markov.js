@@ -112,32 +112,45 @@ function countSyllables (word) {
     
     let syl_count = 0;
     let vowels = "aeiouyAEIOUY";
-    let secondVow = "aouAOU"
+    let secondVow = "aouAOU";
+    let prefixesAndSuffixes = ["dr", "mr", "mrs", "jr", "sr", "Dr", "Mr", "Mrs", "Jr", "Sr"];
 
-    if (vowels.includes(word[0])) {
-        syl_count += 1
-    }
+    if (vowels.includes(word[0])) syl_count += 1;
+    if (prefixesAndSuffixes.includes(word.valueOf())) return 2;
+    if (word.valueOf() === 'maybe') return 2;
+    
+    if (word.includes('n\'t') && !vowels.includes(word.charAt(word.length - 4))) syl_count += 1;
+
+    //THE BELOW LINE SHOULD BE REMOVED ONCE PUNCTUATION IS REINTRODUCED TO MARKOV ALGORITHM
+    if (word.includes('nt') && !vowels.includes(word.charAt(word.length - 3))) syl_count += 1;
+
+    if (word.includes('rriage') || word.includes('gion') || word.includes('sion') || word.includes('tion') || word.includes('cial') || word.includes('tial')) syl_count -= 1;
+    if (word.endsWith('iest') && !word.includes('priest')) syl_count += 1;
+
     for (let i = 1; i < word.length; i++) {
         let letter = word.charAt(i);
         if (vowels.includes(letter) && !vowels.includes(word.charAt(i - 1))) {
             syl_count += 1;
         }
-        if ((letter === "i" || letter === "u") && secondVow.includes(word.charAt(i + 1))) {
+        if ("iu".includes(letter) && secondVow.includes(word.charAt(i + 1)) && (i != word.length-1)) {
             syl_count += 1;
         }
+        if (letter === "e" && "ou".includes(word.charAt(i + 1)) && i != word.length - 1) syl_count += 1;
     }
-    if (word[word.length - 1] === "e") {
-        syl_count -= 1;
-    }
+    if (word.includes('uie') || word.includes('lien') || word.includes('lier') || word.includes('rier')) syl_count += 1;
+    if (word.includes('eop') || word.includes('eon')) syl_count -= 1;
+    if (word.endsWith('eous') || word.endsWith('ious')) syl_count -= 1;
+    if (word[word.length - 1] === "e") syl_count -= 1;
+    if (word.endsWith('es') && !word.endsWith('ces') && !word.endsWith('hes')) syl_count -= 1;
     if (word[word.length - 2] === "e" && word[word.length - 1] === "d" && !(word[word.length - 3] === "d" || word[word.length - 3] === "t")) {
         syl_count -= 1;
     }
+    if (word.endsWith('dred')) syl_count += 1;
     if ((word.substring(word.length - 2) === "le") && (!vowels.includes(word[word.length - 3])) && word.length > 2) {
         syl_count += 1;
     }
-    if (syl_count === 0) {
-        syl_count += 1
-    }
+    if (syl_count === 0) syl_count += 1;
+
     return syl_count;
 }
 

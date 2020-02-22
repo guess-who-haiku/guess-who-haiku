@@ -27,7 +27,7 @@ describe(`countSyllables(word)`, () => {
   it("should handle words that contain rriage vs. iag", () => {
     expect(countSyllables('carriage')).to.equal(2);
     expect(countSyllables("marriage")).to.equal(2);
-    expect(countSyllables("triage")).to.equal(1);
+    expect(countSyllables("triage")).to.equal(2);
 
   });
 
@@ -57,8 +57,7 @@ describe(`countSyllables(word)`, () => {
      expect(countSyllables("luckiest")).to.equal(3);
      expect(countSyllables("happiest")).to.equal(3);
 
-  })
-
+  });
 
   context("when the the word ends in the following cases:", () => {
     it("should handle words ending in ious, eous", () => {
@@ -74,16 +73,29 @@ describe(`countSyllables(word)`, () => {
        expect(countSyllables("made")).to.equal(1);
        expect(countSyllables("fudge")).to.equal(1);
        expect(countSyllables("dodge")).to.equal(1);
-
+       expect(countSyllables('maybe')).to.equal(2);
     });
 
     it("should handle words containing t, or c in combination with ia, ial", () => {
-      expect(countSyllables("partial")).to.equal(1);
+      expect(countSyllables("partial")).to.equal(2);
       expect(countSyllables('special')).to.equal(2);
       expect(countSyllables('partially')).to.equal(3);
       expect(countSyllables('radially')).to.equal(4);
     });
 
+    it("should handle words combining e and o", () => {
+      expect(countSyllables("people")).to.equal(2);
+      expect(countSyllables("jeopardy")).to.equal(3);
+      expect(countSyllables("theology")).to.equal(4);
+      expect(countSyllables("dungeon")).to.equal(2);
+      expect(countSyllables("dungeons")).to.equal(2);
+      expect(countSyllables("someone")).to.equal(2);
+      expect(countSyllables("geology")).to.equal(4); 
+      expect(countSyllables("preorder")).to.equal(3);
+      expect(countSyllables("rodeo")).to.equal(3);
+      expect(countSyllables("theory")).to.equal(3);
+
+    });
 
     it("it should handle plural endings and conjugations", () => {
 
@@ -91,6 +103,7 @@ describe(`countSyllables(word)`, () => {
       expect(countSyllables("makes")).to.equal(1);
       expect(countSyllables("charles")).to.equal(1);
       expect(countSyllables('dance')).to.equal(1);
+      expect(countSyllables("dances")).to.equal(2);
       expect(countSyllables('blades')).to.equal(1);
 
     });
