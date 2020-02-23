@@ -62,9 +62,6 @@ This project is built on a MongoDB, Mongoose, Express backend, with a React / Re
 ### Markov Chain Algorithm for Natural Language Generation (NLG)
 Markov Chain Text generation algorithm, transform structured data into natural language by generating sentences based on recombination of elements of history of known sentences to generate seemingly semantically meaningful sentences. For this haiku guessing game, we extended the semantic generation algorithm to factor in the standard haiku syllable count (5-7-5) as well as article filtering (so that words such as the, and, and if don't end phrases). For more information on the technologies, check out our project's Github repo.
 
-![haiku-view](https://user-images.githubusercontent.com/55667998/75101608-d0cef900-5593-11ea-91ef-b1084041926c.gif)
-
-
 ### A Progressive Web App
 PWAs allow for features including push notification, home screen icon, full-screen and offline first functionality, providing a native-like experience for the user.
 
