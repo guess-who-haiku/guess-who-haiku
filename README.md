@@ -61,7 +61,7 @@ A design strategy where you start sketching and prototyping the smallest screen 
 ![responsive-haiku-view](https://user-images.githubusercontent.com/55667998/75101767-cc580f80-5596-11ea-9136-3064050445ae.gif)
 
 ### Technical Challenges
-- Configuring our text generator to output semantic text in the proper 5-7-5 syllable structure. Counting english language sylllables is a non-trivial problem involving logic to parse phonemes and other word parts accurately. We used test-driven-development in order to build out our test cases using Mocha, and developed a processing algorithm that would morea accurately parse words with similar arrangements of vowels but different overall counts.
+- Configuring our text generator to output semantic text in the proper 5-7-5 syllable structure. Counting english language sylllables is a non-trivial problem involving logic to parse phonemes and other word parts accurately. We used `test-driven-development` in order to build out our test cases using `Mocha`, and developed a processing algorithm that would more accurately parse words.
 - Responsive and intuitive styling with `styled-components`. Using `styled-components` greatly reduced redundant styling work across components with shared visual themes. 
 - Finding an elegant frontend file architecture - favored the "duck" react-redux file structure in order to better facilitate collaboration and reduce merge conflicts. 
 - We designed our backend database structure and API endpoint using a non-relational design principles, greatly simplifying API for client (our app), resulting in less overall API calls.  
