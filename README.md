@@ -41,11 +41,10 @@ Guess Who, Haiku leverages the MERN app development stack which consists of: Mon
 * Mobile first design
 * Progressive Web App
 
-## Technologies and Technical Challenges
+## Technologies and Technical Challenges0
 
-### Backend: MongoDB, Mongoose, Express
+This project is built on a MongoDB, Mongoose, Express backend, with a React / Redux frontend (MERN stack). We utilized React Hooks, Styled Components and an overall componentized project structure extensively throughout this project. 
 
-### Frontend: React, Redux
 
 ### Markov Chain Algorithm for Natural Language Generation (NLG)
 Markov Chain Text generation algorithm, transform structured data into natural language by generating sentences based on recombination of elements of history of known sentences to generate seemingly semantically meaningful sentences. For this haiku guessing game, we extended the semantic generation algorithm to factor in the standard haiku syllable count (5-7-5) as well as article filtering (so that words such as the, and, and if don't end phrases). For more information on the technologies, check out our project's Github repo.
