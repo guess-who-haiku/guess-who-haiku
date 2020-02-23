@@ -42,3 +42,8 @@ export const PageMenuItem = styled.li`
   margin: 0 2rem;
   transition: color 0.3s cubic-bezier(.25,.8,.25,1);
 `
+
+export const PageText = styled.p`
+  margin-bottom: 1rem;
+  font-size: 3rem;
+`

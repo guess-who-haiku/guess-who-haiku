@@ -65,7 +65,7 @@ export const Toggle = styled.button`
   `};
   font-weight: 600;
   padding: ${styledMap`
-    default: .4rem .6rem .2rem;
+    default: .4rem .6rem .3rem;
     large: .6rem .9rem .3rem;
   `};
   margin: 0 1rem;

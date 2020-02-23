@@ -1,27 +1,31 @@
 import styled from 'styled-components';
 import α from 'color-alpha';
-import { colors, font } from 'styled/theme';
+import { colors, font, media } from 'styled/theme';
 import styledMap from 'styled-map';
-
-
+import { fadeIn } from 'styled/animations';
+import { boxShadows } from 'styled/theme';
 export const HBContainer = styled.div`
     border-radius: 2px;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     font-weight: 200;
-    line-height: 1.5;  
-    margin: 4rem 3rem;
+    line-height: 1.5;
+    margin: 2rem 1.5rem;
+    ${media.tablet`
+      margin: 4rem 3rem;
+    `}
     min-height: 40rem;
 `;
 
 export const HaikuBox = styled.div`
-  width: 50rem;
+  animation: .3s ease-out 0s 1 ${fadeIn};
+  max-width: 50rem;
   height: 40rem;
   background-image: url(${props => props.url});
   margin: 0 auto;
   margin-bottom: 4rem;
   padding: 0 1.65rem;
   border-radius: 2px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: ${boxShadows.still};
 `
 
 export const LineIndex = styled.ol`
@@ -89,6 +93,7 @@ export const LineText = styled.span`
   grid-area: text;
   justify-self: center;
   padding: .5rem 1rem .3rem;
+  transition: all 0.2s cubic-bezier(.25,.8,.25,1);
   ${HaikuBox}:hover & {
     transform: scale(1.01);
     background-color: ${props => α(props.highlightColor || '#fff', .3)};
@@ -146,8 +151,8 @@ export const Btn = styled.button`
 export const multiSelectStyles = {
   chips: { background: "#DFBD64", "font-size": "2rem" },
   searchBox: { border: "none", "border-bottom": "2px solid #61A6C3", "border-radius": "0px" },
-  option: { 
-    color: "black", 
+  option: {
+    color: "black",
     '&:hover': {
       background: '#DFBD64',
       color: "white"
