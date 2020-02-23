@@ -84,13 +84,11 @@ A design strategy where you start sketching and prototyping the smallest screen 
 
 ### Sarah Jiang
 
-* Database and backend design, setup, execution
-* Markov Chain algorithm development
-* API configuration
-* External API configuration and database seeding
-* Frontend design and execution
+* Markov Chain algorithm development + test-driven development (Mocha)
+* Database and backend REST-ful API design, setup, execution
+* External API configuration and seeding
 * Logo creation, visual theme, visual elements
-* Test driven-development (Mocha)
+* Frontend design and execution
 
 ### Alex Segers
 
