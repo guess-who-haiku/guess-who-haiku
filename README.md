@@ -22,7 +22,7 @@ Guess Who, Haiku leverages the MERN app development stack which consists of: Mon
 ## Game Screens
 ### Create a Haiku
 
-The landing page for our application is an invitation to generate a haiku, selecting up to three figures whose voices will be used to build the poem. Once the haiku is generated, the user has a few choices: if they are dissatisfied with the haiku, they can either regenerate a new haiku with the same figures they had selected, or begin the haiku generation process again from the beginning. If they want to use the haiku, they will be prompted to sign up or log in, and can then save the haiku and share it at a later date, or immediately challenge others friends on the application to solve the haiku. 
+The landing page for our application is an invitation to generate a haiku, selecting up to three figures whose voices will be used to build the poem. Once the haiku is generated, the user has a few choices: if they are dissatisfied with the haiku, they can either regenerate a new haiku with the same figures they had selected, or begin the haiku generation process again from the beginning. If they want to use the haiku, they will be prompted to sign up or log in, and can then save the haiku to share at a later date, or immediately challenge their friends on the application to solve the haiku. 
 
 ![create-haiku](https://user-images.githubusercontent.com/55667998/75101645-69657900-5594-11ea-8269-371db8418ef3.gif)
 
@@ -40,7 +40,7 @@ Users can similarly view all of the haikus that they have created. Each haiku "c
 
 ### Leaderboard
 
-The cross-application leaderboard shows the top ten users in two categories: highest scores from solving haikus, and most haikues made. If a logged-in user places on either board, their name will be highlighted in red. 
+The cross-application leaderboard shows the top ten users in two categories: highest scores from solving haikus, and most haikues made. If a logged-in user places on either board, their name will be highlighted. 
 
 ![leaderboard](https://user-images.githubusercontent.com/55667998/75101705-8ea6b700-5595-11ea-862e-ffe3535cb5e2.PNG)
 
@@ -54,9 +54,9 @@ The cross-application leaderboard shows the top ten users in two categories: hig
 * Mobile-first design
 * Progressive Web App
 
-## Technologies and Technical Challenges0
+## Technologies and Technical Challenges
 
-This project is built on a MongoDB, Mongoose, Express backend, with a React / Redux frontend (MERN stack). We utilized React Hooks, Styled Components and an overall componentized project structure extensively throughout this project. 
+This project is built on a MongoDB, Mongoose, Express backend, with a React / Redux frontend. We used React Hooks, Styled Components and an overall componentized structure throughout this project. 
 
 
 ### Markov Chain Algorithm for Natural Language Generation (NLG)
@@ -71,10 +71,10 @@ A design strategy where you start sketching and prototyping the smallest screen 
 ![responsive-haiku-view](https://user-images.githubusercontent.com/55667998/75101767-cc580f80-5596-11ea-9136-3064050445ae.gif)
 
 ### Technical Challenges
-- Configuring our text generator to output semantic text in the proper 5-7-5 syllable structure. Counting english language sylllables is a non-trivial problem involving logic to parse phonemes and other word parts accurately. We used `test-driven-development` to build out our test cases using `Mocha`, and developed a processing algorithm that would more accurately parse words.
-- Responsive and intuitive styling with `styled-components`. Using `styled-components` greatly reduced redundant styling work across components with shared visual themes. 
-- Finding an elegant frontend file architecture - favored the "duck" react-redux file structure in order to better facilitate collaboration and reduce merge conflicts. 
-- We designed our backend database structure and API endpoint using a non-relational design principles, greatly simplifying API for client (our app), resulting in less overall API calls.  
+- Configuring our text generator to output semantic text in the proper 5-7-5 syllable structure. Counting syllables in the English language is a challenging problem involving logic to parse phonemes and other word parts accurately. We used `test-driven-development` to build out our test cases using `Mocha`, and developed a processing algorithm that would more accurately parse words.
+- Responsive and intuitive styling with `Styled Components`. Using `Styled Components` greatly reduced redundant styling work across components with shared visual themes. 
+- Finding an elegant frontend file architecture. We favored the "duck" react-redux file structure in order to better facilitate collaboration and reduce merge conflicts. 
+- We designed our backend database structure and API endpoints using a document-oriented (NoSQL) design principles, greatly simplifying API for client (our app), resulting in less overall API calls.  
 
 ## Group Members and Work Breakdown
 
