@@ -1,10 +1,10 @@
 # Guess Who, Haiku
 
-## [Live](https://guesswhohaiku.herokuapp.com/)
+### [Try out Guess Who, Haiku!](https://guesswhohaiku.herokuapp.com/)
 
 ## Background and Overview
 
-Ever dreamed of being a poet, but end up deciding quips and witty turn-of-phrase just _wasn't your thing_?
+Ever dreamed of being a poet, but ended up deciding quips and witty turn-of-phrase just _wasn't your thing_?
 
 Guess Who, Haiku is here to help! 
 
@@ -13,6 +13,7 @@ Craft outstanding haikus with the help of famous figures in history, celebrities
 This app consists of:
 
 * A markov-chain text generation algorithm
+* A syllable-counting algorithm 
 * Mobile-first application design
 * Immersive, delightful UI/UX
 
@@ -38,7 +39,7 @@ Guess Who, Haiku leverages the MERN app development stack which consists of: Mon
 * Markov-chain text generator algorithm in haiku format
 * Third-party APIs to source input text
 * Interactive user experience throughout haiku creation, sharing, and solving
-* Mobile first design
+* Mobile-first design
 * Progressive Web App
 
 ## Technologies and Technical Challenges0
