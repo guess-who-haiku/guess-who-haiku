@@ -81,7 +81,7 @@ A design strategy where you start sketching and prototyping the smallest screen 
 
 ## Group Members and Work Breakdown
 
-### Tatiana Faramarzi
+### [Tatiana Faramarzi](https://github.com/tfaramar)
 
 * Syllable count algorithm development + test-driven development (Mocha)
 * Backend routes execution
@@ -89,13 +89,13 @@ A design strategy where you start sketching and prototyping the smallest screen 
 * UX/UI and wireframes
 * Application configuration and deployment
 
-### Edward Xiao
+### [Edward Xiao](https://github.com/ed-xiao)
 
 * Backend design, setup and execution
 * Markov Chain algorithm development
 * Frontend execution
 
-### Sarah Jiang
+### [Sarah Jiang](https://github.com/srajiang)
 
 * Markov Chain algorithm development + test-driven development (Mocha)
 * Database and backend REST-ful API design, setup, execution
@@ -103,7 +103,7 @@ A design strategy where you start sketching and prototyping the smallest screen 
 * Logo creation, visual theme, visual elements
 * Frontend design and execution
 
-### Alex Segers
+### [Alex Segers](https://github.com/segersalex)
 
 * Workflow and agile development
 * User auth, including models and validations
