@@ -72,6 +72,7 @@ A design strategy where you start sketching and prototyping the smallest screen 
 ### Tatiana Faramarzi
 
 * Syllable count algorithm development
+* Test driven-development (Mocha)
 * UX/UI and wireframes
 * Frontend design and setup
 
@@ -88,6 +89,8 @@ A design strategy where you start sketching and prototyping the smallest screen 
 * API configuration
 * External API configuration and database seeding
 * Frontend design and execution
+* Logo creation, visual theme, visual elements
+* Test driven-development (Mocha)
 
 ### Alex Segers
 
