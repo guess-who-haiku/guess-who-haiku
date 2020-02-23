@@ -21,15 +21,27 @@ Guess Who, Haiku leverages the MERN app development stack which consists of: Mon
 
 ## Game Screens
 ### Create a Haiku
+
+The landing page for our application is an invitation to generate a haiku, selecting up to three figures whose voices will be used to build the poem. Once the haiku is generated, the user has a few choices: if they are dissatisfied with the haiku, they can either regenerate a new haiku with the same figures they had selected, or begin the haiku generation process again from the beginning. If they want to use the haiku, they will be prompted to sign up or log in, and can then save the haiku and share it at a later date, or immediately challenge others friends on the application to solve the haiku. 
+
 ![create-haiku](https://user-images.githubusercontent.com/55667998/75101645-69657900-5594-11ea-8269-371db8418ef3.gif)
 
 ### Solve a Haiku Challenge
+
+All of the haikus that a user has been challenged to will appear on their `My Challenges` page, categorized as either `solved` or `unsolved`. When a user clicks on an unsolved haiku and accepts the challenge to solve it, they will be prompted to choose the haiku authors from a semi-randomized list of six characters. Their progress will be timed, and the sooner they solve the challenge correctly after accepting it, the more points they will receive for that haiku.
+
 ![solve-haiku](https://user-images.githubusercontent.com/55667998/75101666-c2cda800-5594-11ea-8d7f-af3d0c952c1e.gif)
 
 ### View a Haiku
+
+Users can similarly view all of the haikus that they have created. Each haiku "card" will show if the haiku has been shared and who it has been shared with, as well as give the user the option to delete the haiku. The back of each haiku "card" shows who has solved the haiku most quickly, if anyone has solved it.
+
 ![haiku-view](https://user-images.githubusercontent.com/55667998/75101608-d0cef900-5593-11ea-91ef-b1084041926c.gif)
 
 ### Leaderboard
+
+The cross-application leaderboard shows the top ten users in two categories: highest scores from solving haikus, and most haikues made. If a logged-in user places on either board, their name will be highlighted in red. 
+
 ![leaderboard](https://user-images.githubusercontent.com/55667998/75101705-8ea6b700-5595-11ea-862e-ffe3535cb5e2.PNG)
 
 
@@ -62,7 +74,7 @@ A design strategy where you start sketching and prototyping the smallest screen 
 ![responsive-haiku-view](https://user-images.githubusercontent.com/55667998/75101767-cc580f80-5596-11ea-9136-3064050445ae.gif)
 
 ### Technical Challenges
-- Configuring our text generator to output semantic text in the proper 5-7-5 syllable structure. Counting english language sylllables is a non-trivial problem involving logic to parse phonemes and other word parts accurately. We used `test-driven-development` in order to build out our test cases using `Mocha`, and developed a processing algorithm that would more accurately parse words.
+- Configuring our text generator to output semantic text in the proper 5-7-5 syllable structure. Counting english language sylllables is a non-trivial problem involving logic to parse phonemes and other word parts accurately. We used `test-driven-development` to build out our test cases using `Mocha`, and developed a processing algorithm that would more accurately parse words.
 - Responsive and intuitive styling with `styled-components`. Using `styled-components` greatly reduced redundant styling work across components with shared visual themes. 
 - Finding an elegant frontend file architecture - favored the "duck" react-redux file structure in order to better facilitate collaboration and reduce merge conflicts. 
 - We designed our backend database structure and API endpoint using a non-relational design principles, greatly simplifying API for client (our app), resulting in less overall API calls.  
@@ -71,10 +83,11 @@ A design strategy where you start sketching and prototyping the smallest screen 
 
 ### Tatiana Faramarzi
 
-* Syllable count algorithm development
-* Test driven-development (Mocha)
+* Syllable count algorithm development + test-driven development (Mocha)
+* Backend routes execution
+* Frontend design and execution
 * UX/UI and wireframes
-* Frontend design and setup
+* Application configuration and deployment
 
 ### Edward Xiao
 
@@ -96,4 +109,4 @@ A design strategy where you start sketching and prototyping the smallest screen 
 * User auth, including models and validations
 * Team Postman configuration
 * UX/UI and visual theme
-* Frontend design and setup
+* Frontend design and execution
