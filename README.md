@@ -19,6 +19,15 @@ This app consists of:
 
 Guess Who, Haiku leverages the MERN app development stack which consists of: MongoDB, Express, React, and Node.js.
 
+## Functionality and Features
+
+* User account creation and authentication
+* Markov-chain text generator algorithm in haiku format
+* Third-party APIs to source input text
+* Interactive user experience throughout haiku creation, sharing, and solving
+* Mobile-first design
+* Progressive Web App
+
 ## Game Screens
 ### Create a Haiku
 
@@ -45,22 +54,12 @@ The cross-application leaderboard shows the top ten users in two categories: hig
 ![leaderboard](https://user-images.githubusercontent.com/55667998/75101705-8ea6b700-5595-11ea-862e-ffe3535cb5e2.PNG)
 
 
-## Functionality and MVP
-
-* User account creation and authentication
-* Markov-chain text generator algorithm in haiku format
-* Third-party APIs to source input text
-* Interactive user experience throughout haiku creation, sharing, and solving
-* Mobile-first design
-* Progressive Web App
-
 ## Technologies and Technical Challenges
 
 This project is built on a MongoDB, Mongoose, Express backend, with a React / Redux frontend. We used React Hooks, Styled Components and an overall componentized structure throughout this project. 
 
-
 ### Markov Chain Algorithm for Natural Language Generation (NLG)
-Markov Chain Text generation algorithm, transform structured data into natural language by generating sentences based on recombination of elements of history of known sentences to generate seemingly semantically meaningful sentences. For this haiku guessing game, we extended the semantic generation algorithm to factor in the standard haiku syllable count (5-7-5) as well as article filtering (so that words such as the, and, and if don't end phrases). For more information on the technologies, check out our project's Github repo.
+Markov Chain Text generation algorithm, transform structured data into natural language by generating sentences based on recombination of elements of history of known sentences to generate seemingly semantically meaningful sentences. For this haiku guessing game, we extended the semantic generation algorithm to factor in the standard haiku syllable count (5-7-5) as well as article filtering (so that words such as the, and, and if don't end phrases).
 
 ### A Progressive Web App
 PWAs allow for features including push notification, home screen icon, full-screen and offline first functionality, providing a native-like experience for the user.
