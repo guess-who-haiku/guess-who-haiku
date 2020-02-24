@@ -30,7 +30,7 @@ The landing page for our application is an invitation to generate a haiku, selec
 
 ### Solve a Haiku Challenge
 
-All of the haikus that a user has been challenged to will appear on their `My Challenges` page, categorized as either `solved` or `unsolved`. When a user clicks on an unsolved haiku and accepts the challenge to solve it, they will be prompted to choose the haiku authors from a semi-randomized list of six characters. Their progress will be timed, and the sooner they solve the challenge correctly after accepting it, the more points they will receive for that haiku.
+All of the haikus that a user has been challenged to will appear on their `My Challenges` page, categorized as either solved or unsolved. When a user clicks on an unsolved haiku and accepts the challenge to solve it, they will be prompted to choose the haiku authors from a semi-randomized list of six characters. Their progress will be timed, and the sooner they solve the challenge correctly after accepting it, the more points they will receive for that haiku.
 
 ![solve-haiku](https://user-images.githubusercontent.com/55667998/75101666-c2cda800-5594-11ea-8d7f-af3d0c952c1e.gif)
 
@@ -83,7 +83,7 @@ it("should handle words combining e and o", () => {
 
 - We designed our backend database structure and API endpoints using a document-oriented (NoSQL) design principles, greatly simplifying API for client (our app), resulting in less overall API calls.  
 
-## Group Members and Work Breakdown
+## Team Members and Work Breakdown
 
 ### [Tatiana Faramarzi](https://github.com/tfaramar)
 
