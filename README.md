@@ -63,7 +63,7 @@ A design strategy where you start sketching and prototyping the smallest screen 
 ![responsive-haiku-view](https://user-images.githubusercontent.com/55667998/75101767-cc580f80-5596-11ea-9136-3064050445ae.gif)
 
 ### Technical Challenges
-- A major challenge was configuring our text generator to output semantic text in the proper 5-7-5 syllable structure. Writing an algorithm to count syllables in the English language involves using logic to parse common phonemes and parts of a word accurately. We used `test-driven-development` to build out our test cases using `Mocha`, and developed a processing algorithm that would more accurately parse words.
+- A major challenge was configuring our text generator to output semantic text in the proper 5-7-5 syllable structure. We needed to create an algorithm that could reliably count syllables in the English language, which involves using logic to parse common phonemes and parts of a word accurately. After implementing a basic algorithm that would correctly count syllables by the most common rules, we used `test-driven-development` to build out our test cases using `Mocha`, and refined the algorithm to more accurately parse words and return their syllable count.
 ```javascript
 it("should handle words combining e and o", () => {
       expect(countSyllables("people")).to.equal(2);
