@@ -10,7 +10,7 @@ Guess Who, Haiku is here to help!
 
 Craft outstanding haikus with the help of famous figures in history, celebrities, and the witsters of today's popular culture, and challenge your friends to be the first to GUESS WHO the voice is behind your newfound literary genius. 
 
-Guess Who, Haiku leverages the MERN app development stack which consists of: MongoDB, Express, React, and Node.js.
+Guess Who, Haiku leverages MongoDB, Express, React, and Node.js (MERN stack).
 
 ## Functionality and Features
 
