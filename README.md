@@ -16,15 +16,15 @@ Guess Who, Haiku leverages the MERN app development stack which consists of: Mon
 
 * User account creation and authentication
 * Markov-chain text generator algorithm extended with a syllable counting algorithm
-* Third-party APIs to source input text
+* Third-party APIs to source input text for each famous figure
 * Interactive, delightful user experience throughout haiku creation, sharing, and solving
 * Mobile-first application design
-* Progressive Web App
+* Progressive Web App to improve the mobile experience
 
 ## Game Screens
 ### Create a Haiku
 
-The landing page for our application is an invitation to generate a haiku, selecting up to three figures whose voices will be used to build the poem. Once the haiku is generated, the user has a few choices: if they are dissatisfied with the haiku, they can either regenerate a new haiku with the same figures they had selected, or begin the haiku generation process again from the beginning. If they want to use the haiku, they will be prompted to sign up or log in, and can then save the haiku to share at a later date, or immediately challenge their friends on the application to solve the haiku. 
+The landing page for our application invites users to generate a haiku, selecting up to three figures whose voices will be used to build the poem. Once the haiku is generated, the user has a few choices: if they are dissatisfied with the haiku, they can either regenerate a new haiku with the same figures they had selected, or begin the haiku generation process again from the beginning. If they want to use the haiku, they will be prompted to sign up or log in, and can then save the haiku to share at a later date, or immediately challenge their friends on the application to solve the haiku. 
 
 ![create-haiku](https://user-images.githubusercontent.com/55667998/75101645-69657900-5594-11ea-8269-371db8418ef3.gif)
 
