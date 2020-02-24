@@ -24,7 +24,7 @@ Guess Who, Haiku leverages MongoDB, Express, React, and Node.js (MERN stack).
 ## Game Screens
 ### Create a Haiku
 
-The landing page for our application invites users to generate a haiku, selecting up to three figures whose voices will be used to build the poem. Once the haiku is generated, the user has a few choices: if they are dissatisfied with the haiku, they can either regenerate a new haiku with the same figures they had selected, or begin the haiku generation process again from the beginning. If they want to use the haiku, they will be prompted to sign up or log in, and can then save the haiku to share at a later date, or immediately challenge their friends on the application to solve the haiku. 
+The landing page for our application invites users to generate a haiku, selecting up to three figures whose voices will be used to build the poem. Once the haiku is generated, the user has a few choices: if they are dissatisfied with the haiku, they can regenerate a haiku with the same figures they'd selected, or restart the haiku generation process from the beginning. If they want to use the haiku, they can save the haiku to share at a later date, or immediately challenge their friends on the application to solve the haiku. 
 
 ![create-haiku](https://user-images.githubusercontent.com/55667998/75101645-69657900-5594-11ea-8269-371db8418ef3.gif)
 
@@ -52,7 +52,7 @@ The cross-application leaderboard shows the top ten users in two categories: hig
 This project is built on a MongoDB, Mongoose, Express backend, with a React / Redux frontend. We used React Hooks, Styled Components and an overall componentized structure throughout this project. 
 
 ### Markov Chain Algorithm for Natural Language Generation (NLG)
-Markov Chain Text generation algorithm, transform structured data into natural language by generating sentences based on recombination of elements of history of known sentences to generate seemingly semantically meaningful sentences. For this haiku guessing game, we extended the semantic generation algorithm to factor in the standard haiku syllable count (5-7-5) as well as article filtering (so that words such as the, and, and if don't end phrases).
+We wrote a Markov chain text generation algorithm to transform structured data into natural language based on the recombination of elements of known sentences. For this haiku guessing game, we extended the semantic generation algorithm to factor in the standard haiku syllable count (5-7-5) as well as article filtering (so that words such as the, and, and if don't end phrases).
 
 ### A Progressive Web App
 PWAs allow for features including push notification, home screen icon, full-screen and offline first functionality, providing a native-like experience for the user.
@@ -83,7 +83,7 @@ it("should handle words combining e and o", () => {
 
 - We designed our backend database structure and API endpoints using a document-oriented (NoSQL) design principles, greatly simplifying API for client (our app), resulting in less overall API calls.  
 
-## Team Members and Work Breakdown
+## Team
 
 ### [Tatiana Faramarzi](https://github.com/tfaramar)
 
