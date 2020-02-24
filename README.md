@@ -22,7 +22,7 @@ Guess Who, Haiku leverages the MERN app development stack which consists of: Mon
 ## Functionality and Features
 
 * User account creation and authentication
-* Markov-chain text generator algorithm in haiku format
+* Markov-chain text generator algorithm paired with a syllable counting algorithm
 * Third-party APIs to source input text
 * Interactive user experience throughout haiku creation, sharing, and solving
 * Mobile-first design
@@ -70,9 +70,24 @@ A design strategy where you start sketching and prototyping the smallest screen 
 ![responsive-haiku-view](https://user-images.githubusercontent.com/55667998/75101767-cc580f80-5596-11ea-9136-3064050445ae.gif)
 
 ### Technical Challenges
-- Configuring our text generator to output semantic text in the proper 5-7-5 syllable structure. Counting syllables in the English language is a challenging problem involving logic to parse phonemes and other word parts accurately. We used `test-driven-development` to build out our test cases using `Mocha`, and developed a processing algorithm that would more accurately parse words.
+- A major challenge was configuring our text generator to output semantic text in the proper 5-7-5 syllable structure. Writing an algorithm to count syllables in the English language involves using logic to parse common phonemes and parts of a word accurately. We used `test-driven-development` to build out our test cases using `Mocha`, and developed a processing algorithm that would more accurately parse words.
+```javascript
+it("should handle words combining e and o", () => {
+      expect(countSyllables("people")).to.equal(2);
+      expect(countSyllables("jeopardy")).to.equal(3);
+      expect(countSyllables("theology")).to.equal(4);
+      expect(countSyllables("dungeon")).to.equal(2);
+      expect(countSyllables("someone")).to.equal(2);
+      expect(countSyllables("preorder")).to.equal(3);
+      expect(countSyllables("rodeo")).to.equal(3);
+      expect(countSyllables("theory")).to.equal(3);
+});
+```
+
 - Responsive and intuitive styling with `Styled Components`. Using `Styled Components` greatly reduced redundant styling work across components with shared visual themes. 
-- Finding an elegant frontend file architecture. We favored the "duck" react-redux file structure in order to better facilitate collaboration and reduce merge conflicts. 
+
+- With all of us contributing to the application, we wanted to use a frontend file architecture that would help us better organize our code. We favored the "duck" react-redux file structure in order to better facilitate collaboration and reduce merge conflicts. 
+
 - We designed our backend database structure and API endpoints using a document-oriented (NoSQL) design principles, greatly simplifying API for client (our app), resulting in less overall API calls.  
 
 ## Group Members and Work Breakdown
