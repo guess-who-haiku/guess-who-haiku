@@ -77,7 +77,7 @@ it("should handle words combining e and o", () => {
 });
 ```
 
-- Responsive and intuitive styling with `Styled Components`. Using `Styled Components` greatly reduced redundant styling work across components with shared visual themes. 
+- Using `Styled Components` allowed us to implement responsive and intuitive styling, and greatly reduced redundant styling work across components with shared visual themes. 
 
 - With all of us contributing to the application, we wanted to use a frontend file architecture that would help us better organize our code. We favored the "duck" react-redux file structure in order to better facilitate collaboration and reduce merge conflicts. 
 
