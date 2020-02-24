@@ -10,22 +10,15 @@ Guess Who, Haiku is here to help!
 
 Craft outstanding haikus with the help of famous figures in history, celebrities, and the witsters of today's popular culture, and challenge your friends to be the first to GUESS WHO the voice is behind your newfound literary genius. 
 
-This app consists of:
-
-* A markov-chain text generation algorithm
-* A syllable-counting algorithm 
-* Mobile-first application design
-* Immersive, delightful UI/UX
-
 Guess Who, Haiku leverages the MERN app development stack which consists of: MongoDB, Express, React, and Node.js.
 
 ## Functionality and Features
 
 * User account creation and authentication
-* Markov-chain text generator algorithm paired with a syllable counting algorithm
+* Markov-chain text generator algorithm extended with a syllable counting algorithm
 * Third-party APIs to source input text
-* Interactive user experience throughout haiku creation, sharing, and solving
-* Mobile-first design
+* Interactive, delightful user experience throughout haiku creation, sharing, and solving
+* Mobile-first application design
 * Progressive Web App
 
 ## Game Screens
