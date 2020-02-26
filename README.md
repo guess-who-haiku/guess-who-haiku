@@ -96,9 +96,11 @@ it("should handle words combining e and o", () => {
 
 ### [Edward Xiao](https://github.com/ed-xiao)
 
-* Backend design, setup and execution
-* Markov Chain algorithm development
+* Database and backend design, setup and execution
+* Markov Chain algorithm development + DFS search on syllable count
+* Haiku scoring algorithm
 * Frontend execution
+* DB seed file creation
 
 ### [Sarah Jiang](https://github.com/srajiang)
 
