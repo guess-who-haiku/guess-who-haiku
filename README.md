@@ -24,7 +24,7 @@ Guess Who, Haiku leverages MongoDB, Express, React, and Node.js (MERN stack).
 ## Game Screens
 ### Create a Haiku
 
-The landing page for our application invites users to generate a haiku, selecting up to three figures whose voices will be used to build the poem. Once the haiku is generated, the user has a few choices: if they are dissatisfied with the haiku, they can regenerate a haiku with the same figures they'd selected, or restart the haiku generation process from the beginning. If they want to use the haiku, they can save the haiku to share at a later date, or immediately challenge their friends on the application to solve the haiku. 
+The landing page for our application invites users to generate a haiku, selecting up to three figures whose voices will be used to build the poem. Once the haiku is generated, the user has a few choices: if they want to try generating a new haiku, they can regenerate a haiku with the same figures they'd selected, or restart the haiku generation process from the beginning to select a new set of authors. If they want to use the haiku, they can save the haiku to share at a later date, or immediately challenge their friends on the application to solve the haiku. 
 
 ![create-haiku](https://user-images.githubusercontent.com/55667998/75101645-69657900-5594-11ea-8269-371db8418ef3.gif)
 
@@ -42,7 +42,7 @@ Users can similarly view all of the haikus that they have created. Each haiku "c
 
 ### Leaderboard
 
-The cross-application leaderboard shows the top ten users in two categories: highest scores from solving haikus, and most haikues made. If a logged-in user places on either board, their name will be highlighted. 
+The cross-application leaderboard shows the top ten users in two categories: highest scores from solving haikus, and most haikus made. If a logged-in user places on either board, their name will be highlighted. 
 
 ![leaderboard](https://user-images.githubusercontent.com/55667998/75101705-8ea6b700-5595-11ea-862e-ffe3535cb5e2.PNG)
 
