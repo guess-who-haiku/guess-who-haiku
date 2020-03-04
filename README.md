@@ -63,7 +63,7 @@ A design strategy where you start sketching and prototyping the smallest screen 
 ![responsive-haiku-view](https://user-images.githubusercontent.com/55667998/75101767-cc580f80-5596-11ea-9136-3064050445ae.gif)
 
 ### Technical Challenges
-- A major challenge was configuring our text generator to output semantic text in the proper 5-7-5 syllable structure. We needed to create an algorithm that could reliably count syllables in the English language, which involves using logic to parse common phonemes and parts of words accurately. After implementing a basic algorithm that could correctly count syllables by the most common rules, we employed `test-driven-development` to build out our test cases using `Mocha`, and refined the algorithm to more accurately parse words by syllable and return their syllable count. 
+- A major challenge was configuring our text generator to output semantic text in the proper 5-7-5 syllable structure of a haiku. We needed to create an algorithm that could reliably English language syllables, which involves using logic to parse common phonemes and parts of words accurately. After implementing a basic algorithm that could correctly count syllables by the most common rules, we employed `test-driven-development` to build out our test cases using `Mocha`, and refined the algorithm to more accurately parse words by syllable and return their syllable count. 
 
 ```javascript
 it("should handle words combining e and o", () => {
