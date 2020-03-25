@@ -9,7 +9,7 @@
     "debug": "nodemon --inspect guess_who.js",
     "frontend-install": "npm install --prefix frontend",
     "frontend": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "dev": "npm run start & (cd frontend && npm run start)",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "repository": {
@@ -23,24 +23,20 @@
   },
   "homepage": "https://github.com/segersalex/guess-who-haiku#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free-solid": "^5.0.13",
-    "@fortawesome/free-solid-svg-icons": "^5.12.0",
-    "@fortawesome/react-fontawesome": "^0.1.8",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "chai": "^4.2.0",
-    "chai-spies": "^1.0.0",
-    "concurrently": "^5.0.2",
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
-    "mocha": "^7.0.1",
     "mongoose": "^5.8.9",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "chai": "^4.2.0",
+    "chai-spies": "^1.0.0",
+    "mocha": "^7.0.1"
   }
 }
