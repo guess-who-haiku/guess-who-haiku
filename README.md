@@ -106,7 +106,7 @@ it("should handle words combining e and o", () => {
 
 * Markov Chain algorithm development + test-driven development (Mocha)
 * Database and backend REST-ful API design, setup, execution
-* External API configuration and seeding
+* External API configuration and author's library seeding
 * Logo creation, visual theme, visual elements
 * Frontend design and execution
 
